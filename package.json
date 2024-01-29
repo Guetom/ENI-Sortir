@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^4.6.1",
+    "bootstrap": "^5.3.2",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^14.0.0",
+    "webpack-notifier": "^1.15.0"
+  }
+}
