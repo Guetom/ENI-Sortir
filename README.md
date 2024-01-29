@@ -35,7 +35,7 @@ ENI Sortir est une application web permettant de gérer des sorties entre amis. 
 5. Créer la base de données avec `symfony console doctrine:database:create`
 6. Créer les tables avec `symfony console doctrine:migrations:migrate`
 7. Charger les données de test avec `symfony console doctrine:fixtures:load`
-8. Compiler les assets avec `npm run build`
+8. Compiler les assets avec `npm run build` ou `npm run watch` pour compiler automatiquement à chaque modification
 9. Lancer le serveur avec `symfony serve` ou `symfony serve -d` pour le lancer en arrière plan
 10. Se rendre sur [localhost:8000](localhost:8000) pour accéder au site
 
