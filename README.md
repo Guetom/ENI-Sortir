@@ -1,0 +1,41 @@
+# ENI Sortir
+
+Projet symfony dans le cadre de la formation CDA de l'ENI.
+
+## Auteurs
+
+- [Thomas GUEDON](https://github.com/Guetom)
+- [Romain CORNUAULT](https://github.com/TheMisterRedFox)
+- [Julien BROUILLARD](https://github.com/AMIRALADAMS)
+
+---
+
+### Description
+
+ENI Sortir est une application web permettant de gérer des sorties entre amis. Elle permet de créer des sorties, de s'inscrire à des sorties, de gérer des lieux, de gérer des villes, de gérer des états de sorties, de gérer des campus, de gérer des utilisateurs, de gérer des groupes, de gérer des sites, de gérer des organisateurs, de gérer des participants, de gérer des inscriptions, de gérer des sorties, de gérer des commentaires, de gérer des images, ...
+
+## Installation
+
+### Prérequis
+
+- PHP 8.1
+- Composer
+- Symfony CLI
+- MySQL
+- NodeJS
+- NPM
+- Git
+
+### Procédure
+
+1. Cloner le projet
+2. Installer les dépendances PHP avec `composer install`
+3. Installer les dépendances JS avec `npm install`
+4. Créer un fichier `.env.local` à la racine du projet et y ajouter les informations de connexion à la base de données
+5. Créer la base de données avec `symfony console doctrine:database:create`
+6. Créer les tables avec `symfony console doctrine:migrations:migrate`
+7. Charger les données de test avec `symfony console doctrine:fixtures:load`
+8. Compiler les assets avec `npm run build`
+9. Lancer le serveur avec `symfony serve` ou `symfony serve -d` pour le lancer en arrière plan
+10. Se rendre sur [localhost:8000](localhost:8000) pour accéder au site
+
