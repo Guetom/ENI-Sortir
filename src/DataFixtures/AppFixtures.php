@@ -17,12 +17,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $passwordHasher;
+    private UserPasswordHasherInterface $passwordHashed;
     private const DEFAULT_PASSWORD = 'password';
 
-    public function __construct(private UserPasswordHasherInterface $Hasher)
+    public function __construct(private readonly UserPasswordHasherInterface $Harsher)
     {
-        $this->passwordHasher = $this->Hasher;
+        $this->passwordHashed = $this->Harsher;
     }
 
     public function load(ObjectManager $manager): void
@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
             ->setPhone('0600000000')
             ->setSite($site1)
             ->setDisable(false)
-            ->setPassword($this->passwordHasher->hashPassword($admin, self::DEFAULT_PASSWORD));
+            ->setPassword($this->passwordHashed->hashPassword($admin, self::DEFAULT_PASSWORD));
         $manager->persist($admin);
 
         //Utilisateur simple
@@ -73,7 +73,7 @@ class AppFixtures extends Fixture
                 ->setPhone($faker->phoneNumber)
                 ->setSite($listSite->get(rand(0, $listSite->count() - 1)))
                 ->setDisable(false)
-                ->setPassword($this->passwordHasher->hashPassword($user, self::DEFAULT_PASSWORD));
+                ->setPassword($this->passwordHashed->hashPassword($user, self::DEFAULT_PASSWORD));
             $listUser->add($user);
             $manager->persist($user);
         }
