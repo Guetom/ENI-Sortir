@@ -17,7 +17,7 @@ class FrontendController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'frontend_login')]
+    #[Route('/login', name: 'frontend_login')]
     public function login(): Response
     {
         return $this->render('frontend/login.html.twig', [
