@@ -72,17 +72,24 @@ class DashboardController extends AbstractDashboardController
                     if ($data[4] != null) {
                         $user->setPhone($data[4]);
                     }
-                    if ($this->siteRepository->findOneBy((array)['name' => $data[5]])) {
-                        $user->setSite($this->siteRepository->findOneBy((array)['name' => $data[5]]));
-                        $this->em->persist($user);
-                        $recordNumber++;
+                    if (!$this->userRepository->findOneBy((array)['email' => $data[3]]) && !$this->userRepository->findOneBy((array)['pseudo' => $data[2]])) {
+                        if ($this->siteRepository->findOneBy((array)['name' => $data[5]])) {
+                            $user->setSite($this->siteRepository->findOneBy((array)['name' => $data[5]]));
+                            $this->em->persist($user);
+                            $recordNumber++;
+                        }
                     }
+
                 }
                 fclose($handle);
                 $this->em->flush();
             }
 
-            $this->addFlash('success', 'Importation réussie de ' . $recordNumber . ' utilisateurs sur ' . $totalNumber . ' lignes.');
+            if ($recordNumber == 0) {
+                $this->addFlash('danger', 'Aucun utilisateur n\'a été importé. Vérifier les données du fichier.');
+            } else {
+                $this->addFlash('success', 'Importation réussie de ' . $recordNumber . ' utilisateurs sur ' . $totalNumber . ' lignes.');
+            }
             return $this->redirectToRoute('admin');
         }
 
