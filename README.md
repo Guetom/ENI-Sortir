@@ -40,7 +40,7 @@ participants, de gérer des inscriptions, de gérer des sorties, de gérer des c
 7. Charger les données de test avec `symfony console doctrine:fixtures:load`
 8. Compiler les assets avec `npm run build` ou `npm run watch` pour compiler automatiquement à chaque modification
 9. Lancer le serveur avec `symfony serve` ou `symfony serve -d` pour le lancer en arrière plan
-10. Se rendre sur [localhost:8000](localhost:8000) pour accéder au site
+10. Se rendre sur [localhost:8000](https://localhost:8000) pour accéder au site
 
 ## Utilisation
 
