@@ -80,6 +80,12 @@ class UserCrudController extends AbstractCrudController
                     ->addCssClass('btn')
                     ->setLabel('Détail');
             })
+            ->update(Crud::PAGE_DETAIL, Action::DELETE, function (Action $action) {
+                return $action
+                    ->setIcon('fa fa-trash')
+                    ->addCssClass('btn btn-danger')
+                    ->setLabel('Supprimer');
+            })
             ->remove(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER)
             ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE)
             ;

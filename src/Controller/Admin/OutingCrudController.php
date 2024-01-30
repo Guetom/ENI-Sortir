@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Outing;
 use App\Entity\Place;
+use App\Form\UploadImageType;
 use App\Repository\PlaceRepository;
 use App\Repository\SiteRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -20,11 +21,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class OutingCrudController extends AbstractCrudController
 {
     public function __construct(
-        private SiteRepository $siteRepository
+        private readonly SiteRepository $siteRepository
     )
     {
     }
@@ -43,7 +45,11 @@ class OutingCrudController extends AbstractCrudController
             ->setPageTitle('edit', 'Modification d\'une sortie')
             ->setPageTitle('new', 'Création d\'une sortie')
             ->setPageTitle('detail', 'Détail d\'une sortie')
-            ->showEntityActionsInlined();
+
+            ->showEntityActionsInlined()
+
+            ->setSearchFields(['title', 'organizer', 'status', 'place', 'site'])
+            ->setDefaultSort(['startDate' => 'DESC', 'title' => 'ASC']);
     }
 
     public function configureActions(Actions $actions): Actions
@@ -86,6 +92,12 @@ class OutingCrudController extends AbstractCrudController
                     ->addCssClass('btn')
                     ->setLabel('Détail');
             })
+            ->update(Crud::PAGE_DETAIL, Action::DELETE, function (Action $action) {
+                return $action
+                    ->setIcon('fa fa-trash')
+                    ->addCssClass('btn btn-danger')
+                    ->setLabel('Supprimer');
+            })
             ->remove(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER)
             ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE);
     }
@@ -105,24 +117,30 @@ class OutingCrudController extends AbstractCrudController
                 ->setColumns(2),
             IntegerField::new('duration', 'Durée (en heure)')
                 ->setColumns(2),
-            TextareaField::new('description', 'Description')
-                ->setColumns(8),
+            ImageField::new('poster', 'Image')
+                ->setSortable(false)
+                ->setBasePath('/uploads/')
+                ->setUploadDir('public/uploads')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setColumns(5),
+            AssociationField::new('organizer', 'Organisateur')
+                ->hideOnIndex()
+                ->setColumns(3),
             DateTimeField::new('closingDate', 'Date limite d\'inscription')
+                ->hideOnIndex()
                 ->formatValue(function ($value, $entity) {
                     return $entity->getStartDate()->format('d/m/Y H:i');
                 })
                 ->setColumns(2),
             AssociationField::new('status', 'Statut')
                 ->setColumns(2),
-//            ImageField::new('poster', 'Image')
-//                ->setBasePath('/uploads/images/outings')
-//                ->setUploadDir('/public/uploads/images/outings')
-//                ->setUploadedFileNamePattern('[randomhash].[extension]')
-//                ->setColumns(8),
+            TextareaField::new('description', 'Description')
+                ->hideOnIndex()
+                ->setColumns(12),
             FormField::addPanel('Lieu de la sortie')
                 ->setIcon('fas fa-map-marker-alt'),
             AssociationField::new('place', 'Lieu')
-                ->setColumns(8),
+                ->setColumns(12),
             NumberField::new('latitude', 'Latitude')
                 ->onlyOnDetail()
                 ->setColumns(2),
