@@ -1,0 +1,10 @@
+.box-login{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > div {
+    margin-inline: 20px;
+  }
+}
