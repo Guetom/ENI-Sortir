@@ -9,15 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/frontend', name: 'frontend')]
 class FrontendController extends AbstractController
 {
-    #[Route('/', name: 'frontend_homepage')]
-    public function homepage(): Response
+    #[Route('/outings', name: '_outings')]
+    public function outings(): Response
     {
-        return $this->render('frontend/outingList.html.twig', [
+        return $this->render('frontend/outings.html.twig', [
             'controller_name' => 'FrontendController',
         ]);
     }
 
-    #[Route('/login', name: 'frontend_login')]
+    #[Route('/login', name: '_login')]
     public function login(): Response
     {
         return $this->render('frontend/login.html.twig', [
