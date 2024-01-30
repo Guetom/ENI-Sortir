@@ -1,0 +1,16 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}Importation des utilisateurs{% endblock %}
+
+{% block content_title %}Importation des utilisateurs{% endblock %}
+
+{% block main %}
+    {{ form_start(requestForm) }}
+    <div class="my-3">
+        {{ form_row(requestForm.csvFile) }}
+    </div>
+    <div class="my-3">
+        {{ form_row(requestForm.submit) }}
+    </div>
+    {{ form_end(requestForm) }}
+{% endblock %}

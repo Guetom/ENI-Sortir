@@ -69,7 +69,11 @@ class Site
                 $user->setSite(null);
             }
         }
-
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
