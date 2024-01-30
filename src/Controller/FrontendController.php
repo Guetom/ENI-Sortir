@@ -12,7 +12,7 @@ class FrontendController extends AbstractController
     #[Route('/', name: 'frontend_homepage')]
     public function homepage(): Response
     {
-        return $this->render('frontend/homepage.html.twig', [
+        return $this->render('frontend/outingList.html.twig', [
             'controller_name' => 'FrontendController',
         ]);
     }
