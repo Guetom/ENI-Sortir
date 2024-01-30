@@ -2,41 +2,35 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+use App\Entity\City;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class UserCrudController extends AbstractCrudController
+class CityCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return City::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('utilisateur')
-            ->setEntityLabelInPlural('utilisateurs')
+            ->setEntityLabelInSingular('ville')
+            ->setEntityLabelInPlural('villes')
 
-            ->setPageTitle('index', 'Gestion des utilisateurs')
-            ->setPageTitle('edit', 'Modification d\'un utilisateur')
-            ->setPageTitle('new', 'Création d\'un utilisateur')
-            ->setPageTitle('detail', 'Détail d\'un utilisateur')
+            ->setPageTitle('index', 'Gestion des villes')
+            ->setPageTitle('edit', 'Modification d\'une ville')
+            ->setPageTitle('new', 'Création d\'une ville')
+            ->setPageTitle('detail', 'Détail d\'une ville')
 
             ->showEntityActionsInlined()
-
-            ->setSearchFields(['firstname', 'lastname', 'email'])
-            ->setDefaultSort(['firstname' => 'ASC', 'lastname' => 'ASC'])
             ;
     }
 
@@ -45,9 +39,9 @@ class UserCrudController extends AbstractCrudController
         return $actions
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action
-                    ->setIcon('fa fa-user')
+                    ->setIcon('fa-solid fa-map-pin')
                     ->addCssClass('btn')
-                    ->setLabel('Créer un utilisateur');
+                    ->setLabel('Créer un site');
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action
@@ -88,23 +82,13 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            FormField::addPanel('Informations personnelles')
-                ->setIcon('fas fa-user'),
-            TextField::new('firstname', 'Prénom')
-                ->setColumns(4),
-            TextField::new('lastname', 'Nom')
-                ->setColumns(4),
-            TextField::new('pseudo', 'Pseudo')
-                ->setDisabled($pageName != Crud::PAGE_NEW) // not disabled on the creation page
-                ->setColumns(4),
-            TextField::new('email', 'Email')
-                ->setDisabled($pageName != Crud::PAGE_NEW) // not disabled on the creation page
-                ->setColumns(8),
-            AssociationField::new('site', 'Site')
-                ->setColumns(2),
-            BooleanField::new('disable', 'Compte désactivé')
-                ->hideWhenCreating()
-                ->setColumns(2),
+            FormField::addPanel('Informations ville')
+                ->setIcon('fa-solid fa-map-pin'),
+            TextField::new('name', 'Nom de la ville')
+                ->setColumns(6),
+            TextField::new('postcode', 'Code postal')
+                ->setMaxLength(5)
+                ->setColumns(6),
         ];
     }
 }

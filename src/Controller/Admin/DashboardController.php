@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\City;
+use App\Entity\Site;
 use App\Entity\User;
 use App\Form\ImportUserType;
+use App\Repository\CityRepository;
 use App\Repository\OutingRepository;
 use App\Repository\SiteRepository;
 use App\Repository\UserRepository;
@@ -27,6 +30,7 @@ class DashboardController extends AbstractDashboardController
         private UserRepository                       $userRepository,
         private OutingRepository                     $outingRepository,
         private SiteRepository                       $siteRepository,
+        private CityRepository                       $cityRepository,
         private readonly EntityManagerInterface      $entityManager,
         private readonly UserPasswordHasherInterface $Harsher
     )
@@ -79,7 +83,6 @@ class DashboardController extends AbstractDashboardController
                             $recordNumber++;
                         }
                     }
-
                 }
                 fclose($handle);
                 $this->em->flush();
@@ -110,6 +113,8 @@ class DashboardController extends AbstractDashboardController
     {
         $numberUsers = $this->userRepository->count([]);
         $numberOutings = $this->outingRepository->count([]);
+        $numberSites = $this->siteRepository->count([]);
+        $numberCities = $this->cityRepository->count([]);
 
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard'),
@@ -118,6 +123,11 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class)
                 ->setBadge($numberUsers, 'primary'),
             MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
+            MenuItem::section(''),
+            MenuItem::linkToCrud('Sites', 'fa-solid fa-map-location-dot', Site::class)
+                ->setBadge($numberSites, 'primary'),
+            MenuItem::linkToCrud('Villes', 'fa-solid fa-map-pin', City::class)
+                ->setBadge($numberCities, 'primary'),
 
             MenuItem::section(''),
             MenuItem::linkToLogout('Déconnexion', 'fa-solid fa-right-from-bracket')
