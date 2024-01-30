@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Mon Profil
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 d-flex flex-column justify-content-center align-items-center">
+        <h2 class="mb-4 text-center">Mon Profil</h2>
+        <img src="{{ asset('placeholder.jpg') }}" class="rounded-circle mb-5" style="width: 200px;">
+        <form class="col-12 col-lg-6 mx-auto mb-3 bg-light p-4 card shadow-sm">
+            <div class="form-group row mb-3">
+                <label for="pseudo" class="col-sm-4 col-form-label">Pseudo</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="pseudo" placeholder="Votre pseudo">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="prenom" placeholder="Votre prénom">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="nom" class="col-sm-4 col-form-label">Nom</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="nom" placeholder="Votre nom">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="telephone" class="col-sm-4 col-form-label">Téléphone</label>
+                <div class="col-sm-8">
+                    <input type="tel" class="form-control" id="telephone" placeholder="Votre numéro de téléphone">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="email" class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" id="email" placeholder="Votre adresse email">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="motDePasse" class="col-sm-4 col-form-label">Mot de passe</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="motDePasse" placeholder="Votre mot de passe">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="confirmation" class="col-sm-4 col-form-label">Confirmation</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="confirmation" placeholder="Confirmez votre mot de passe">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="ville" class="col-sm-4 col-form-label">Ville de rattachement</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="ville">
+                        <option value="ville1">Ville 1</option>
+                        <option value="ville2">Ville 2</option>
+                        <option value="ville3">Ville 3</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="maPhoto" class="col-sm-4 col-form-label">Ma photo</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="file" id="maPhoto">
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <div class="col-sm-10 mx-auto text-center">
+                    <button type="submit" class="btn btn-lg btn-primary mt-3 mx-2">Enregistrer</button>
+                    <button type="submit" class="btn btn-lg btn-danger mt-3 mx-2">Annuler</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
