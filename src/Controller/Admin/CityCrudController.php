@@ -41,7 +41,7 @@ class CityCrudController extends AbstractCrudController
                 return $action
                     ->setIcon('fa-solid fa-map-pin')
                     ->addCssClass('btn')
-                    ->setLabel('Créer un site');
+                    ->setLabel('Créer une ville');
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
                 return $action
@@ -52,7 +52,7 @@ class CityCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action
                     ->setIcon('fa fa-trash')
-                    ->addCssClass('btn')
+                    ->addCssClass('btn btn-danger')
                     ->setLabel('Supprimer');
             })
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {

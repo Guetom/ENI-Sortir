@@ -195,4 +195,19 @@ class Outing
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->place->getLatitude();
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->place->getLongitude();
+    }
 }

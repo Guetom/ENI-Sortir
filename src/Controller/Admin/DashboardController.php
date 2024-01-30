@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\City;
+use App\Entity\Outing;
 use App\Entity\Site;
 use App\Entity\User;
 use App\Form\ImportUserType;
@@ -124,11 +125,13 @@ class DashboardController extends AbstractDashboardController
                 ->setBadge($numberUsers, 'primary'),
             MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
             MenuItem::section(''),
-            MenuItem::linkToCrud('Sites', 'fa-solid fa-map-location-dot', Site::class)
+            MenuItem::linkToCrud('Sorties', 'fa-solid fa-person-hiking', Outing::class)
+                ->setBadge($numberOutings, 'primary'),
+            MenuItem::section(''),
+            MenuItem::linkToCrud('Sites', 'fas fa-map-location-dot', Site::class)
                 ->setBadge($numberSites, 'primary'),
-            MenuItem::linkToCrud('Villes', 'fa-solid fa-map-pin', City::class)
+            MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
                 ->setBadge($numberCities, 'primary'),
-
             MenuItem::section(''),
             MenuItem::linkToLogout('Déconnexion', 'fa-solid fa-right-from-bracket')
         ];

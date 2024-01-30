@@ -54,7 +54,7 @@ class SiteCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action
                     ->setIcon('fa fa-trash')
-                    ->addCssClass('btn')
+                    ->addCssClass('btn btn-danger')
                     ->setLabel('Supprimer');
             })
             ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
