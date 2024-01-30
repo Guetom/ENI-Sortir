@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Sorties{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+
+            <!-- Partie formulaire -->
+            <div class="col-md-10">
+                <form class="card p-3 bg-light py-4 shadow-sm">
+                    <h5>Filtrez les sorties :</h5>
+                    <div class="col-lg-11 col-12 mx-auto">
+                        <div class="my-3">
+                            <label for="main-search" class="form-label">Le nom de la sortie contient</label>
+                            <input type="text" class="form-control" id="main-search" placeholder="Sortie au bar...">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-7">
+                                <div class="col-12">
+                                    <label for="site" class="form-label">Site</label>
+                                    <select id="site" class="form-select">
+                                        <!-- TODO METTRE SITES EN TWIG -->
+                                        <option selected=""></option>
+                                        <option>ENI Nantes</option>
+                                        <option>ENI Rennes</option>
+                                        <option>ENI Perpignan</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row mt-3">
+                                        <div class="col-6">
+                                            <label for="begin-date" class="form-label">Entre le</label>
+                                            <!-- TODO METTRE LE MINIMUM DATE AUJOURD'HUI -->
+                                            <input type="date" id="begin-date" class="form-control">
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="end-date" class="form-label">Et le</label>
+                                            <input type="date" id="end-date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-5 my-lg-auto my-sm-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check-1">
+                                    <label class="form-check-label" for="check-1">Sortie dont je suis l'organisateur/trice</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check-2">
+                                    <label class="form-check-label" for="check-2">Sorties auxquelles je suis inscrit/e</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check-3">
+                                    <label class="form-check-label" for="check-3">Sorties auxquelles je ne suis pas inscrit/e</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check-4">
+                                    <label class="form-check-label" for="check-4">Sorties passées</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mx-auto mt-4">
+                            <button type="submit" class="btn btn-lg btn-primary">Rechercher</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- Partie résultat -->
+            <div class="col-12 mt-5 d-flex justify-content-center flex-wrap">
+                <!-- TODO foreach sorties -->
+                <div class="card col-lg-3 col-5 m-1">
+                    <!-- TODO FAIRE UN IF SI INSCRIT -->
+                    <div class="card-header">
+                        <p class="text-success mx-auto my-0">Vous êtes inscrit</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">NOM DE LA SORTIE (BLABLABLA JE RAJOUTE DU TEXTE SI CEST LONG)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Le 30/01/2024 à 18h30</h6>
+                        <p class="card-text">Description, s'il y en a une</p>
+                        <hr>
+                        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : 7/8</h6>
+                        <h6 class="card-subtitle mb-2 text-danger">Clôture le 29/01/2024 à 18h30</h6>
+                        <p class="mb-2">Organisateur : <a class="card-link">totodu43</a></p> <!-- TODO REDIRIGER VERS L'UTILISATEUR -->
+
+                        <div class="mx-auto">
+                            <a href="#" class="btn btn-primary">Plus d'infos</a>
+                            <a href="#" class="btn btn-danger">Se désister</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card col-lg-3 col-5 m-1">
+                    <div class="card-body">
+                        <h5 class="card-title">NOM DE LA SORTIE (BLABLABLA JE RAJOUTE DU TEXTE SI CEST LONG)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Le 30/01/2024 à 18h30</h6>
+                        <p class="card-text">Description, s'il y en a une (longue description longue description longue description)</p>
+                        <hr>
+                        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : 7/8</h6>
+                        <h6 class="card-subtitle mb-2 text-danger">Clôture le 29/01/2024 à 18h30</h6>
+                        <p class="mb-2">Organisateur : <a class="card-link">totodu43</a></p> <!-- TODO REDIRIGER VERS L'UTILISATEUR -->
+
+                        <div class="mx-auto">
+                            <a href="#" class="btn btn-primary">Plus d'infos</a>
+                            <a href="#" class="btn btn-success">S'inscrire</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card col-lg-3 col-5 m-1">
+                    <div class="card-body">
+                        <h5 class="card-title">NOM DE LA SORTIE (BLABLABLA JE RAJOUTE DU TEXTE SI CEST LONG)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Le 30/01/2024 à 18h30</h6>
+                        <p class="card-text">Description, s'il y en a une (longue description longue description longue description)</p>
+                        <hr>
+                        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : 7/8</h6>
+                        <h6 class="card-subtitle mb-2 text-danger">Clôture le 29/01/2024 à 18h30</h6>
+                        <p class="mb-2">Organisateur : <a class="card-link">totodu43</a></p> <!-- TODO REDIRIGER VERS L'UTILISATEUR -->
+
+                        <div class="mx-auto">
+                            <a href="#" class="btn btn-primary">Plus d'infos</a>
+                            <a href="#" class="btn btn-success">S'inscrire</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card col-lg-3 col-5 m-1">
+                    <div class="card-body">
+                        <h5 class="card-title">NOM DE LA SORTIE (BLABLABLA JE RAJOUTE DU TEXTE SI CEST LONG)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Le 30/01/2024 à 18h30</h6>
+                        <p class="card-text">Description, s'il y en a une (longue description longue description longue description)</p>
+                        <hr>
+                        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : 7/8</h6>
+                        <h6 class="card-subtitle mb-2 text-danger">Clôture le 29/01/2024 à 18h30</h6>
+                        <p class="mb-2">Organisateur : <a class="card-link">totodu43</a></p> <!-- TODO REDIRIGER VERS L'UTILISATEUR -->
+
+                        <div class="mx-auto">
+                            <a href="#" class="btn btn-primary">Plus d'infos</a>
+                            <a href="#" class="btn btn-success">S'inscrire</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
