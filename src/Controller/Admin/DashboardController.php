@@ -43,7 +43,14 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+        return $this->render('admin/dashboard.html.twig',
+            [
+                'numberUserActive' => $this->userRepository->count(['disable' => false]),
+                'numberUserDisable' => $this->userRepository->count(['disable' => true]),
+                'numberOutingNotStarted' => $this->outingRepository->countAfterDate(new \DateTime()),
+                'numberOutingFinished' => $this->outingRepository->countBeforeDate(new \DateTime()),
+                'numberRegistered' => $this->userRepository->count([])
+            ]);
     }
 
     #[Route('/admin/import', name: 'admin-import-user')]
@@ -124,14 +131,14 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class)
                 ->setBadge($numberUsers, 'primary'),
             MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
-            MenuItem::section(''),
             MenuItem::linkToCrud('Sorties', 'fa-solid fa-person-hiking', Outing::class)
                 ->setBadge($numberOutings, 'primary'),
-            MenuItem::section(''),
             MenuItem::linkToCrud('Sites', 'fas fa-map-location-dot', Site::class)
                 ->setBadge($numberSites, 'primary'),
             MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
                 ->setBadge($numberCities, 'primary'),
+            MenuItem::section(''),
+            MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'app_home'),
             MenuItem::section(''),
             MenuItem::linkToLogout('Déconnexion', 'fa-solid fa-right-from-bracket')
         ];

@@ -21,6 +21,26 @@ class OutingRepository extends ServiceEntityRepository
         parent::__construct($registry, Outing::class);
     }
 
+    public function countAfterDate(\DateTime $date): int
+    {
+        return $this->createQueryBuilder('o')
+            ->select('count(o.id)')
+            ->andWhere('o.startDate > :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countBeforeDate(\DateTime $date): int
+    {
+        return $this->createQueryBuilder('o')
+            ->select('count(o.id)')
+            ->andWhere('o.startDate < :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Outing[] Returns an array of Outing objects
 //     */
