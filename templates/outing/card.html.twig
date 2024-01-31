@@ -23,7 +23,7 @@
             /{{ outing.registrationsMax }}</h6>
         <h6 class="card-subtitle mb-2 text-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</h6>
         <p class="mb-2">Organisateur : <a class="card-link"
-                                          href="#{{ outing.organizer.pseudo }}">{{ outing.organizer.fullName }}</a></p>
+                                          href="{{ path('user_show', {'pseudo':outing.organizer.pseudo}) }}">{{ outing.organizer.pseudo }}</a></p>
         <div class="mx-auto">
             <a href="#" class="btn btn-secondary">Plus d'infos</a>
             {% if userIsRegistered and outing.organizer != app.user %}
