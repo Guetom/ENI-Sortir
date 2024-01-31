@@ -1,0 +1,19 @@
+<div class="card col-lg-3 col-5 m-1">
+    <!-- TODO FAIRE UN IF SI INSCRIT -->
+    <div class="card-header">
+        <p class="text-success mx-auto my-0">Vous êtes inscrit</p>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ outing.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ outing.startDate| date("l d F - H:i", "Europe/Paris") }}</h6>
+        <p class="card-text">{{ outing.description }}</p>
+        <hr>
+        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : 7/8</h6>
+        <h6 class="card-subtitle mb-2 text-danger">{{ outing.closingDate| date("l d F - H:i", "Europe/Paris") }}</h6>
+        <p class="mb-2">Organisateur : <a class="card-link" href="#{{ outing.organizer.pseudo }}">{{ outing.organizer.fullName }}</a></p>
+        <div class="mx-auto">
+            <a href="#" class="btn btn-primary">Plus d'infos</a>
+            <a href="#" class="btn btn-danger">Se désister</a>
+        </div>
+    </div>
+</div>
