@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\CreateOutingType;
 use App\Form\SearchOutingType;
 use App\Model\SearchOuting;
 use App\Repository\OutingRepository;
@@ -27,6 +28,17 @@ class OutingController extends AbstractController
         }
 
         return $this->render('outing/index.html.twig', [
+            'formSearch' => $form->createView(),
+            'outings' => $outings,
+        ]);
+    }
+
+    #[Route('/create', name: 'create', methods: ['GET'])]
+    public function create(Request $request, OutingRepository $outingRepository): Response
+    {
+        $form = $this->createForm(CreateOutingType::class);
+
+        return $this->render('outing/create.html.twig', [
             'formSearch' => $form->createView(),
             'outings' => $outings,
         ]);
