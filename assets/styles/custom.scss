@@ -14,3 +14,14 @@
     width: 200px;
   }
 }
+
+nav {
+  li {
+    a.logout {
+      &:hover {
+        background-color:var(--bs-danger);
+        color: white;
+      }
+    }
+  }
+}
