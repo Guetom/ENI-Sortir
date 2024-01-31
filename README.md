@@ -32,14 +32,14 @@ participants, de gérer des inscriptions, de gérer des sorties, de gérer des c
 ### Procédure
 
 1. Cloner le projet
-2. Installer les dépendances PHP avec `composer install`
-3. Installer les dépendances JS avec `npm install`
+2. Installer les dépendances Composer avec `composer install`
+3. Installer les dépendances NP% avec `npm install`
 4. Créer un fichier `.env.local` à la racine du projet et y ajouter les informations de connexion à la base de données
 5. Créer la base de données avec `symfony console doctrine:database:create`
 6. Créer les tables avec `symfony console doctrine:migrations:migrate`
 7. Charger les données de test avec `symfony console doctrine:fixtures:load`
 8. Compiler les assets avec `npm run build` ou `npm run watch` pour compiler automatiquement à chaque modification
-9. Lancer le serveur avec `symfony serve` ou `symfony serve -d` pour le lancer en arrière plan
+9. Lancer le serveur avec `symfony serve` ou `symfony serve -d` pour le lancer en arrière-plan
 10. Se rendre sur [localhost:8000](https://localhost:8000) pour accéder au site
 
 ## Tests
