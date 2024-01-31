@@ -2,12 +2,12 @@ name: Unit Tests
 
 on:
   push:
-    branches: [ main, dev, feat-pipeline ]
+    branches: [ main, dev ]
   pull_request:
-    branches: [ main, dev, feat-pipeline ]
+    branches: [ main, dev ]
 
 jobs:
-  build:
+  unit-tests:
     runs-on: ubuntu-latest
 
     steps:
