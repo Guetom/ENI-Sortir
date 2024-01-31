@@ -6,25 +6,33 @@
         {% endif %}
     {% endfor %}
     {% if outing.organizer == app.user %}
-    <div class="card-header">
-        <p class="text-primary mx-auto my-0">Vous êtes l'organisateur</p>
-    </div>
+        <div class="card-header">
+            <p class="text-primary mx-auto my-0">Vous êtes l'organisateur</p>
+        </div>
     {% elseif userIsRegistered %}
-    <div class="card-header">
-        <p class="text-success mx-auto my-0">Vous êtes inscrit</p>
-    </div>
+        <div class="card-header">
+            <p class="text-success mx-auto my-0">Vous êtes inscrit</p>
+        </div>
     {% endif %}
     <div class="card-body">
         <h5 class="card-title">{{ outing.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</h6>
         <p class="card-text">{{ outing.description }}</p>
         <hr>
-        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : 7/8</h6>
+        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : {{ outing.registrations.count }}
+            /{{ outing.registrationsMax }}</h6>
         <h6 class="card-subtitle mb-2 text-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</h6>
-        <p class="mb-2">Organisateur : <a class="card-link" href="#{{ outing.organizer.pseudo }}">{{ outing.organizer.fullName }}</a></p>
+        <p class="mb-2">Organisateur : <a class="card-link"
+                                          href="#{{ outing.organizer.pseudo }}">{{ outing.organizer.fullName }}</a></p>
         <div class="mx-auto">
-            <a href="#" class="btn btn-primary">Plus d'infos</a>
-            <a href="#" class="btn btn-danger">Se désister</a>
+            <a href="#" class="btn btn-secondary">Plus d'infos</a>
+            {% if userIsRegistered and outing.organizer != app.user %}
+                <a href="#" class="btn btn-danger">Se désister</a>
+            {% elseif app.user and outing.organizer != app.user %}
+                <a href="#" class="btn btn-success">S'inscrire</a>
+                {% elseif app.user %}
+
+            {% endif %}
         </div>
     </div>
 </div>
