@@ -7,6 +7,8 @@ use App\Entity\Search;
 use App\Entity\User;
 use App\Model\SearchOuting;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -25,6 +27,10 @@ class OutingRepository extends ServiceEntityRepository
         parent::__construct($registry, Outing::class);
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     public function countAfterDate(\DateTime $date): int
     {
         return $this->createQueryBuilder('o')
@@ -35,6 +41,10 @@ class OutingRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     public function countBeforeDate(\DateTime $date): int
     {
         return $this->createQueryBuilder('o')
