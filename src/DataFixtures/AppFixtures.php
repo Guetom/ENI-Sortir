@@ -182,7 +182,8 @@ class AppFixtures extends Fixture
                 ->setClosingDate($faker->dateTimeBetween('-1 week', '+1 week'))
                 ->setOrganizer($listUser->get(rand(0, $listUser->count() - 1)))
                 ->setStatus($listStatus->get(rand(0, $listStatus->count() - 1)))
-                ->setPlace($listPlace->get(rand(0, $listPlace->count() - 1)));
+                ->setPlace($listPlace->get(rand(0, $listPlace->count() - 1)))
+                ->setRegistrationsMax(rand(10, 25));
             $listeOuting->add($outing);
             $manager->persist($outing);
         }

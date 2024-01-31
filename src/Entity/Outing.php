@@ -48,6 +48,9 @@ class Outing
     #[ORM\OneToMany(mappedBy: 'outing', targetEntity: Registration::class)]
     private Collection $registrations;
 
+    #[ORM\Column]
+    private ?int $registrationsMax = null;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
@@ -209,5 +212,17 @@ class Outing
     public function getLongitude(): ?float
     {
         return $this->place->getLongitude();
+    }
+
+    public function getRegistrationsMax(): ?int
+    {
+        return $this->registrationsMax;
+    }
+
+    public function setRegistrationsMax(int $registrationsMax): static
+    {
+        $this->registrationsMax = $registrationsMax;
+
+        return $this;
     }
 }
