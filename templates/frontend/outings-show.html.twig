@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <h2 class="my-5 text-center align-items-center">
+        {% if consultMode == 'create' %}
+            Créer une sortie
+        {% elseif consultMode == 'modif' %}
+            Modifier la sortie
+        {% else %}
+            Sortie
+        {% endif %}
+    </h2>
+
+    <form class="container row mx-auto">
+        <div class="col-lg-6 col-12">
+            <div class="col-12 mb-3">
+                <label for="name" class="form-label">Nom de la sortie :</label>
+                <input type="text" class="form-control" id="name" placeholder="Sortie au bar...">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="outingDate" class="form-label">Date et heure de la sortie :</label>
+                <input type="date" class="form-control" id="outingDate" style="width:fit-content">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="limit-date" class="form-label">Date limite d'inscription :</label>
+                <input type="date" class="form-control" id="limit-date" style="width:fit-content">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="size" class="form-label">Nombre de places :</label>
+                <input type="number" class="form-control" id="size" min="0" style="width:fit-content">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="duration" class="form-label">Durée (en minutes) :</label>
+                <input type="number" class="form-control" id="duration" min="0" style="width:fit-content">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="description" class="form-label">Description et infos :</label>
+                <textarea name="description" id="description" rows="8" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-12">
+            <div class="col-12 mb-3">
+                <label for="organizingCity" class="form-label">Ville organisatrice :</label>
+                <p>Nantes</p>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="city" class="form-label">Ville : </label>
+                <select id="city" class="form-select">
+                    <!-- TODO METTRE VILLES EN TWIG -->
+                    <option selected=""></option>
+                    <option>Nantes</option>
+                    <option>Rennes</option>
+                    <option>Perpignan</option>
+                </select>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="place" class="form-label">Lieu : </label>
+                <select id="place" class="form-select">
+                    <!-- TODO METTRE LIEUX EN TWIG -->
+                    <option selected=""></option>
+                    <option>Berlin 1989</option>
+                    <option>Le Warehouse</option>
+                    <option>Parc de Procé</option>
+                </select>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label for="name" class="form-label">Rue :</label>
+                <input type="text" class="form-control" id="name" placeholder="Rue">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="name" class="form-label">Code postal :</label>
+                <input type="text" class="form-control" id="name" placeholder="Code postal">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="latitude" class="form-label">Latitude :</label>
+                <input type="text" class="form-control" id="latitude" placeholder="Latitude">
+            </div>
+            <div class="col-12 mb-3">
+                <label for="longitude" class="form-label">Longitude :</label>
+                <input type="text" class="form-control" id="longitude" placeholder="Longitude">
+            </div>
+
+            <div class="col-12 mb-3">
+                <label for="maPhoto" class="form-label">Photo pour la sortie</label>
+                <input class="form-control" type="file" id="maPhoto">
+            </div>
+        </div>
+
+        <div class="button-container d-flex justify-content-center">
+            <button type="submit" class="btn btn-lg btn-primary m-2">Enregistrer</button>
+            <button type="submit" class="btn btn-lg btn-warning m-2">Publier la sortie</button>
+            <button class="btn btn-lg btn-danger m-2">Annuler</button>
+        </div>
+    </form>
+{% endblock %}
