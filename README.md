@@ -1,4 +1,5 @@
 [![Tests Unitaire](https://github.com/Guetom/ENI-Sortir/actions/workflows/UnitTests.yml/badge.svg)](https://github.com/Guetom/ENI-Sortir/actions/workflows/UnitTests.yml)
+[![Build Symfony](https://github.com/Guetom/ENI-Sortir/actions/workflows/symfony.yml/badge.svg)](https://github.com/Guetom/ENI-Sortir/actions/workflows/symfony.yml)
 # ENI Sortir
 
 Projet symfony dans le cadre de la formation CDA de l'ENI.
