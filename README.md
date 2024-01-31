@@ -42,6 +42,18 @@ participants, de gérer des inscriptions, de gérer des sorties, de gérer des c
 9. Lancer le serveur avec `symfony serve` ou `symfony serve -d` pour le lancer en arrière plan
 10. Se rendre sur [localhost:8000](https://localhost:8000) pour accéder au site
 
+## Tests
+
+Commande pour lancer les tests :
+````shell
+php bin/phpunit
+````
+
+Commande pour lancer les tests avec plus de détails :
+````shell
+php bin/phpunit --testdox
+````
+
 ## Utilisation
 
 ### Importation de compte utilisateur
@@ -63,4 +75,3 @@ Pour importer des comptes utilisateurs, il faut créer un fichier CSV avec les c
 
 > [!IMPORTANT]
 > Tout ligne ne respectant pas le format ci-dessus sera ignorée
-
