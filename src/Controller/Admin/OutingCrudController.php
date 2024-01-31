@@ -122,10 +122,13 @@ class OutingCrudController extends AbstractCrudController
                 ->setBasePath('/uploads/')
                 ->setUploadDir('public/uploads')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
-                ->setColumns(5),
+                ->setColumns(4),
             AssociationField::new('organizer', 'Organisateur')
                 ->hideOnIndex()
-                ->setColumns(3),
+                ->setColumns(2),
+            IntegerField::new('registrationsMax', 'Nombre de places')
+                ->hideOnIndex()
+                ->setColumns(2),
             DateTimeField::new('closingDate', 'Date limite d\'inscription')
                 ->hideOnIndex()
                 ->formatValue(function ($value, $entity) {
