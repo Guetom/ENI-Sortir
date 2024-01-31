@@ -25,6 +25,14 @@ class FrontendController extends AbstractController
         ]);
     }
 
+    #[Route('/profile/readonly', name: '_profile_readonly')]
+    public function loginReadOnly(): Response
+    {
+        return $this->render('frontend/profile-readonly.html.twig', [
+            'controller_name' => 'FrontendController',
+        ]);
+    }
+
     #[Route('/login', name: '_login')]
     public function login(): Response
     {
