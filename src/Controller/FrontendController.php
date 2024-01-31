@@ -40,4 +40,14 @@ class FrontendController extends AbstractController
             'controller_name' => 'FrontendController',
         ]);
     }
+
+    // Pour la route, nom provisoire, je sais pas quoi mettre
+    #[Route('/outings/show', name: '_outings/show')]
+    public function createOuting(): Response
+    {
+        return $this->render('frontend/outings-show.html.twig', [
+            'controller_name' => 'FrontendController',
+            'consultMode' => 'create' // là c'est pour tester mais tu peux faire 'create', 'modify' ou 'consult'
+        ]);
+    }
 }
