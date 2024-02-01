@@ -123,7 +123,7 @@ class ProfileUserType extends AbstractType
                     'class' => 'col-sm-4 col-form-label',
                 ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control dynamic-picture-handler',
                 ],
                 'required' => false,
                 'mapped' => false,
