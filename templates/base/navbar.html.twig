@@ -15,7 +15,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{path('outing_index')}}">Liste des sorties</a></li>
-                        <li><a class="dropdown-item" href="{{'outing_create'}}">Créer une sortie</a></li>
+                        <li><a class="dropdown-item" href="{{ path('outing_create')}}">Créer une sortie</a></li>
                     </ul>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
