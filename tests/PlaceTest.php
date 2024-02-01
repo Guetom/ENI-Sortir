@@ -2,8 +2,9 @@
 
 namespace App\Tests;
 
-use App\Entity\City;
 use App\Entity\Place;
+use App\Entity\City;
+use App\Entity\Outing;
 use PHPUnit\Framework\TestCase;
 
 class PlaceTest extends TestCase
@@ -28,18 +29,16 @@ class PlaceTest extends TestCase
     {
         $place = new Place();
         $place->setLatitude(48.85857127378631);
-        $place->setLongitude(2.2944598423291853);
 
-        $this->assertEquals($place->getLatitude(), $place->getLatitude());
+        $this->assertEquals(48.85857127378631, $place->getLatitude());
     }
 
     public function testLongitude()
     {
         $place = new Place();
-        $place->setLatitude(48.85857127378631);
         $place->setLongitude(2.2944598423291853);
 
-        $this->assertEquals($place->getLongitude(), $place->getLongitude());
+        $this->assertEquals(2.2944598423291853, $place->getLongitude());
     }
 
     public function testCity()
@@ -51,23 +50,42 @@ class PlaceTest extends TestCase
         $this->assertSame($city, $place->getCity());
     }
 
-    public function testOutings()
+    public function testOuting()
     {
+        $place = new Place();
+        $outing = new Outing();
+        $place->addOuting($outing);
 
+        $this->assertTrue($place->getOutings()->contains($outing));
+        $this->assertNotEmpty($outing, $place->getOutings());
     }
 
     public function testRemoveOuting()
     {
+        $place = new Place();
+        $outing = new Outing();
+        $place->addOuting($outing);
+        $place->removeOuting($outing);
 
+        $this->assertEmpty($place->getOutings());
     }
 
     public function testToString()
     {
+        $place = new Place();
+        $place->setName('Tour Eiffel');
 
+        $this->assertEquals('Tour Eiffel', (string)$place);
     }
 
     public function testEquality()
     {
+        $place1 = new Place();
+        $place1->setName('Tour Eiffel');
 
+        $place2 = new Place();
+        $place2->setName('Tour Eiffel');
+
+        $this->assertEquals($place1, $place2);
     }
 }
