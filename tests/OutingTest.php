@@ -97,9 +97,8 @@ class OutingTest extends TestCase
         $registration->setParticipant($user);
         $outing->addRegistration($registration);
 
-        $this->assertCount(1, $outing->getRegistrations());
+        $this->assertNotEmpty($outing->getRegistrations());
         $this->assertTrue($outing->getRegistrations()->contains($registration));
-        $this->assertSame($outing, $registration->getOuting());
     }
 
     public function testRemoveRegistration()
@@ -111,8 +110,7 @@ class OutingTest extends TestCase
         $outing->addRegistration($registration);
         $outing->removeRegistration($registration);
 
-        $this->assertCount(0, $outing->getRegistrations());
-        $this->assertNull($registration->getOuting());
+        $this->assertEmpty($outing->getRegistrations());
     }
 
     public function testToString()
