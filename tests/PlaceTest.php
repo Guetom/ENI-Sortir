@@ -56,8 +56,8 @@ class PlaceTest extends TestCase
         $outing = new Outing();
         $place->addOuting($outing);
 
+        $this->assertNotEmpty($place->getOutings());
         $this->assertTrue($place->getOutings()->contains($outing));
-        $this->assertNotEmpty($outing, $place->getOutings());
     }
 
     public function testRemoveOuting()

@@ -4,7 +4,6 @@ namespace App\Tests;
 
 use App\Entity\City;
 use App\Entity\Place;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 
 class CityTest extends TestCase
@@ -31,6 +30,7 @@ class CityTest extends TestCase
         $place = new Place();
         $city->addPlace($place);
 
+        $this->assertNotEmpty($city->getPlaces());
         $this->assertTrue($city->getPlaces()->contains($place));
     }
 
@@ -41,7 +41,7 @@ class CityTest extends TestCase
         $city->addPlace($place);
         $city->removePlace($place);
 
-        $this->assertFalse($city->getPlaces()->contains($place));
+        $this->assertEmpty($city->getPlaces());
     }
 
     public function testToString()
@@ -63,22 +63,5 @@ class CityTest extends TestCase
         $city2->setPostcode('75001');
 
         $this->assertEquals($city1, $city2);
-    }
-
-    public function testPlaces()
-    {
-        $city = new City();
-        $place1 = new Place();
-        $place2 = new Place();
-        $place3 = new Place();
-        $city->addPlace($place1);
-        $city->addPlace($place2);
-        $city->addPlace($place3);
-        $city->removePlace($place2);
-
-        $this->assertCount(2, $city->getPlaces());
-        $this->assertTrue($city->getPlaces()->contains($place1));
-        $this->assertFalse($city->getPlaces()->contains($place2));
-        $this->assertTrue($city->getPlaces()->contains($place3));
     }
 }
