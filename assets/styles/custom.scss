@@ -11,7 +11,10 @@
 
 .profile-page {
   .profile-picture {
-    width: 200px;
+    $size: 200px;
+    width: $size;
+    height: $size;
+    object-fit: cover;
   }
 }
 

@@ -6,9 +6,9 @@
     <div class="container mt-5 d-flex flex-column justify-content-center align-items-center profile-page">
         <h2 class="mb-4 text-center align-items-center">Mon profil</h2>
         {% if user.profilePicture %}
-            <img src="{{ asset('uploads/' ~ user.profilePicture) }}" class="rounded-circle mb-5 profile-picture" alt="Photo de profil de {{ user.pseudo }}">
+            <img src="{{ asset('uploads/' ~ user.profilePicture) }}" class="rounded-circle mb-5 profile-picture" id='profile-picture' alt="Photo de profil de {{ user.pseudo }}">
         {% else %}
-            <img src="{{ asset('profilDefault.png') }}" class="rounded-circle mb-5 profile-picture" alt="Photo de profil par défault">
+            <img src="{{ asset('profilDefault.png') }}" class="rounded-circle mb-5 profile-picture" id='profile-picture' alt="Photo de profil par défault">
         {% endif %}
         {{ form_start(form,  { 'attr': {'class': 'col-12 col-lg-6 mx-auto mb-3 bg-light p-4 card shadow-sm'}})}}
             <div class="form-group row mb-3">
@@ -82,4 +82,26 @@
             </div>
         {{ form_end(form) }}
     </div>
+
+
+    <script>
+        document.getElementById('profile_user_profilePicture').addEventListener('change', function() {
+            previewImage(this);
+        });
+
+        function previewImage(input) {
+            const preview = document.getElementById('profile-picture');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 {% endblock %}
