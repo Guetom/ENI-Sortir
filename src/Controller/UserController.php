@@ -65,8 +65,14 @@ class UserController extends AbstractController
     #[Route('/{pseudo}', name: 'show')]
     public function show(UserRepository $userRepository, string $pseudo): Response
     {
+        $userFound = $userRepository->findOneBy(['pseudo' => $pseudo]);
+
+        if (!$userFound) {
+            throw $this->createNotFoundException('L\'utilisateur n\'existe pas');
+        }
+
         return $this->render('user/show.html.twig', [
-            'user' => $userRepository->findOneBy(['pseudo' => $pseudo]),
+            'user' => $userFound,
         ]);
     }
 }
