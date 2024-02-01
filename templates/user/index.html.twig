@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ parent() }} | Mon profil{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/dynamicPicture.js') }}" defer></script>
+{% endblock %}
 
 {% block body %}
     <div class="container mt-5 d-flex flex-column justify-content-center align-items-center profile-page">
         <h2 class="mb-4 text-center align-items-center">Mon profil</h2>
-        {% if user.profilePicture %}
-            <img src="{{ asset('uploads/' ~ user.profilePicture) }}" class="rounded-circle mb-5 profile-picture" alt="Photo de profil de {{ user.pseudo }}">
-        {% else %}
-            <img src="{{ asset('profilDefault.png') }}" class="rounded-circle mb-5 profile-picture" alt="Photo de profil par défault">
-        {% endif %}
+        <div class="dynamic-picture-container dynamic-profile-picture-container mb-5">
+            {% if user.profilePicture %}
+                <img src="{{ asset('uploads/' ~ user.profilePicture) }}" class="rounded-circle profile-picture dynamic-picture" alt="Photo de profil de {{ user.pseudo }}">
+            {% else %}
+                <img src="{{ asset('profilDefault.png') }}" class="profile-picture dynamic-picture" alt="Photo de profil par défault">
+            {% endif %}
+            <div class="camera-overlay">&#128247;</div>
+        </div>
+
         {{ form_start(form,  { 'attr': {'class': 'col-12 col-lg-6 mx-auto mb-3 bg-light p-4 card shadow-sm'}})}}
             <div class="form-group row mb-3">
                 {{ form_label(form.pseudo) }}
@@ -82,4 +90,5 @@
             </div>
         {{ form_end(form) }}
     </div>
+
 {% endblock %}
