@@ -28,7 +28,8 @@ class OutingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $outings = $outingRepository->findSearch($searchData, $this->getUser());
         } else {
-            $outings = $outingRepository->findAll();
+            $searchDataNull = new SearchOuting();
+            $outings = $outingRepository->findSearch($searchDataNull, null);
         }
 
         return $this->render('outing/index.html.twig', [
@@ -50,8 +51,8 @@ class OutingController extends AbstractController
 
     #[Route('/registration/{id}', name: 'register', methods: ['GET'])]
     public function register(
-        Request $request,
-        OutingRepository $outingRepository,
+        Request                $request,
+        OutingRepository       $outingRepository,
         RegistrationRepository $registrationRepository,
         EntityManagerInterface $entityManager
     ): Response
@@ -95,8 +96,8 @@ class OutingController extends AbstractController
 
     #[Route('/unregistration/{id}', name: 'unregister', methods: ['GET'])]
     public function unregister(
-        Request $request,
-        OutingRepository $outingRepository,
+        Request                $request,
+        OutingRepository       $outingRepository,
         RegistrationRepository $registrationRepository,
         EntityManagerInterface $entityManager
     ): Response
