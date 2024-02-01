@@ -42,4 +42,15 @@ class SiteTest extends TestCase
 
         $this->assertEquals('Campus Faraday', (string)$site);
     }
+
+    public function testEquality()
+    {
+        $site1 = new Site();
+        $site1->setName('Campus Faraday');
+
+        $site2 = new Site();
+        $site2->setName('Campus Faraday');
+
+        $this->assertEquals($site1, $site2);
+    }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Tests;
 
+use App\Entity\User;
 use App\Entity\Outing;
 use App\Entity\Registration;
 use App\Entity\Site;
-use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -103,36 +103,34 @@ class UserTest extends TestCase
 
     public function testRemoveOuting()
     {
-        $status = new User();
+        $user = new User();
         $outing = new Outing();
-        $status->addOuting($outing);
-        $status->removeOuting($outing);
+        $user->addOuting($outing);
+        $user->removeOuting($outing);
 
-        $this->assertEmpty($status->getOutings());
+        $this->assertEmpty($user->getOutings());
     }
 
     public function testAddRegistration()
     {
         $user = new User();
-        $outing = new Outing();
         $registration = new Registration();
         $registration->setParticipant($user);
-        $outing->addRegistration($registration);
+        $user->addRegistration($registration);
 
-        $this->assertNotEmpty($outing->getRegistrations());
-        $this->assertTrue($outing->getRegistrations()->contains($registration));
+        $this->assertNotEmpty($user->getRegistrations());
+        $this->assertTrue($user->getRegistrations()->contains($registration));
     }
 
     public function testRemoveRegistration()
     {
         $user = new User();
-        $outing = new Outing();
         $registration = new Registration();
         $registration->setParticipant($user);
-        $outing->addRegistration($registration);
-        $outing->removeRegistration($registration);
+        $user->addRegistration($registration);
+        $user->removeRegistration($registration);
 
-        $this->assertEmpty($outing->getRegistrations());
+        $this->assertEmpty($user->getRegistrations());
     }
 
     public function testFullName()

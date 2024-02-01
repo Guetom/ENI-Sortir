@@ -2,8 +2,8 @@
 
 namespace App\Tests;
 
-use App\Entity\Outing;
 use App\Entity\Registration;
+use App\Entity\Outing;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
