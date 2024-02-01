@@ -1,10 +1,71 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h2 class="my-5 text-center align-items-center">
+        Créer une sortie
+    </h2>
 
+    {{ form_start(form) }}
+
+    <div class="container row mx-auto">
+        <div class="col-lg-6 col-12">
+            <div class="col-12 mb-3">
+                {{ form_row(form.title) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.startDate) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.closingDate) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.registrationsMax) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.duration) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.description) }}
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-12">
+
+            <div class="col-12 mb-3">
+                <label for="organizingCity" class="form-label">Ville organisatrice :</label>
+                <p>{{ app.user.site.name }}</p>
+            </div>
+
+            <div class="col-12 mb-3">
+                {{ form_row(form.place.name) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.place.address) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.place.latitude) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.place.longitude) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.place.city) }}
+            </div>
+            <div class="col-12 mb-3">
+                {{ form_row(form.poster, {'label': 'Photo pour la sortie :', 'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container d-flex justify-content-center">
+        <button type="submit" class="btn btn-lg btn-primary m-2">Enregistrer</button>
+        <a href="#" class="btn btn-lg btn-danger m-2">Annuler</a>
+    </div>
+
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block title %}
 
 {% endblock %}
-

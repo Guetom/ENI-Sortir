@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Place;
 use App\Entity\Registration;
 use App\Form\CreateOutingType;
 use App\Form\SearchOutingType;
@@ -38,13 +39,38 @@ class OutingController extends AbstractController
     }
 
     #[Route('/create', name: 'create')]
-    public function create(Request $request, OutingRepository $outingRepository): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $form = $this->createForm(CreateOutingType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $outing = $form->getData();
+            $outing->setOrganizer($this->getUser());
+            $placeData = $form->get('place')->getData();
+
+            $place = new Place();
+            $place->setName($placeData->getName());
+            $place->setAddress($placeData->getAddress());
+            $place->setLatitude($placeData->getLatitude());
+            $place->setLongitude($placeData->getLongitude());
+            $place->setCity($placeData->getCity());
+
+            $outing->setPlace($place);
+
+            $entityManager->persist($place);
+            $entityManager->persist($outing);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vous avez créé une nouvelle sortie');
+            return $this->redirectToRoute('outing_index');
+        }
 
         return $this->render('outing/create.html.twig', [
-            'formSearch' => $form->createView(),
-            'outings' => $outings,
+            'form' => $form->createView(),
         ]);
     }
 
