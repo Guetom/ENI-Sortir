@@ -25,8 +25,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     public function __construct(
-        private UrlGeneratorInterface $urlGenerator,
-        private UserRepository $userRepository
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly UserRepository        $userRepository
     )
     {
     }
@@ -38,6 +38,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $user = $this->userRepository->findByEmailPseudo($login);
 
         $email = $user ? $user->getEmail() : '';
+
+        //Vérifier si le compte n'est pas désactivé
+        if ($user && $user->isDisable()) {
+            throw new NonUniqueResultException('Votre compte est désactivé');
+        }
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
 
