@@ -2,8 +2,8 @@
 
 namespace App\Tests;
 
-use App\Entity\Outing;
 use App\Entity\Status;
+use App\Entity\Outing;
 use PHPUnit\Framework\TestCase;
 
 class StatusTest extends TestCase
@@ -42,5 +42,16 @@ class StatusTest extends TestCase
         $status->setLabel('Active');
 
         $this->assertEquals('Active', (string)$status);
+    }
+
+    public function testEquality()
+    {
+        $status1 = new Status();
+        $status1->setLabel('Active');
+
+        $status2 = new Status();
+        $status2->setLabel('Active');
+
+        $this->assertEquals($status1, $status2);
     }
 }
