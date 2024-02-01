@@ -28,10 +28,10 @@
                 {% if app.user %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{ path('user_index') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ app.user.getProfilePicture() ? asset('uploads/' ~ app.user.getProfilePicture()) : asset('profilDefault.png') }}" alt="Photo de profil" class="rounded-circle" width="30" height="30">
+                            <img src="{{ app.user.getProfilePicture() ? asset('uploads/' ~ app.user.getProfilePicture()) | imagine_filter('profile_navbar') : asset('profilDefault.png') | imagine_filter('profile_navbar') }}" alt="Photo de profil" class="rounded-circle" width="30" height="30">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ path('user_index') }}">Mon profil</a></li>
+                            <li><a class="dropdown-item" href="{{ path('user_index')}}">Mon profil</a></li>
                             <li><a class="dropdown-item logout" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                         </ul>
                     </li>
