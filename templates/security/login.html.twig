@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ parent() }} | Login{% endblock %}
-{% block navbar %}{% endblock %}
 {% block body %}
 <section class="box-login">
     <div>
@@ -19,7 +18,7 @@
                 <div class="row mb-3">
                     <label for="inputEmail" class="form-label">Identifiant :</label>
                     <div class="col-12">
-                        <input type="email" placeholder="Email ou pseudo..." value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                        <input type="text" placeholder="Email ou pseudo..." value="{{ last_username }}" name="login" id="inputEmail" class="form-control" autocomplete="userIdentifier" required autofocus>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -46,10 +45,9 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <a href="">Mot de passe oublié</a>
+                <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
             </div>
         </form>
     </div>
 </section>
 {% endblock %}
-{% block footer %}{% endblock %}
