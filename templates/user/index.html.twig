@@ -11,9 +11,9 @@
         <h2 class="mb-4 text-center align-items-center">Mon profil</h2>
         <div class="dynamic-picture-container dynamic-profile-picture-container mb-5">
             {% if user.profilePicture %}
-                <img src="{{ asset('uploads/' ~ user.profilePicture) }}" class="rounded-circle profile-picture dynamic-picture" alt="Photo de profil de {{ user.pseudo }}">
+                <img src="{{ asset('uploads/' ~ user.profilePicture) | imagine_filter('profile') }}" class="rounded-circle profile-picture dynamic-picture" alt="Photo de profil de {{ user.pseudo }}">
             {% else %}
-                <img src="{{ asset('profilDefault.png') }}" class="profile-picture dynamic-picture" alt="Photo de profil par défault">
+                <img src="{{ asset('profilDefault.png') | imagine_filter('profile') }}" class="profile-picture dynamic-picture" alt="Photo de profil par défault">
             {% endif %}
             <div class="camera-overlay">&#128247;</div>
         </div>
