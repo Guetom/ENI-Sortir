@@ -34,7 +34,7 @@ class GroupCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Création d\'un groupe')
             ->setPageTitle('detail', 'Détail d\'un groupe')
             ->showEntityActionsInlined()
-            ->setSearchFields(['groupName', 'createdBy'])
+            ->setSearchFields(['groupName', 'createdBy.firstname', 'createdBy.lastname'])
             ->setDefaultSort(['groupName' => 'ASC', 'createdBy' => 'ASC']);
     }
 
