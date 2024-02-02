@@ -1,10 +1,79 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block title %}
 
 {% endblock %}
 
-{% block title %}
+{% block body %}
+    <h2 class="my-3 text-center align-items-center">
+        {{ outing.title }}
+    </h2>
 
+    {% if outing.poster %}
+        <div class="d-flex justify-content-center mb-3">
+            <img src="{{ asset('uploads/' ~ outing.poster) | imagine_filter('outings') }}" alt="poster" class="img-fluid">
+        </div>
+    {% endif %}
+
+
+    <div class="container row mx-auto outing-details bg-light shadow-sm p-3 border mb-3">
+        <div class="col-lg-6 col-12 mx-auto">
+            <div class="col-12 mb-3">
+                <p><span class="title">Nom : </span><span class="content">{{ outing.title }}</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Date et heure de la sortie : </span><span class="content">{{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Date limite d'inscription : </span><span class="content">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Nombre de places restantes : </span><span class="content">{{ outing.registrationsMax - outing.registrations.count }} ({{ outing.registrations.count }} / {{ outing.registrationsMax }})</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Durée : </span><span class="content">{{ outing.duration }}</span> minutes</p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Description et infos : </span><span class="content">{{ outing.description }}</span></p>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-12">
+
+            <div class="col-12 mb-3">
+                <p><span class="title">Ville organisatrice : </span><span class="content">{{ outing.organizer.site.name }}</span></p>
+            </div>
+
+            <div class="col-12 mb-3">
+                <p><span class="title">Lieu : </span><span class="content">{{ outing.place.name }}</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Ville : </span><span class="content">{{ outing.place.city.name }} ({{ outing.place.city.postcode }})</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Adresse : </span><span class="content">{{ outing.place.address }}</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Latitude : </span><span class="content">{{ outing.place.latitude }}</span></p>
+            </div>
+            <div class="col-12 mb-3">
+                <p><span class="title">Longitude : </span><span class="content">{{ outing.place.longitude }}</span></p>
+            </div>
+        </div>
+
+        <div class="button-container d-flex justify-content-center">
+            {% if outing.organizer == app.user %}
+                <a href="" class="btn btn-lg btn-primary m-2">Modifier</a>
+            {% else %}
+                {% if outing.isUserRegistered(app.user) and outing.organizer != app.user %}
+                    <a href="{{ path('outing_unregister', {'id':outing.id}) }}" class="btn btn-lg btn-danger m-2">Se désister</a>
+                {% elseif outing.canUserRegister(app.user) %}
+                    <a href="{{ path('outing_register', {'id':outing.id}) }}" class="btn btn-lg btn-success m-2">S'inscrire</a>
+                {% endif %}
+            {% endif %}
+            <a onclick='window.history.back()' class="btn btn-lg btn-secondary m-2">Retour</a>
+        </div>
+    </div>
 {% endblock %}
 
