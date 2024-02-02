@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.1",
+    "flowbite": "^1.8.1",
+    "tw-elements": "^1.0.0"
+  }
+}
