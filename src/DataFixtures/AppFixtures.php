@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\City;
+use App\Entity\Group;
 use App\Entity\Outing;
 use App\Entity\Place;
 use App\Entity\Registration;
@@ -76,6 +77,11 @@ class AppFixtures extends Fixture
                 ->setPassword($this->passwordHashed->hashPassword($user, self::DEFAULT_PASSWORD));
             $listUser->add($user);
             $manager->persist($user);
+        }
+
+        //Désactiver plusieurs utilisateurs
+        for ($i = 0; $i < rand(10, 15); $i++) {
+            $listUser->get($i)->setDisable(true);
         }
 
         $city1 = new City();
@@ -196,6 +202,19 @@ class AppFixtures extends Fixture
                 ->setOuting($listeOuting->get(rand(0, $listeOuting->count() - 1)))
                 ->setParticipant($listUser->get(rand(0, $listUser->count() - 1)));
             $manager->persist($registration);
+        }
+
+        //Création des groupes
+        for ($i = 0; $i < 15; $i++) {
+            $group = new Group();
+            $group
+                ->setGroupName('Groupe ' . $i)
+                ->setCreatedBy($listUser->get(rand(0, $listUser->count() - 1)));
+                //Ajouter des participants
+                for ($j = 0; $j < rand(10, 35); $j++){
+                    $group->addGuest($listUser->get(rand(0, $listUser->count() - 1)));
+                }
+            $manager->persist($group);
         }
 
         $manager->flush();
