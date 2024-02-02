@@ -50,6 +50,7 @@ class DashboardController extends AbstractDashboardController
             [
                 'numberUserActive' => $this->userRepository->count(['disable' => false]),
                 'numberUserDisable' => $this->userRepository->count(['disable' => true]),
+                'numberGroup' => $this->groupRepository->count([]),
                 'numberOutingNotStarted' => $this->outingRepository->countAfterDate(new \DateTime()),
                 'numberOutingFinished' => $this->outingRepository->countBeforeDate(new \DateTime()),
                 'numberRegistered' => $this->userRepository->count([])
