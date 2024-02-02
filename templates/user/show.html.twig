@@ -8,7 +8,7 @@
             <div class="d-flex flex-column align-items-center">
                 <h2 class="mb-4 text-center">{{ user.pseudo }}</h2>
                 {% if user.profilePicture %}
-                    <img src="{{ asset('uploads/' ~ user.profilePicture) }}" class="profile-picture rounded-circle mb-5" alt="Photo de profil de {{ user.pseudo }}">
+                    <img src="{{ asset('uploads/' ~ user.profilePicture) | imagine_filter('profile') }}" class="profile-picture rounded-circle mb-5" alt="Photo de profil de {{ user.pseudo }}">
                 {% else %}
                     <img src="{{ asset('profilDefault.png') }}" class="profile-picture rounded-circle mb-5" alt="Photo de profil par défault">
                 {% endif %}

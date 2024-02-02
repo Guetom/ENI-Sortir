@@ -9,7 +9,7 @@
             <div class=" col-md-6 mt-5">
                 <p class="fs-3"> <span class="text-danger">Oups !</span> Tu sembles perdu 🥲</p>
                 <p class="lead">
-                    Cette page n'existe pas !
+                    {{ exception.message }}
                 </p>
                 <a href="{{ path('home_index') }}" class="btn btn-primary">Retour à la page d'accueil</a>
             </div>

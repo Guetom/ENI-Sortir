@@ -80,7 +80,7 @@ class OutingRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findSearch(SearchOuting $searchOuting, UserInterface $userConnected): array
+    public function findSearch(SearchOuting $searchOuting, UserInterface $userConnected = null): array
     {
         $query = $this->createQueryBuilder('o');
 
@@ -106,27 +106,32 @@ class OutingRepository extends ServiceEntityRepository
                 ->setParameter('endDate', $searchOuting->endDate);
         }
 
-        if ($searchOuting->isOrganizer) {
-            $query->andWhere('o.organizer = :organizer')
-                ->setParameter('organizer', $userConnected);
-        }
+        if ($userConnected) {
+            if ($searchOuting->isOrganizer) {
+                $query->andWhere('o.organizer = :organizer')
+                    ->setParameter('organizer', $userConnected);
+            }
 
-        if ($searchOuting->isRegistered) {
-            $query->join('o.registrations', 'r')
-                ->andWhere('r.participant = :user')
-                ->setParameter('user', $userConnected);
-        }
+            if ($searchOuting->isRegistered) {
+                $query->join('o.registrations', 'r')
+                    ->andWhere('r.participant = :user')
+                    ->setParameter('user', $userConnected);
+            }
 
-        if ($searchOuting->isNotRegistered) {
-            $query->leftJoin('o.registrations', 'r2')
-                ->andWhere('r2.participant != :user')
-                ->setParameter('user', $userConnected);
+            if ($searchOuting->isNotRegistered) {
+                $query->leftJoin('o.registrations', 'r2')
+                    ->andWhere('r2.participant != :user')
+                    ->setParameter('user', $userConnected);
+            }
         }
 
         if ($searchOuting->isFinished) {
             $query->andWhere('o.startDate < :now')
                 ->setParameter('now', new \DateTime());
         }
+
+        $query->andWhere('o.startDate > :now')
+            ->setParameter('now', new \DateTime('-1 month'));
 
         $query->orderBy('o.startDate', 'DESC');
 

@@ -29,7 +29,7 @@
             <a href="{{ path('outing_preview', {'id':outing.id}) }}" class="btn btn-secondary">Plus d'infos</a>
             {% if userIsRegistered and outing.organizer != app.user %}
                 <a href="{{ path('outing_unregister', {'id':outing.id}) }}" class="btn btn-danger">Se désister</a>
-            {% elseif app.user and outing.organizer != app.user %}
+            {% elseif app.user and outing.organizer != app.user and outing.closingDate > date() %}
                 <a href="{{ path('outing_register', {'id':outing.id}) }}" class="btn btn-success">S'inscrire</a>
             {% elseif app.user %}
             {% endif %}

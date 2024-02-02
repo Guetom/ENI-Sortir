@@ -138,7 +138,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
                 ->setBadge($numberCities, 'primary'),
             MenuItem::section(''),
-            MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'app_home'),
+            MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'home_index'),
             MenuItem::section(''),
             MenuItem::linkToLogout('Déconnexion', 'fa-solid fa-right-from-bracket')
         ];
