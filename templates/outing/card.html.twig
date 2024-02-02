@@ -20,7 +20,7 @@
         <p class="card-text">{{ outing.description }}</p>
         <hr>
         <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : {{ outing.registrations.count }}
-            /{{ outing.registrationsMax }}</h6>
+            / {{ outing.registrationsMax }}</h6>
         <h6 class="card-subtitle mb-2 text-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</h6>
         <p class="mb-2">Organisateur : <a class="card-link"
                                           href="{{ path('user_show', {'pseudo':outing.organizer.pseudo}) }}">{{ outing.organizer.pseudo }}</a>

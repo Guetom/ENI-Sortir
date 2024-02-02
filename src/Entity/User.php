@@ -58,10 +58,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Group::class)]
+    private Collection $myGroups;
+
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'Guests')]
+    private Collection $guestGroups;
+
     public function __construct()
     {
         $this->outings = new ArrayCollection();
         $this->registrations = new ArrayCollection();
+        $this->myGroups = new ArrayCollection();
+        $this->guestGroups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,6 +292,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfilePicture(?string $profilePicture): static
     {
         $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getMyGroups(): Collection
+    {
+        return $this->myGroups;
+    }
+
+    public function addMyGroup(Group $myGroup): static
+    {
+        if (!$this->myGroups->contains($myGroup)) {
+            $this->myGroups->add($myGroup);
+            $myGroup->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMyGroup(Group $myGroup): static
+    {
+        if ($this->myGroups->removeElement($myGroup)) {
+            // set the owning side to null (unless already changed)
+            if ($myGroup->getCreatedBy() === $this) {
+                $myGroup->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getGuestGroups(): Collection
+    {
+        return $this->guestGroups;
+    }
+
+    public function addGuestGroup(Group $guestGroup): static
+    {
+        if (!$this->guestGroups->contains($guestGroup)) {
+            $this->guestGroups->add($guestGroup);
+            $guestGroup->addGuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuestGroup(Group $guestGroup): static
+    {
+        if ($this->guestGroups->removeElement($guestGroup)) {
+            $guestGroup->removeGuest($this);
+        }
 
         return $this;
     }
