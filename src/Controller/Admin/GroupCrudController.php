@@ -102,7 +102,6 @@ class GroupCrudController extends AbstractCrudController
                 ->setColumns(12),
             AssociationField::new('Guests', 'Membres')
                 ->onlyOnForms()
-                ->autocomplete()
                 ->setQueryBuilder(function ($queryBuilder) {
                     return $queryBuilder
                         ->where('entity.disable = 0')
