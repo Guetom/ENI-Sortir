@@ -3,11 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\City;
+use App\Entity\Group;
 use App\Entity\Outing;
 use App\Entity\Site;
 use App\Entity\User;
 use App\Form\ImportUserType;
 use App\Repository\CityRepository;
+use App\Repository\GroupRepository;
 use App\Repository\OutingRepository;
 use App\Repository\SiteRepository;
 use App\Repository\UserRepository;
@@ -29,6 +31,7 @@ class DashboardController extends AbstractDashboardController
 
     public function __construct(
         private UserRepository                       $userRepository,
+        private GroupRepository                      $groupRepository,
         private OutingRepository                     $outingRepository,
         private SiteRepository                       $siteRepository,
         private CityRepository                       $cityRepository,
@@ -120,6 +123,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         $numberUsers = $this->userRepository->count([]);
+        $numberGroups = $this->groupRepository->count([]);
         $numberOutings = $this->outingRepository->count([]);
         $numberSites = $this->siteRepository->count([]);
         $numberCities = $this->cityRepository->count([]);
@@ -128,8 +132,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard'),
 
             MenuItem::section('Administration'),
-            MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class)
+            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)
                 ->setBadge($numberUsers, 'primary'),
+            MenuItem::linkToCrud('Groupes', 'fas fa-users', Group::class)
+                ->setBadge($numberGroups, 'primary'),
             MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
             MenuItem::linkToCrud('Sorties', 'fa-solid fa-person-hiking', Outing::class)
                 ->setBadge($numberOutings, 'primary'),
