@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand mx-auto" href="{{path('home_index')}}">ENI-SORTIES</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ path('home_index') }}">Accueil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{path('outing_index')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sorties
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{path('outing_index')}}">Liste des sorties</a></li>
+                        <li><a class="dropdown-item" href="{{ path('outing_create')}}">Créer une sortie</a></li>
+                    </ul>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ path('admin') }}">Administration</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a id="profile-button" class="nav-link dropdown-toggle" href="{{ path('user_index') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ app.user.getProfilePicture() ? asset('uploads/' ~ app.user.getProfilePicture()) | imagine_filter('profile_navbar') : asset('profilDefault.png') | imagine_filter('profile_navbar') }}" alt="Photo de profil" class="rounded-circle" width="30" height="30">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ path('user_index')}}">Mon profil</a></li>
+                            <li><a class="dropdown-item logout" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <a href="{{ path('app_login') }}"><button id="login-button" class="btn btn-success">Se connecter</button></a>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>

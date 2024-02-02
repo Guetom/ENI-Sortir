@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Login{% endblock %}
+{% block body %}
+<section class="box-login">
+    <div>
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    Tu est connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+            <div class="row mb-3">
+                <div class="row mb-3">
+                    <label for="inputEmail" class="form-label">Identifiant :</label>
+                    <div class="col-12">
+                        <input type="text" placeholder="Email ou pseudo..." value="{{ last_username }}" name="login" id="inputEmail" class="form-control" autocomplete="userIdentifier" required autofocus>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <!--<label for="inputPassword" class="form-label">Mot de passe :</label>-->
+                    <div class="col-12">
+                        <input type="password" name="password" id="inputPassword" placeholder="Mot de passe..." class="form-control" autocomplete="current-password" required>
+                    </div>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </div>
+            <div class="row mb-3 col-12">
+                <div class="col-6">
+                    <button class="btn btn-lg btn-primary" type="submit">
+                        Se connecter
+                    </button>
+                </div>
+                <div class="col-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberCheck">
+                        <label class="form-check-label" for="rememberCheck">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

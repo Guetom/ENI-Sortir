@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{ user.pseudo }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 d-flex flex-column justify-content-center align-items-center profile-page">
+        <div class="col-12 col-lg-6 mx-auto mb-3 bg-light p-4 card shadow-sm">
+            <div class="d-flex flex-column align-items-center">
+                <h2 class="mb-4 text-center">{{ user.pseudo }}</h2>
+                {% if user.profilePicture %}
+                    <img src="{{ asset('uploads/' ~ user.profilePicture) | imagine_filter('profile') }}" class="profile-picture rounded-circle mb-5" alt="Photo de profil de {{ user.pseudo }}">
+                {% else %}
+                    <img src="{{ asset('profilDefault.png') }}" class="profile-picture rounded-circle mb-5" alt="Photo de profil par défault">
+                {% endif %}
+            </div>
+            <div class="form-group row mb-3">
+                <label for="prenom" class="col-sm-4 col-form-label">Prénom</label>
+                <div class="col-sm-8">
+                    <p class="form-control-plaintext" id="prenom">{{ user.firstname }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="nom" class="col-sm-4 col-form-label">Nom</label>
+                <div class="col-sm-8">
+                    <p class="form-control-plaintext" id="nom">{{ user.lastname }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="telephone" class="col-sm-4 col-form-label">Téléphone</label>
+                <div class="col-sm-8">
+                    <p class="form-control-plaintext" id="telephone">{{ user.phone }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="email" class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <p class="form-control-plaintext" id="email">{{ user.email }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label for="ville" class="col-sm-4 col-form-label">Ville de rattachement</label>
+                <div class="col-sm-8">
+                    <p class="form-control-plaintext" id="ville">{{ user.site.name }}</p>
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <div class="col-sm-10 mx-auto text-center">
+                    <a href="{{ path('home_index') }}" class="btn btn-lg btn-danger mt-3 mx-2">Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

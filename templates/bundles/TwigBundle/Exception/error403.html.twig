@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="text-center row">
+            <div class=" col-md-6">
+                <h1 class="display-1 fw-bold">403</h1>
+            </div>
+            <div class=" col-md-6 mt-5">
+                <p class="fs-3"> <span class="text-danger">Oups !</span> Tu sembles perdu 🥲</p>
+                <p class="lead">
+                    Vous n'avez pas les droits nécessaires pour accéder à cette page.
+                </p>
+                <a href="{{ path('home_index') }}" class="btn btn-primary">Retour à la page d'accueil</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

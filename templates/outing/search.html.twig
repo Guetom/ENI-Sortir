@@ -1,0 +1,48 @@
+{% if formSearch %}
+    <div class="col-md-10">
+        <form class="card p-3 bg-light py-4 shadow-sm">
+            <h5>Filtrez les sorties :</h5>
+            <div class="col-lg-11 col-12 mx-auto">
+                {{ form_start(formSearch) }}
+                <div class="my-3">
+                    {{ form_row(formSearch.name) }}
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-7">
+                        <div class="col-12">
+                            {{ form_row(formSearch.site) }}
+                        </div>
+                        <div class="col-12">
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    {{ form_row(formSearch.startDate) }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form_row(formSearch.endDate) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 my-lg-auto my-sm-3">
+                        <div class="form-check">
+                            {{ form_row(formSearch.isOrganizer) }}
+                        </div>
+                        <div class="form-check">
+                            {{ form_row(formSearch.isRegistered) }}
+                        </div>
+                        <div class="form-check">
+                            {{ form_row(formSearch.isNotRegistered) }}
+                        </div>
+                        <div class="form-check">
+                            {{ form_row(formSearch.isFinished) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mx-auto mt-4">
+                    <button type="submit" class="btn btn-lg btn-primary">Rechercher</button>
+                </div>
+                {{ form_end(formSearch) }}
+            </div>
+        </form>
+    </div>
+{% endif %}
