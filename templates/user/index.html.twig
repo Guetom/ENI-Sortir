@@ -13,7 +13,7 @@
             {% if user.profilePicture %}
                 <img src="{{ asset('uploads/' ~ user.profilePicture) | imagine_filter('profile') }}" class="rounded-circle profile-picture dynamic-picture" alt="Photo de profil de {{ user.pseudo }}">
             {% else %}
-                <img src="{{ asset('profilDefault.png') | imagine_filter('profile') }}" class="profile-picture dynamic-picture" alt="Photo de profil par défault">
+                <img src="{{ asset('profilDefault.png') | imagine_filter('profile') }}" class="rounded-circle profile-picture dynamic-picture" alt="Photo de profil par défault">
             {% endif %}
             <div class="camera-overlay">&#128247;</div>
         </div>

@@ -51,6 +51,18 @@ class OutingController extends AbstractController
 
             $outing = $form->getData();
             $outing->setOrganizer($this->getUser());
+
+            if ($form->get('poster')->getData()) {
+                $poster = $form->get('poster')->getData();
+                $newFilename = uniqid() . '.' . $poster->guessExtension();
+                $poster->move(
+                    'uploads/',
+                    $newFilename
+                );
+
+                $outing->setPoster($newFilename);
+            }
+
             $placeData = $form->get('place')->getData();
 
             $place = new Place();
@@ -103,7 +115,7 @@ class OutingController extends AbstractController
         }
 
         //Check si la sortie est déjà passée et si l'inscription est encore possible et si il reste de la place
-        if ($outing->getStartDate() < new \DateTime('now') || $outing->getClosingDate() < new \DateTime('now') || $outing->getRegistrationsMax() <= $outing->getRegistrations()->count()) {
+        if (!$outing->canRegister()) {
             $this->addFlash('danger', 'Vous ne pouvez plus vous inscrire à cette sortie');
             return $this->redirectToRoute('outing_index');
         }
