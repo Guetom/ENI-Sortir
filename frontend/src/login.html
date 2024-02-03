@@ -11,20 +11,23 @@
 
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-lg">
-        <h1 class="text-center text-2xl font-bold text-light-primary dark:text-dark-primary sm:text-3xl">Salut à toi 👋</h1>
+        <h1 class="text-center text-2xl font-bold text-light-primary dark:text-dark-primary sm:text-3xl">Salut à toi
+            👋</h1>
 
         <p class="mx-auto mt-4 max-w-md text-center dark:text-dark-primary">
             Connecte-toi pour accéder aux sorties et rencontrer de nouvelles personnes
         </p>
 
         <form action="" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-            <p class="text-center text-lg font-medium text-light-primary dark:text-dark-primary">Connexion à votre compte</p>
+            <p class="text-center text-lg font-medium text-light-primary dark:text-dark-primary">Connexion à votre
+                compte</p>
 
             <div>
                 <label for="email" class="sr-only">Email</label>
 
                 <div class="relative">
                     <input
+                            id="email"
                             type="email"
                             class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                             placeholder="Entrer votre email"
@@ -54,6 +57,7 @@
 
                 <div class="relative">
                     <input
+                            id="password"
                             type="password"
                             class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                             placeholder="Entrer votre mot de passe"
@@ -82,6 +86,18 @@
             </svg>
           </span>
                 </div>
+            </div>
+
+            <div>
+                <label for="remember" class="flex items-center">
+                    <input
+                            id="remember"
+                            type="checkbox"
+                            class="rounded border-gray-200 shadow-sm"
+                    />
+
+                    <span class="ml-2 text-sm text-light-primary dark:text-dark-primary">Se souvenir de moi</span>
+                </label>
             </div>
 
             <button
