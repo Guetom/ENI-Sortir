@@ -1,19 +1,19 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/output.css" rel="stylesheet">
     <link rel="icon" href="./assets/icon.png"/>
     <title>ENI Sortir</title>
-    <script>
-        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    </script>
+<!--    <script>-->
+<!--        // On page load or when changing themes, best to add inline in `head` to avoid FOUC-->
+<!--        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {-->
+<!--            document.documentElement.classList.add('dark');-->
+<!--        } else {-->
+<!--            document.documentElement.classList.remove('dark')-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body class="bg-light-font dark:bg-dark-font">
 <nav class="relative px-4 py-4 flex justify-between items-center border-b-2 border-light-secondary dark:border-dark-secondary-secondary">
@@ -114,36 +114,48 @@
     </nav>
 </div>
 
-<div class="relative z-20 flex items-center overflow-hidden">
-    <div class="container relative flex px-6 py-16 mx-auto">
-        <div class="relative z-20 flex flex-col sm:w-2/3 lg:w-2/5">
-            <span class="w-20 h-2 mb-12 bg-light-primary dark:bg-dark-primary">
-            </span>
-            <h1 class="flex flex-col text-6xl font-black leading-none text-light-primary uppercase font-bebas-neue sm:text-8xl dark:text-dark-primary">
-                Envie
-                <span class="text-5xl sm:text-7xl">
-                    d'une sortie
-                </span>
-            </h1>
-            <p class="text-sm text-light-primary sm:text-base dark:text-white">
-                Rejoignez des milliers de personnes pour sortir et faire de nouvelles rencontres
-            </p>
-            <div class="flex mt-8">
-                <a href="#"
-                   class="px-4 py-2 mr-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary">
-                    Trouver une sortie
-                </a>
-                <a href="#"
-                   class="px-4 py-2 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary text-md">
-                    Créer une sortie
-                </a>
+<main class="mt-10 px-8">
+
+    <div class="mb-4 md:mb-0 w-full mx-auto relative">
+        <div class="px-4 lg:px-0">
+            <h2 class="text-4xl font-semibold text-gray-800 leading-tight">
+                Title of the outing
+            </h2>
+            <a href="#" class="py-2 text-green-700 inline-flex items-center justify-center mb-2">
+                Ouvert aux inscriptions jusqu'au 01/01/2024
+            </a>
+        </div>
+        <img src="./assets/banner.png" class="h-auto max-w-full md:max-w-md lg:max-w-lg mx-auto rounded-lg shadow-xl" alt="poster"/>
+    </div>
+
+    <div class="flex flex-col lg:flex-row lg:space-x-12">
+        <div class="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm rounded-2xl shadow-xl">
+            <div class="p-4 border-t border-b md:border md:rounded">
+                <div class="flex py-2">
+                    <img src="./assets/profilDefault.png"
+                         class="h-10 w-10 rounded-full mr-2 object-cover" />
+                    <div>
+                        <p class="font-semibold text-gray-700 text-sm">Jean DUPONT</p>
+                        <p class="font-semibold text-gray-600 text-xs">Campus ENI Nantes</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center mt-4 text-center">
+                    <a href="#"
+                       class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
+                        Participer
+                    </a>
+                    <a href="#"
+                       class="px-4 py-2 m-2 w-full text-white dark:text-dark-primary uppercase bg-light-secondary dark:bg-dark-secondary hover:bg-light-secondary/75 dark:hover:bg-dark-secondary/75 rounded-lg text-md">
+                        Modifier
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="relative hidden sm:block sm:w-1/3 lg:w-3/5">
-            <img src="./assets/icon.png" class="max-w-xs m-auto md:max-w-sm" alt="logo"/>
+        <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4 order-first lg:order-last">
+            <p class="pb-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid deleniti explicabo facilis ipsum itaque nostrum, officiis placeat possimus quia tempore? Dignissimos eius hic rem sapiente.</p>
         </div>
     </div>
-</div>
+</main>
 
 <footer class="p-2 px-6">
     <hr class="border-t-2 border-light-secondary dark:border-dark-secondary-secondary">
