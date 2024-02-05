@@ -12,6 +12,7 @@ use App\Repository\RegistrationRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -173,8 +174,29 @@ class OutingController extends AbstractController
     {
         $outing = $outingRepository->find($request->get('id'));
 
+        //Vérification si la sortie existe
+        if (!$outing) {
+            throw $this->createNotFoundException('La sortie n\'existe pas');
+        }
+
+        //Recupération de la météo du jour de la sortie (uniquement si la sortie n'est pas passée et si la date est dans les 10 prochains jours)
+        if ($outing->getStartDate() > new \DateTime('now') && $outing->getStartDate() < new \DateTime('+10 days')) {
+            $url = $_ENV['METEO_CONCEPT_URL'] . 'location/cities?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&search=' . $outing->getPlace()->getCity()->getPostcode();
+            $inseeCode = json_decode(file_get_contents($url), true)['cities'][0]['insee'];
+            $url = $_ENV['METEO_CONCEPT_URL'] . 'forecast/daily?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&insee=' . $inseeCode;
+            $nbDaysAfterToday = $outing->getStartDate()->diff(new \DateTime('now'))->days;
+            if (json_decode(file_get_contents($url), true)['city']['insee'] == $inseeCode) {
+                $weather = json_decode(file_get_contents($url), true)['forecast'][$nbDaysAfterToday];
+            } else {
+                $weather = null;
+            }
+        } else {
+            $weather = null;
+        }
+
         return $this->render('outing/preview.html.twig', [
             'outing' => $outing,
+            'weather' => $weather,
         ]);
     }
 }
