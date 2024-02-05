@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/output.css" rel="stylesheet">
+    <link rel="icon" href="./assets/icon.png"/>
+    <title>ENI Sortir</title>
+<!--    <script>-->
+<!--        // On page load or when changing themes, best to add inline in `head` to avoid FOUC-->
+<!--        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {-->
+<!--            document.documentElement.classList.add('dark');-->
+<!--        } else {-->
+<!--            document.documentElement.classList.remove('dark')-->
+<!--        }-->
+<!--    </script>-->
+</head>
+<body class="bg-light-font dark:bg-dark-font">
+<nav class="relative px-4 py-4 flex justify-between items-center border-b-2 border-light-secondary dark:border-dark-secondary-secondary">
+    <a class="text-3xl font-bold leading-none" href="#">
+        <img src="./assets/banner.png" alt="Logo" class="h-12">
+    </a>
+    <div class="lg:hidden">
+        <button class="navbar-burger flex items-center text-light-primary dark:text-dark-primary p-3">
+            <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Mobile menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+            </svg>
+        </button>
+    </div>
+    <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+        <li><a class="text-sm text-light-primary dark:text-dark-primary font-bold" href="#">Accueil</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Sorties</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Nouvelle sortie</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Mes groupes</a></li>
+    </ul>
+    <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-sm text-light-primary dark:text-dark-primary font-bold rounded-xl transition duration-200"
+       href="#">Se connecter</a>
+    <button id="theme-toggle" type="button"
+            class="hidden lg:inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                  fill-rule="evenodd" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+</nav>
+<div class="navbar-menu relative z-50 hidden">
+    <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+    <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-light-font dark:bg-dark-font border-r overflow-y-auto">
+        <div class="flex items-center mb-8">
+            <a class="mr-auto text-3xl font-bold leading-none" href="#">
+                <img src="assets/banner.png" alt="logo" class="h-12">
+            </a>
+            <button class="navbar-close">
+                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div>
+            <ul>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Accueil</a>
+                </li>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Sorties</a>
+                </li>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Nouvelle sortie</a>
+                </li>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Mes groupes</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-auto">
+            <div class="pt-6">
+                <a class="block px-4 py-3 mb-2 leading-loose text-sm text-center bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-semibold rounded-xl"
+                   href="#">Se connecter</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<main class="mt-10 px-8">
+
+    <div class="mb-4 md:mb-0 w-full mx-auto relative">
+        <div class="px-4 lg:px-0">
+            <h2 class="text-4xl font-semibold text-gray-800 leading-tight">
+                Title of the outing
+            </h2>
+            <a href="#" class="py-2 text-green-700 inline-flex items-center justify-center mb-2">
+                Ouvert aux inscriptions jusqu'au 01/01/2024
+            </a>
+        </div>
+        <img src="./assets/banner.png" class="h-auto max-w-full md:max-w-md lg:max-w-lg mx-auto rounded-lg shadow-xl" alt="poster"/>
+    </div>
+
+    <div class="flex flex-col lg:flex-row lg:space-x-12">
+        <div class="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm rounded-2xl shadow-xl">
+            <div class="p-4 border-t border-b md:border md:rounded">
+                <div class="flex py-2">
+                    <img src="./assets/profilDefault.png"
+                         class="h-10 w-10 rounded-full mr-2 object-cover" />
+                    <div>
+                        <p class="font-semibold text-gray-700 text-sm">Jean DUPONT</p>
+                        <p class="font-semibold text-gray-600 text-xs">Campus ENI Nantes</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center mt-4 text-center">
+                    <a href="#"
+                       class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
+                        Participer
+                    </a>
+                    <a href="#"
+                       class="px-4 py-2 m-2 w-full text-white dark:text-dark-primary uppercase bg-light-secondary dark:bg-dark-secondary hover:bg-light-secondary/75 dark:hover:bg-dark-secondary/75 rounded-lg text-md">
+                        Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4 order-first lg:order-last">
+            <p class="pb-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid deleniti explicabo facilis ipsum itaque nostrum, officiis placeat possimus quia tempore? Dignissimos eius hic rem sapiente.</p>
+        </div>
+    </div>
+</main>
+
+<footer class="p-2 px-6">
+    <hr class="border-t-2 border-light-secondary dark:border-dark-secondary-secondary">
+            <div class="flex flex-col items-center mb-8 lg:mb-0 p-3">
+                <a href="#" class="text-3xl font-bold leading-none">
+                    <img src="./assets/banner.png" alt="Logo" class="h-12">
+                </a>
+                <p class="mt-2 text-sm text-center text-light-primary dark:text-dark-primary">
+                    © 2024 ENI Sortir. Tous droits réservés.
+                </p>
+            </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>

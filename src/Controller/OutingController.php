@@ -42,7 +42,7 @@ class OutingController extends AbstractController
     #[Route('/create', name: 'create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $form = $this->createForm(CreateOutingType::class);
         $form->handleRequest($request);
