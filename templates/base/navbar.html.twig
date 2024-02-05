@@ -1,5 +1,5 @@
 <nav class="relative px-4 py-4 flex justify-between items-center border-b-2 border-light-secondary dark:border-dark-secondary-secondary">
-    <a class="text-3xl font-bold leading-none" href="#">
+    <a class="text-3xl font-bold leading-none" href="{{path('home_index')}}">
         <img src="{{ asset('banner.png') }}" alt="Logo" class="h-12">
     </a>
     <div class="lg:hidden">
@@ -11,7 +11,7 @@
         </button>
     </div>
     <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
-        <li><a class="text-sm text-light-primary dark:text-dark-primary font-bold" href="#">Accueil</a></li>
+        <li><a class="text-sm text-light-primary dark:text-dark-primary {% if app.request.get('_route') == 'home_index' %} font-bold {% endif %}" href="{{path('home_index')}}">Accueil</a></li>
         <li class="text-light-primary dark:text-dark-primary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
                  viewBox="0 0 24 24">
@@ -19,7 +19,7 @@
                       d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
             </svg>
         </li>
-        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Sorties</a></li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font {% if app.request.get('_route') == 'outing_index' %} font-bold {% endif %}" href="{{path('outing_index')}}">Sorties</a></li>
         <li class="text-light-primary dark:text-dark-primary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
                  viewBox="0 0 24 24">
@@ -27,7 +27,7 @@
                       d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
             </svg>
         </li>
-        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Nouvelle sortie</a></li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font {% if app.request.get('_route') == 'outing_create' %} font-bold {% endif %}" href="{{ path('outing_create')}}">Nouvelle sortie</a></li>
         <li class="text-light-primary dark:text-dark-primary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
                  viewBox="0 0 24 24">
@@ -36,9 +36,32 @@
             </svg>
         </li>
         <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Mes groupes</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="text-light-primary dark:text-dark-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                </svg>
+            </li>
+            <li><a class="text-sm text-gray-700 dark:text-light-font" href="{{ path('admin') }}">Administration</a></li>
+        {% endif %}
     </ul>
-    <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-sm text-light-primary dark:text-dark-primary font-bold rounded-xl transition duration-200"
-       href="#">Se connecter</a>
+
+    {% if app.user %}
+
+        <div class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 transition duration-200">
+            <a href="{{ path('user_index')}}">
+                <img class= "object-cover rounded-full border
+                border-gray-100 shadow-sm
+                 h-full cursor-pointer" src="{{ app.user.getProfilePicture() ? asset('uploads/' ~ app.user.getProfilePicture()) | imagine_filter('profile_navbar') : asset('profilDefault.png') | imagine_filter('profile_navbar') }}"  alt=""/>
+            </a>
+            </div>
+    {% else %}
+        <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-sm text-light-primary dark:text-dark-primary font-bold rounded-xl transition duration-200"
+           href="{{ path('app_login') }}">Se connecter</a>
+    {% endif %}
+
     <button id="theme-toggle" type="button"
             class="hidden lg:inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
         <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -86,12 +109,6 @@
                        href="#">Mes groupes</a>
                 </li>
             </ul>
-        </div>
-        <div class="mt-auto">
-            <div class="pt-6">
-                <a class="block px-4 py-3 mb-2 leading-loose text-sm text-center bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-semibold rounded-xl"
-                   href="#">Se connecter</a>
-            </div>
         </div>
     </nav>
 </div>

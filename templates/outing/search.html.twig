@@ -1,48 +1,108 @@
 {% if formSearch %}
-    <div class="col-md-10">
-        <form class="card p-3 bg-light py-4 shadow-sm">
-            <h5>Filtrez les sorties :</h5>
-            <div class="col-lg-11 col-12 mx-auto">
-                {{ form_start(formSearch) }}
-                <div class="my-3">
-                    {{ form_row(formSearch.name) }}
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-7">
-                        <div class="col-12">
-                            {{ form_row(formSearch.site) }}
-                        </div>
-                        <div class="col-12">
-                            <div class="row mt-3">
-                                <div class="col-6">
-                                    {{ form_row(formSearch.startDate) }}
-                                </div>
-                                <div class="col-6">
-                                    {{ form_row(formSearch.endDate) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-5 my-lg-auto my-sm-3">
-                        <div class="form-check">
-                            {{ form_row(formSearch.isOrganizer) }}
-                        </div>
-                        <div class="form-check">
-                            {{ form_row(formSearch.isRegistered) }}
-                        </div>
-                        <div class="form-check">
-                            {{ form_row(formSearch.isNotRegistered) }}
-                        </div>
-                        <div class="form-check">
-                            {{ form_row(formSearch.isFinished) }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mx-auto mt-4">
-                    <button type="submit" class="btn btn-lg btn-primary">Rechercher</button>
-                </div>
-                {{ form_end(formSearch) }}
+    {{ form_start(formSearch) }}
+    <div class="rounded-xl border border-light-secondary dark:border-dark-secondary bg-transparent p-6 shadow-xl">
+        <h2 class="text-light-primary dark:text-dark-primary text-xl font-bold">Rechercher une sortie</h2>
+        <div class="flex items-center my-5 relative w-full">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                </svg>
             </div>
-        </form>
+            {{ form_widget(formSearch.name, {
+                'attr': {
+                    'class': 'bg-white dark:bg-dark-secondary border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary block w-full pl-10 p-2.5 placeholder-light-primary dark:placeholder-dark-primary',
+                    'id': 'simple-search',
+                    'placeholder': 'Recherche'
+                }
+            }) }}
+        </div>
+        <div class="my-5 grid grid-flow-row-dense grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div class="flex flex-col col-span-4 md:col-span-2">
+                <label for="campus" class="text-light-primary dark:text-dark-primary text-sm font-medium">Campus</label>
+                {{ form_widget(formSearch.site, {
+                    'attr': {
+                        'id': 'campus',
+                        'class': 'my-2 block w-full bg-white dark:bg-dark-secondary border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary placeholder-light-primary dark:placeholder-dark-primary'
+                    }
+                }) }}
+            </div>
+            <div class="flex flex-col col-span-4 md:col-span-1">
+                <label for="startDate" class="text-light-primary dark:text-dark-primary text-sm font-medium">Date de début</label>
+                {{ form_widget(formSearch.startDate, {
+                    'attr': {
+                        'id': 'startDate',
+                        'class': 'my-2 block w-full bg-white dark:bg-dark-secondary border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary placeholder-light-primary dark:placeholder-dark-primary'
+                    }
+                }) }}
+            </div>
+            <div class="flex flex-col col-span-4 md:col-span-1">
+                <label for="endDate" class="text-light-primary dark:text-dark-primary text-sm font-medium">Date de fin</label>
+                {{ form_widget(formSearch.endDate, {
+                    'attr': {
+                        'id': 'endDate',
+                        'class': 'my-2 block w-full bg-white dark:bg-dark-secondary border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary placeholder-light-primary dark:placeholder-dark-primary'
+                    }
+                }) }}
+            </div>
+
+            <div class="flex flex-col col-span-4">
+                <ul class="items-center w-full text-sm font-medium rounded-lg sm:flex bg-white dark:bg-dark-secondary border border-gray-300 text-light-primary dark:text-dark-primary">
+                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                        <div class="flex items-center ps-3">
+                            {{ form_widget(formSearch.isOrganizer, {
+                                'id': 'author',
+                                'attr': {
+                                    'class': 'cursor-pointer w-4 h-4 bg-white border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-0 dark:focus:ring-0 focus:border-0 dark:focus:border-0'
+                                }
+                            }) }}
+                            <label for="author" class="w-full py-3 ms-2 text-sm font-medium text-light-primary dark:text-dark-primary">Sorties dont je suis l'organisateur/trice</label>
+                        </div>
+                    </li>
+                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                        <div class="flex items-center ps-3">
+                            {{ form_widget(formSearch.isRegistered, {
+                                'id': 'register',
+                                'attr': {
+                                    'class': 'cursor-pointer w-4 h-4 bg-white border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-0 dark:focus:ring-0 focus:border-0 dark:focus:border-0'
+                                }
+                            }) }}
+                            <label for="register" class="w-full py-3 ms-2 text-sm font-medium text-light-primary dark:text-dark-primary">Sorties auxquelles je suis inscrit/e</label>
+                        </div>
+                    </li>
+                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                        <div class="flex items-center ps-3">
+                            {{ form_widget(formSearch.isNotRegistered, {
+                                'id': 'notResgister',
+                                'attr': {
+                                    'class': 'cursor-pointer w-4 h-4 bg-white border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-0 dark:focus:ring-0 focus:border-0 dark:focus:border-0'
+                                }
+                            }) }}
+                            <label for="notResgister" class="w-full py-3 ms-2 text-sm font-medium text-light-primary dark:text-dark-primary">Sorties auxquelles je ne suis pas inscrit/e</label>
+                        </div>
+                    </li>
+                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                        <div class="flex items-center ps-3">
+                            {{ form_widget(formSearch.isFinished, {
+                                'id': 'endOuting',
+                                'attr': {
+                                    'class': 'cursor-pointer w-4 h-4 bg-white border border-gray-300 text-light-primary dark:text-dark-primary text-sm rounded-lg focus:ring-0 dark:focus:ring-0 focus:border-0 dark:focus:border-0'
+                                }
+                            }) }}
+                            <label for="endOuting" class="w-full py-3 ms-2 text-sm font-medium text-light-primary dark:text-dark-primary">Sorties passées</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
+            <button type="reset" class="px-4 py-2 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent  rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary text-md">
+                Annuler les filtres
+            </button>
+            <button type="submit" class="px-4 py-2 mr-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary">
+                Rechercher
+            </button>
+        </div>
     </div>
+    {{ form_end(formSearch) }}
 {% endif %}
