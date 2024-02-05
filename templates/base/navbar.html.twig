@@ -1,45 +1,143 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand mx-auto" href="{{path('home_index')}}">ENI-SORTIES</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav class="relative px-4 py-4 flex justify-between items-center border-b-2 border-light-secondary dark:border-dark-secondary-secondary">
+    <a class="text-3xl font-bold leading-none" href="#">
+        <img src="{{ asset('banner.png') }}" alt="Logo" class="h-12">
+    </a>
+    <div class="lg:hidden">
+        <button class="navbar-burger flex items-center text-light-primary dark:text-dark-primary p-3">
+            <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Mobile menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+            </svg>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ path('home_index') }}">Accueil</a>
+    </div>
+    <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+        <li><a class="text-sm text-light-primary dark:text-dark-primary font-bold" href="#">Accueil</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Sorties</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Nouvelle sortie</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Mes groupes</a></li>
+    </ul>
+    <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-sm text-light-primary dark:text-dark-primary font-bold rounded-xl transition duration-200"
+       href="#">Se connecter</a>
+    <button id="theme-toggle" type="button"
+            class="hidden lg:inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                  fill-rule="evenodd" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+</nav>
+<div class="navbar-menu relative z-50 hidden">
+    <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+    <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-light-font dark:bg-dark-font border-r overflow-y-auto">
+        <div class="flex items-center mb-8">
+            <a class="mr-auto text-3xl font-bold leading-none" href="#">
+                <img src="{{ asset('banner.png') }}" alt="logo" class="h-12">
+            </a>
+            <button class="navbar-close">
+                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div>
+            <ul>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Accueil</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{{path('outing_index')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sorties
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{path('outing_index')}}">Liste des sorties</a></li>
-                        <li><a class="dropdown-item" href="{{ path('outing_create')}}">Créer une sortie</a></li>
-                    </ul>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Sorties</a>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ path('admin') }}">Administration</a>
-                    </li>
-                {% endif %}
-            </ul>
-            <ul class="navbar-nav">
-                {% if app.user %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ path('user_index') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ app.user.getProfilePicture() ? asset('uploads/' ~ app.user.getProfilePicture()) | imagine_filter('profile_navbar') : asset('profilDefault.png') | imagine_filter('profile_navbar') }}" alt="Photo de profil" class="rounded-circle" width="30" height="30">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ path('user_index')}}">Mon profil</a></li>
-                            <li><a class="dropdown-item logout" href="{{ path('app_logout') }}">Se déconnecter</a></li>
-                        </ul>
-                    </li>
-                {% else %}
-                    <a href="{{ path('app_login') }}"><button class="btn btn-success">Se connecter</button></a>
-                {% endif %}
-
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Nouvelle sortie</a>
+                </li>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Mes groupes</a>
+                </li>
             </ul>
         </div>
-    </div>
-</nav>
+        <div class="mt-auto">
+            <div class="pt-6">
+                <a class="block px-4 py-3 mb-2 leading-loose text-sm text-center bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-semibold rounded-xl"
+                   href="#">Se connecter</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+{#<nav class="navbar navbar-expand-lg bg-body-tertiary">#}
+{#    <div class="container-fluid">#}
+{#        <a class="navbar-brand mx-auto" href="{{path('home_index')}}">ENI-SORTIES</a>#}
+{#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{#        <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+{#            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" aria-current="page" href="{{ path('home_index') }}">Accueil</a>#}
+{#                </li>#}
+{#                <li class="nav-item dropdown">#}
+{#                    <a class="nav-link dropdown-toggle" href="{{path('outing_index')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#                        Sorties#}
+{#                    </a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                        <li><a class="dropdown-item" href="{{path('outing_index')}}">Liste des sorties</a></li>#}
+{#                        <li><a class="dropdown-item" href="{{ path('outing_create')}}">Créer une sortie</a></li>#}
+{#                    </ul>#}
+{#                </li>#}
+{#                {% if is_granted('ROLE_ADMIN') %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" aria-current="page" href="{{ path('admin') }}">Administration</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#            </ul>#}
+{#            <ul class="navbar-nav">#}
+{#                {% if app.user %}#}
+{#                    <li class="nav-item dropdown">#}
+{#                        <a class="nav-link dropdown-toggle" href="{{ path('user_index') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#                            <img src="{{ app.user.getProfilePicture() ? asset('uploads/' ~ app.user.getProfilePicture()) | imagine_filter('profile_navbar') : asset('profilDefault.png') | imagine_filter('profile_navbar') }}" alt="Photo de profil" class="rounded-circle" width="30" height="30">#}
+{#                        </a>#}
+{#                        <ul class="dropdown-menu dropdown-menu-end">#}
+{#                            <li><a class="dropdown-item" href="{{ path('user_index')}}">Mon profil</a></li>#}
+{#                            <li><a class="dropdown-item logout" href="{{ path('app_logout') }}">Se déconnecter</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
+{#                {% else %}#}
+{#                    <a href="{{ path('app_login') }}"><button class="btn btn-success">Se connecter</button></a>#}
+{#                {% endif %}#}
+
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
