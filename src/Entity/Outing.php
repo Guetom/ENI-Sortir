@@ -199,6 +199,38 @@ class Outing
         return $this;
     }
 
+    /**
+     * Indique si n'importe quel utilisateur peut encore s'inscrire à la sortie
+     * @return bool
+     */
+    public function canRegister(): bool
+    {
+        return $this->getStartDate() > new \DateTime('now') && $this->getClosingDate() > new \DateTime('now') && $this->getRegistrationsMax() > $this->getRegistrations()->count();
+    }
+
+    public function isUserRegistered(?User $user): bool
+    {
+        if($user){
+            foreach ($this->getRegistrations() as $registration) {
+                if ($registration->getParticipant() === $user) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Indique si l'utilisateur peut s'inscrire à la sortie
+     * @param User|null $user
+     * @return bool
+     */
+    public function canUserRegister(?User $user): bool
+    {
+        return $user && $this->canRegister() && !$this->isUserRegistered($user) && $this->getOrganizer() !== $user;
+    }
+
+
     public function __toString(): string
     {
         return $this->getTitle();

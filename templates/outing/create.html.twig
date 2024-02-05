@@ -41,6 +41,9 @@
                 {{ form_row(form.place.name) }}
             </div>
             <div class="col-12 mb-3">
+                {{ form_row(form.place.city) }}
+            </div>
+            <div class="col-12 mb-3">
                 {{ form_row(form.place.address) }}
             </div>
             <div class="col-12 mb-3">
@@ -48,9 +51,6 @@
             </div>
             <div class="col-12 mb-3">
                 {{ form_row(form.place.longitude) }}
-            </div>
-            <div class="col-12 mb-3">
-                {{ form_row(form.place.city) }}
             </div>
             <div class="col-12 mb-3">
                 {{ form_row(form.poster, {'label': 'Photo pour la sortie :', 'attr': {'class': 'form-control'}}) }}
