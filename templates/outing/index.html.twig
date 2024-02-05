@@ -3,23 +3,23 @@
 {% block title %}{{ parent() }} | Sorties{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row d-flex justify-content-center">
+
+    <section class="flex flex-row justify-center flex-wrap mx-auto p-6 md:px-32">
+        <div class="m-2 w-full lg:w-5/6">
             {% include 'outing/search.html.twig' with {'formSearch':formSearch} only %}
             {% if outings|length == 0 %}
-                <h2 class="text-3xl text-center font-extrabold text-black sm:text-4xl">Aucune sortie ne correspond à
-                    votre
-                    recherche</h2>
-            {% else %}
-
-                <div class="col-12 mt-5 d-flex justify-content-center flex-wrap">
-                    {% for outing in outings %}
-                        {% include 'outing/card.html.twig' with {'outing': outing} %}
-                    {% endfor %}
-
-                </div>
+            <h2 class="text-3xl mt-5 text-center font-extrabold text-black sm:text-4xl">Aucune sortie ne correspond à
+                votre
+                recherche</h2>
             {% endif %}
         </div>
-    </div>
+
+        <section class="flex flex-row justify-center flex-wrap mx-auto p-6 md:px-32">
+            {% for outing in outings %}
+                {% include 'outing/card.html.twig' with {'outing': outing} %}
+            {% endfor %}
+        </section>
+
+    </section>
 
 {% endblock %}
