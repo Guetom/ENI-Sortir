@@ -5,13 +5,99 @@
 {% endblock %}
 
 {% block body %}
+    <main class="mt-10 px-8">
+        <div class="mb-4 md:mb-0 w-full mx-auto relative">
+            <div class="px-4 lg:px-0 my-3 text-center">
+                <h2 class="text-4xl font-semibold text-gray-800 leading-tight">
+                    {{ outing.title }}
+                </h2>
+                <a href="#" class="py-2 text-green-700 inline-flex items-center justify-center mb-2">
+                    {{ outing.status.label }}
+                    {% if outing.closingDate < date('now') %}
+                        {{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}
+                    {% endif %}
+                </a>
+            </div>
+            {% if outing.poster %}
+                <img src="{{ asset('uploads/' ~ outing.poster) | imagine_filter('outings') }}"
+                     class="h-auto max-w-full md:max-w-md lg:max-w-lg mx-auto rounded-lg shadow-xl" alt="poster"/>
+            {% endif %}
+        </div>
+        <div class="flex flex-col lg:flex-row lg:space-x-12">
+            <div class="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm rounded-2xl shadow-xl">
+                <div class="p-4 border-t border-b md:border md:rounded">
+                    <div class="flex py-2">
+                        {% if outing.organizer.profilePicture %}
+                    <img src="{{ asset('uploads/' ~ outing.organizer.profilePicture) | imagine_filter('profile') }}"
+                         class="h-10 w-10 rounded-full mr-2 object-cover"
+                         alt="Photo de profil de {{ outing.organizer.pseudo }}"/>
+                    {% else %}
+                        <img src="{{ asset('profilDefault.png') }}" class="h-10 w-10 rounded-full mr-2 object-cover"
+                             alt="Photo de profil de {{ outing.organizer.pseudo }}"/>
+                        {% endif %}>
+                        <div>
+                            <p class="font-semibold text-gray-700 text-sm">{{ outing.organizer.firstname|capitalize }} {{ outing.organizer.lastname|upper }}</p>
+                            <p class="font-semibold text-gray-600 text-xs">{{ outing.organizer.site.name }}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center justify-center mt-4 text-center">
+                        {% if outing.isUserRegistered(app.user) and outing.organizer != app.user %}
+                            <a href="{{ path('outing_unregister', {'id':outing.id}) }}"
+                               class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
+                                Se désister
+                            </a>
+                        {% elseif outing.canUserRegister(app.user) %}
+                            <a href="{{ path('outing_register', {'id':outing.id}) }}"
+                               class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
+                                S'inscrire
+                            </a>
+                        {% endif %}
+                        {% if outing.organizer == app.user %}
+                            <a href="#"
+                               class="px-4 py-2 m-2 w-full text-white dark:text-dark-primary uppercase bg-light-secondary dark:bg-dark-secondary hover:bg-light-secondary/75 dark:hover:bg-dark-secondary/75 rounded-lg text-md">
+                                Modifier
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center w-60 lg:w-1/4 m-auto mt-12 rounded-2xl shadow-xl">
+                <div class="text-center">
+                    <h2 class="text-xl font-semibold">{{ outing.place.name }}</h2>
+                    <p class="text-sm dark:text-gray-400">{{ outing.startDate }}</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                     class="w-32 h-32 p-6 dark:text-yellow-400 fill-current">
+                    <path d="M256,104c-83.813,0-152,68.187-152,152s68.187,152,152,152,152-68.187,152-152S339.813,104,256,104Zm0,272A120,120,0,1,1,376,256,120.136,120.136,0,0,1,256,376Z"></path>
+                    <rect width="32" height="48" x="240" y="16"></rect>
+                    <rect width="32" height="48" x="240" y="448"></rect>
+                    <rect width="48" height="32" x="448" y="240"></rect>
+                    <rect width="48" height="32" x="16" y="240"></rect>
+                    <rect width="32" height="45.255" x="400" y="393.373" transform="rotate(-45 416 416)"></rect>
+                    <rect width="32.001" height="45.255" x="80" y="73.373" transform="rotate(-45 96 96)"></rect>
+                    <rect width="45.255" height="32" x="73.373" y="400"
+                          transform="rotate(-45.001 96.002 416.003)"></rect>
+                    <rect width="45.255" height="32.001" x="393.373" y="80" transform="rotate(-45 416 96)"></rect>
+                </svg>
+                <div class="mb-2 text-3xl font-semibold">15°
+                    <span class="mx-1 font-normal">/</span>20°
+                </div>
+            </div>
+            <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4 order-first lg:order-last">
+                <p class="pb-6">{{ outing.description }}</p>
+            </div>
+        </div>
+    </main>
+
+
     <h2 class="my-3 text-center align-items-center">
         {{ outing.title }}
     </h2>
 
     {% if outing.poster %}
         <div class="d-flex justify-content-center mb-3">
-            <img src="{{ asset('uploads/' ~ outing.poster) | imagine_filter('outings') }}" alt="poster" class="img-fluid">
+            <img src="{{ asset('uploads/' ~ outing.poster) | imagine_filter('outings') }}" alt="poster"
+                 class="img-fluid">
         </div>
     {% endif %}
 
@@ -22,19 +108,26 @@
                 <p><span class="title">Nom : </span><span class="content">{{ outing.title }}</span></p>
             </div>
             <div class="col-12 mb-3">
-                <p><span class="title">Date et heure de la sortie : </span><span class="content">{{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</span></p>
+                <p><span class="title">Date et heure de la sortie : </span><span
+                            class="content">{{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</span>
+                </p>
             </div>
             <div class="col-12 mb-3">
-                <p><span class="title">Date limite d'inscription : </span><span class="content">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span></p>
+                <p><span class="title">Date limite d'inscription : </span><span
+                            class="content">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span>
+                </p>
             </div>
             <div class="col-12 mb-3">
-                <p><span class="title">Nombre de places restantes : </span><span class="content">{{ outing.registrationsMax - outing.registrations.count }} ({{ outing.registrations.count }} / {{ outing.registrationsMax }})</span></p>
+                <p><span class="title">Nombre de places restantes : </span><span
+                            class="content">{{ outing.registrationsMax - outing.registrations.count }} ({{ outing.registrations.count }} / {{ outing.registrationsMax }})</span>
+                </p>
             </div>
             <div class="col-12 mb-3">
                 <p><span class="title">Durée : </span><span class="content">{{ outing.duration }}</span> minutes</p>
             </div>
             <div class="col-12 mb-3">
-                <p><span class="title">Description et infos : </span><span class="content">{{ outing.description }}</span></p>
+                <p><span class="title">Description et infos : </span><span
+                            class="content">{{ outing.description }}</span></p>
             </div>
 
         </div>
@@ -42,14 +135,16 @@
         <div class="col-lg-6 col-12">
 
             <div class="col-12 mb-3">
-                <p><span class="title">Ville organisatrice : </span><span class="content">{{ outing.organizer.site.name }}</span></p>
+                <p><span class="title">Ville organisatrice : </span><span
+                            class="content">{{ outing.organizer.site.name }}</span></p>
             </div>
 
             <div class="col-12 mb-3">
                 <p><span class="title">Lieu : </span><span class="content">{{ outing.place.name }}</span></p>
             </div>
             <div class="col-12 mb-3">
-                <p><span class="title">Ville : </span><span class="content">{{ outing.place.city.name }} ({{ outing.place.city.postcode }})</span></p>
+                <p><span class="title">Ville : </span><span
+                            class="content">{{ outing.place.city.name }} ({{ outing.place.city.postcode }})</span></p>
             </div>
             <div class="col-12 mb-3">
                 <p><span class="title">Adresse : </span><span class="content">{{ outing.place.address }}</span></p>
@@ -67,7 +162,8 @@
                 <a href="" class="btn btn-lg btn-primary m-2">Modifier</a>
             {% else %}
                 {% if outing.isUserRegistered(app.user) and outing.organizer != app.user %}
-                    <a href="{{ path('outing_unregister', {'id':outing.id}) }}" class="btn btn-lg btn-danger m-2">Se désister</a>
+                    <a href="{{ path('outing_unregister', {'id':outing.id}) }}" class="btn btn-lg btn-danger m-2">Se
+                        désister</a>
                 {% elseif outing.canUserRegister(app.user) %}
                     <a href="{{ path('outing_register', {'id':outing.id}) }}" class="btn btn-lg btn-success m-2">S'inscrire</a>
                 {% endif %}
