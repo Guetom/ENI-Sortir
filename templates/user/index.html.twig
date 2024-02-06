@@ -37,9 +37,13 @@
                            disabled/>
                 </label>
             </div>
-            <div class="my-5 flex justify-center text-center">
+            <div class="my-5 flex justify-center text-center align-middle">
+                <a href="{{ path('app_logout') }}"
+                   class="px-4 py-2 mx-4 text-white uppercase rounded-lg hover:bg-light-danger/75 dark:hover:bg-dark-danger/75 bg-light-danger dark:bg-dark-danger text-md">
+                    Déconnexion
+                </a>
                 <a href="{{ path('user_change_password') }}"
-                   class="px-4 py-2 mx-4 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase rounded-lg hover:bg-light-secondary bg-light-info dark:bg-dark-info text-md">
+                   class="px-4 py-2 mx-4 text-light-primary dark:text-white hover:text-light-font uppercase rounded-lg hover:bg-light-info/75 dark:hover:bg-dark-info/75 bg-light-info dark:bg-dark-info text-md">
                     Modifier mon mot de passe
                 </a>
                 <a href="{{ path('user_edit') }}"
