@@ -2,35 +2,35 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Site;
+use App\Entity\Place;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class SiteCrudController extends AbstractCrudController
+class PlaceCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Site::class;
+        return Place::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('site')
-            ->setEntityLabelInPlural('sites')
+            ->setEntityLabelInSingular('adresse')
+            ->setEntityLabelInPlural('adresses')
 
-            ->setPageTitle('index', 'Gestion des sites')
-            ->setPageTitle('edit', 'Modification d\'un site')
-            ->setPageTitle('new', 'Création d\'un site')
-            ->setPageTitle('detail', 'Détail d\'un site')
+            ->setPageTitle('index', 'Gestion des adresses')
+            ->setPageTitle('edit', 'Modification d\'une adresse')
+            ->setPageTitle('new', 'Création d\'une adresse')
+            ->setPageTitle('detail', 'Détail d\'une adresse')
 
             ->showEntityActionsInlined()
             ;
@@ -41,7 +41,7 @@ class SiteCrudController extends AbstractCrudController
         return $actions
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action
-                    ->setIcon('fa-solid fa-map')
+                    ->setIcon('fa-solid fa-map-location-dot')
                     ->addCssClass('btn')
                     ->setLabel('Créer un site');
             })
@@ -91,9 +91,17 @@ class SiteCrudController extends AbstractCrudController
     {
         return [
             FormField::addPanel('Informations site')
-                ->setIcon('fa-solid fa-map'),
+                ->setIcon('fa-solid fa-map-location-dot'),
             TextField::new('name', 'Nom')
-                ->setColumns(12),
+                ->setColumns(4),
+            TextField::new('address', 'Adresse')
+                ->setColumns(5),
+            AssociationField::new('city', 'Ville')
+                ->setColumns(3),
+            NumberField::new('latitude', 'Latitude')
+                ->setColumns(6),
+            NumberField::new('longitude', 'Longitude')
+                ->setColumns(6),
         ];
     }
 }
