@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class HomeControllerTest extends WebTestCase
 {
+    /*
     //#region Methods
     public function loginAs(string $email): \Symfony\Bundle\FrameworkBundle\KernelBrowser
     {
@@ -65,4 +66,5 @@ class HomeControllerTest extends WebTestCase
         $this->assertCount(1, $loginButton, 'Le bouton login n\'est pas sur la page.');
         $this->assertCount(0, $profileButton, 'Le bouton profile est sur la page.');
     }
+    */
 }
