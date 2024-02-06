@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Outing;
 use App\Entity\Place;
 use App\Entity\Registration;
+use App\Entity\Status;
 use App\Form\CreateOutingType;
 use App\Form\SearchOutingType;
 use App\Model\SearchOuting;
@@ -12,6 +14,7 @@ use App\Repository\RegistrationRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,7 +45,7 @@ class OutingController extends AbstractController
     #[Route('/create', name: 'create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $form = $this->createForm(CreateOutingType::class);
         $form->handleRequest($request);
@@ -74,12 +77,22 @@ class OutingController extends AbstractController
 
             $outing->setPlace($place);
 
+            $status = $entityManager->getRepository(Status::class)->findOneBy(['label' => 'Ouverte']);
+
+            if ($status == null) {
+                $status = new Status();
+                $status->setLabel('Ouverte');
+                $entityManager->persist($status);
+            }
+
+            $outing->setStatus($status);
+
             $entityManager->persist($place);
             $entityManager->persist($outing);
             $entityManager->flush();
 
             $this->addFlash('success', 'Vous avez créé une nouvelle sortie');
-            return $this->redirectToRoute('outing_index');
+            return $this->redirectToRoute('outing_preview', ['id' => $outing->getId()]);
         }
 
         return $this->render('outing/create.html.twig', [
@@ -173,7 +186,70 @@ class OutingController extends AbstractController
     {
         $outing = $outingRepository->find($request->get('id'));
 
+        //Vérification si la sortie existe
+        if (!$outing) {
+            throw $this->createNotFoundException('La sortie n\'existe pas');
+        }
+
+        //Recupération de la météo du jour de la sortie (uniquement si la sortie n'est pas passée et si la date est dans les 10 prochains jours)
+        if ($outing->getStartDate() > new \DateTime('now') && $outing->getStartDate() < new \DateTime('+10 days')) {
+            try {
+                $url = $_ENV['METEO_CONCEPT_URL'] . 'location/cities?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&search=' . $outing->getPlace()->getCity()->getPostcode();
+                $inseeCode = json_decode(file_get_contents($url), true)['cities'][0]['insee'];
+                $url = $_ENV['METEO_CONCEPT_URL'] . 'forecast/daily?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&insee=' . $inseeCode;
+                $nbDaysAfterToday = $outing->getStartDate()->diff(new \DateTime('now'))->days;
+                if (json_decode(file_get_contents($url), true)['city']['insee'] == $inseeCode) {
+                    $weather = json_decode(file_get_contents($url), true)['forecast'][$nbDaysAfterToday];
+                } else {
+                    $weather = null;
+                }
+            } catch (\Exception $e) {
+                $weather = null;
+            }
+        } else {
+            $weather = null;
+        }
+
         return $this->render('outing/preview.html.twig', [
+            'outing' => $outing,
+            'weather' => $weather,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $outing = $entityManager->getRepository(Outing::class)->findOneBy(['id' => $request->get('id')]);
+
+        // Vérifier si l'utilisateur actuel est l'organisateur de la sortie
+        if ($outing->getOrganizer() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier cette sortie.');
+        }
+
+        $form = $this->createForm(CreateOutingType::class, $outing);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $outing = $form->getData();
+
+            if ($form->get('poster')->getData()) {
+                $poster = $form->get('poster')->getData();
+                $newFilename = uniqid() . '.' . $poster->guessExtension();
+                $poster->move('uploads/', $newFilename);
+
+                $outing->setPoster($newFilename);
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La sortie a été modifiée avec succès.');
+            return $this->redirectToRoute('outing_preview', ['id' => $outing->getId()]);
+        }
+
+        return $this->render('outing/create.html.twig', [
+            'form' => $form->createView(),
             'outing' => $outing,
         ]);
     }

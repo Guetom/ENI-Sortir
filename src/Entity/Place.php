@@ -31,7 +31,7 @@ class Place
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Outing::class)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: Outing::class, cascade: ['persist', 'remove'])]
     private Collection $outings;
 
     public function __construct()

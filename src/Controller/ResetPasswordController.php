@@ -65,9 +65,9 @@ class ResetPasswordController extends AbstractController
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
-            'resetToken' => $resetToken,
-        ]);
+        $this->addFlash('reset_password', 'Un email vous a été envoyé pour réinitialiser votre mot de passe. Merci de vérifier votre boîte mail.');
+
+        return $this->redirectToRoute('app_login');
     }
 
     /**
@@ -86,7 +86,7 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
+            throw $this->createNotFoundException('Token invalide ou expiré');
         }
 
         try {

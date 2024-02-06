@@ -1,94 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ parent() }} | Mon profil{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/dynamicPicture.js') }}" defer></script>
-{% endblock %}
 
 {% block body %}
-    <div class="container mt-5 d-flex flex-column justify-content-center align-items-center profile-page">
-        <h2 class="mb-4 text-center align-items-center">Mon profil</h2>
-        <div class="dynamic-picture-container dynamic-profile-picture-container mb-5">
-            {% if user.profilePicture %}
-                <img src="{{ asset('uploads/' ~ user.profilePicture) | imagine_filter('profile') }}" class="rounded-circle profile-picture dynamic-picture" alt="Photo de profil de {{ user.pseudo }}">
-            {% else %}
-                <img src="{{ asset('profilDefault.png') | imagine_filter('profile') }}" class="rounded-circle profile-picture dynamic-picture" alt="Photo de profil par défault">
-            {% endif %}
-            <div class="camera-overlay">&#128247;</div>
+    <div class="max-w-xl mx-auto my-10 rounded-lg shadow-md p-5 text-light-primary dark:text-dark-primary">
+        <img src="{{ asset((user.profilePicture) ? 'uploads/' ~ user.profilePicture : 'profilDefault.png') | imagine_filter('profile') }}"
+             class="w-56 h-56 rounded-full mx-auto"
+             alt="Photo de profil de {{ user.pseudo }}">
+        <h2 class="text-center text-2xl font-semibold mt-3">{{ user.firstname|capitalize }} {{ user.lastname|upper }}</h2>
+        <p class="text-center mt-1">@{{ user.pseudo }}</p>
+        <div class="my-2">
+            <label for="UserSchool"
+                   class="block overflow-hidden rounded-md border border-light-secondary/50 dark:border-dark-secondary px-3 py-2 shadow-sm focus-within:border-light-primary dark:focus-within:border-dark-primary focus-within:ring-1 focus-within:ring-light-primary dark:focus-within:ring-dark-primary">
+                <span class="text-xs font-medium">Campus</span>
+                <input type="text" id="UserSchool" value="{{ user.site }}"
+                       class="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                       disabled/>
+            </label>
         </div>
-
-        {{ form_start(form,  { 'attr': {'class': 'col-12 col-lg-6 mx-auto mb-3 bg-light p-4 card shadow-sm'}})}}
-            <div class="form-group row mb-3">
-                {{ form_label(form.pseudo) }}
-                <div class="col-sm-8">
-                    {{ form_widget(form.pseudo) }}
-                </div>
+        {% if user == app.user %}
+            <div class="my-2">
+                <label for="UserTel"
+                       class="block overflow-hidden rounded-md border border-light-secondary/50 dark:border-dark-secondary px-3 py-2 shadow-sm focus-within:border-light-primary dark:focus-within:border-dark-primary focus-within:ring-1 focus-within:ring-light-primary dark:focus-within:ring-dark-primary">
+                    <span class="text-xs font-medium">Téléphone</span>
+                    <input type="tel" id="UserTel" value="{{ user.phone }}"
+                           class="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                           disabled/>
+                </label>
             </div>
-
-            <div class="form-group row mb-3">
-                {{ form_label(form.firstname) }}
-                <div class="col-sm-8">
-                    {{ form_widget(form.firstname) }}
-                </div>
+            <div class="my-2">
+                <label for="UserEmail"
+                       class="block overflow-hidden rounded-md border border-light-secondary/50 dark:border-dark-secondary px-3 py-2 shadow-sm focus-within:border-light-primary dark:focus-within:border-dark-primary focus-within:ring-1 focus-within:ring-light-primary dark:focus-within:ring-dark-primary">
+                    <span class="text-xs font-medium">Email</span>
+                    <input type="email" id="UserEmail" value="{{ user.email }}"
+                           class="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                           disabled/>
+                </label>
             </div>
-
-            <div class="form-group row mb-3">
-                {{ form_label(form.lastname) }}
-                <div class="col-sm-8">
-                    {{ form_widget(form.lastname) }}
-                </div>
+            <div class="my-5 flex justify-center text-center align-content-center align-middle">
+                <a href="{{ path('app_logout') }}"
+                   class="px-4 py-2 mx-4 text-white uppercase rounded-lg hover:bg-light-danger/75 dark:hover:bg-dark-danger/75 bg-light-danger dark:bg-dark-danger text-md flex items-center">
+                    Déconnexion
+                </a>
+                <a href="{{ path('user_change_password') }}"
+                   class="px-4 py-2 mx-4 text-light-primary dark:text-white hover:text-light-font uppercase rounded-lg hover:bg-light-info/75 dark:hover:bg-dark-info/75 bg-light-info dark:bg-dark-info text-md flex items-center">
+                    Modifier mon mot de passe
+                </a>
+                <a href="{{ path('user_edit') }}"
+                   class="px-4 py-2 mx-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary flex items-center">
+                    Modifier mon profil
+                </a>
             </div>
-
-            <div class="form-group row mb-3">
-                {{ form_label(form.phone) }}
-                <div class="col-sm-8">
-                    {{ form_widget(form.phone) }}
-                </div>
-            </div>
-
-            <div class="form-group row mb-3">
-                {{ form_label(form.email) }}
-                <div class="col-sm-8">
-                    {{ form_widget(form.email) }}
-                </div>
-            </div>
-
-{#            <div class="form-group row mb-3">#}
-{#                {{ form_label(form.password.first) }}#}
-{#                <div class="col-sm-8">#}
-{#                    {{ form_widget(form.password.first) }}#}
-{#                </div>#}
-{#            </div>#}
-
-{#            <div class="form-group row mb-3">#}
-{#                {{ form_label(form.password.second) }}#}
-{#                <div class="col-sm-8">#}
-{#                    {{ form_widget(form.password.second) }}#}
-{#                </div>#}
-{#            </div>#}
-
-            <div class="form-group row mb-3">
-                {{ form_label(form.site) }}
-                <div class="col-sm-8">
-                    {{ form_widget(form.site) }}
-                </div>
-            </div>
-
-            <div class="form-group row mb-3">
-                {{ form_label(form.profilePicture) }}
-                <div class="col-sm-8">
-                    {{ form_widget(form.profilePicture) }}
-                </div>
-            </div>
-
-            <div class="form-group row mb-3">
-                <div class="col-sm-10 mx-auto text-center">
-                    <button type="submit" class="btn btn-lg btn-primary mt-3 mx-2">Enregistrer</button>
-                    <a href="#" class="btn btn-lg btn-danger mt-3 mx-2">Annuler</a>
-                </div>
-            </div>
-        {{ form_end(form) }}
+        {% endif %}
     </div>
-
 {% endblock %}

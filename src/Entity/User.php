@@ -49,19 +49,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Site $site = null;
 
-    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Outing::class)]
+    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Outing::class, cascade: ['remove'])]
     private Collection $outings;
 
-    #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Registration::class)]
+    #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Registration::class, cascade: ['remove'])]
     private Collection $registrations;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
-    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Group::class)]
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Group::class, cascade: ['remove'])]
     private Collection $myGroups;
 
-    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'Guests')]
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'Guests', cascade: ['remove'])]
     private Collection $guestGroups;
 
     public function __construct()

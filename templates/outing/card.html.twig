@@ -1,37 +1,83 @@
-<div class="card col-lg-3 col-md-5 col-12 m-1">
-    {% set userIsRegistered = false %}
-    {% for registration in outing.registrations %}
-        {% if registration.participant == app.user %}
-            {% set userIsRegistered = true %}
-        {% endif %}
-    {% endfor %}
-    {% if outing.organizer == app.user %}
-        <div class="card-header">
-            <p class="text-primary mx-auto my-0">Vous êtes l'organisateur</p>
+<div class="transition-all duration-150 flex w-full px-4 py-6 md:w-1/2 lg:w-1/3">
+    <div class="flex flex-col items-stretch min-h-full min-w-full pb-4 mb-6 transition-all duration-150 bg-transparent rounded-lg shadow-xl hover:shadow-2xl">
+        <div class="md:flex-shrink-0">
+            <img src="{{ outing.getPoster() ? asset('uploads/' ~ outing.getPoster()) | imagine_filter('outings') : asset('placeholder.png') | imagine_filter('outings') }}" alt="" class="object-cover w-full rounded-lg rounded-b-none md:h-56"/>
         </div>
-    {% elseif outing.isUserRegistered(app.user) %}
-        <div class="card-header">
-            <p class="text-success mx-auto my-0">Vous êtes inscrit</p>
+        <div class="flex items-center justify-between px-4 py-2 overflow-hidden">
+            <div>
+                {% if outing.organizer == app.user %}
+                    <span class="text-xs font-medium text-light-success dark:text-dark-success uppercase">
+                    Je suis l'organisateur
+                </span>
+                {% elseif outing.isUserRegistered(app.user) %}
+                    <span class="text-xs font-medium text-light-success dark:text-dark-success uppercase">
+                    Je suis inscrit
+                </span>
+                {% elseif outing.canRegister() %}
+                    <span class="text-xs font-medium text-light-info dark:text-dark-success uppercase">
+                    Inscriptions ouvertes
+                </span>
+                {% elseif outing.registrations.count == outing.registrationsMax %}
+                    <span class="text-xs font-medium text-light-danger dark:text-dark-danger uppercase">
+                    Sortie complète
+                </span>
+                {% elseif outing.startDate|date("Y-m-d H:i:s") > "now"|date("Y-m-d H:i:s") %}
+                    <span class="text-xs font-medium text-light-warning dark:text-dark-warning uppercase">
+                    Sortie passée
+                </span>
+                {% else %}
+                    <span class="text-xs font-medium text-light-danger dark:text-dark-danger uppercase">
+                    Inscriptions fermées
+                </span>
+                {% endif %}
+
+                {% if outing.canRegister() %}
+                    <div class="flex flex-row items-center">
+                    <span class="text-xs font-medium uppercase">
+                        Inscription : {{ outing.registrations.count }}/{{ outing.registrationsMax }}
+                    </span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="flex items-center">
+                <span class="text-xs font-medium text-light-primary dark:text-dark-primary uppercase">
+                    {{ outing.startDate|date("d/m/Y") }} à {{ outing.startDate|date("H:i") }}
+                </span>
+            </div>
         </div>
-    {% endif %}
-    <div class="card-body">
-        <h5 class="card-title">{{ outing.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</h6>
-        <p class="card-text">{{ outing.description }}</p>
-        <hr>
-        <h6 class="card-subtitle mb-1 text-muted">Nombre d'inscrits : {{ outing.registrations.count }}
-            / {{ outing.registrationsMax }}</h6>
-        <h6 class="card-subtitle mb-2 text-muted">Fin des inscriptions : <span class="text-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span></h6>
-        <p class="mb-2">Organisateur : <a class="card-link"
-                                          href="{{ path('user_show', {'pseudo':outing.organizer.pseudo}) }}">{{ outing.organizer.pseudo }}</a>
+        <hr class="border-light-primary dark:border-dark-primary"/>
+        <div class="flex flex-wrap items-center flex-1 px-4 py-1 text-center mx-auto">
+            <a href="{{ path('outing_preview', {'id': outing.id}) }}" class="hover:underline">
+                <h2 class="text-2xl font-bold tracking-normal text-light-primary dark:text-dark-primary">
+                    {{ outing.title }}
+                </h2>
+            </a>
+        </div>
+        <hr class="border-light-primary dark:border-dark-primary"/>
+        <p class="line-clamp-3 w-full px-4 my-2 overflow-hidden text-sm text-justify text-light-primary dark:text-dark-primary">
+            {{ outing.description }}
         </p>
-        <div class="mx-auto">
-            <a href="{{ path('outing_preview', {'id':outing.id}) }}" class="btn btn-secondary">Plus d'infos</a>
-            {% if outing.isUserRegistered(app.user) and outing.organizer != app.user %}
-                <a href="{{ path('outing_unregister', {'id':outing.id}) }}" class="btn btn-danger">Se désister</a>
-            {% elseif outing.canUserRegister(app.user)%}
-                <a href="{{ path('outing_register', {'id':outing.id}) }}" class="btn btn-success">S'inscrire</a>
-            {% endif %}
-        </div>
+        <hr class="border-light-primary dark:border-dark-primary"/>
+        <section class="px-4 py-2 mt-2">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center flex-1">
+                    <a href="{{ path('user_show', {'pseudo':outing.organizer.pseudo}) }}">
+                        <img
+                                class="object-cover h-10 rounded-full"
+                                src="{{ outing.organizer.getProfilePicture() ? asset('uploads/' ~ outing.organizer.getProfilePicture()) | imagine_filter('profile_navbar') : asset('profilDefault.png') | imagine_filter('profile_navbar') }}"
+                                alt="Avatar"
+                        />
+                    </a>
+                    <div class="flex flex-col mx-2">
+                        <p class="font-semibold text-light-primary dark:text-dark-primary hover:underline"></p>
+                        <a href="{{ path('user_show', {'pseudo':outing.organizer.pseudo}) }}" class="font-semibold text-light-primary dark:text-dark-primary hover:underline">
+                            {{ outing.organizer.pseudo }}
+                        </a>
+                    </div>
+                </div>
+                <a href="{{ path('outing_preview', {'id':outing.id}) }}" class="font-medium text-light-primary dark:text-dark-primary hover:underline">En savoir
+                    plus</a>
+            </div>
+        </section>
     </div>
 </div>

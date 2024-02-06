@@ -18,7 +18,7 @@ class Status
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
-    #[ORM\OneToMany(mappedBy: 'status', targetEntity: Outing::class)]
+    #[ORM\OneToMany(mappedBy: 'status', targetEntity: Outing::class, cascade: ['remove'])]
     private Collection $outings;
 
     public function __construct()
