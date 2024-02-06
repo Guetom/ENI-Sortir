@@ -1,12 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}{{ parent() }} | Nouveau mot de passe{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-lg">
+            <h1 class="text-center text-2xl font-bold text-light-primary dark:text-dark-primary sm:text-3xl">Nouveau mot
+                de passe 😊</h1>
+            {{ form_start(resetForm) }}
+            <div class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+                <p class="text-center text-lg font-medium text-light-primary dark:text-dark-primary">Votre nouveau mot
+                    de passe</p>
+                <div>
+                    <label for="firstPassword" class="sr-only">Nouveau mot de passe</label>
+                    <div class="relative">
+                        {{ form_widget(resetForm.plainPassword.first, { id:'firstPassword', attr: { class: 'w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary', placeholder: 'Entrer votre nouveau mot de passe' } } ) }}
+                        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </span>
+                    </div>
+                </div>
+                <div>
+                    <label for="secondPassword" class="sr-only">Confirmation du mot de passe</label>
+                    <div class="relative">
+                        {{ form_widget(resetForm.plainPassword.second, { id:'secondPassword', attr: { class: 'w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary', placeholder: 'Confirmer votre nouveau mot de passe' } } ) }}
+                        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </span>
+                    </div>
+                </div>
+                <div>
+                <button type="submit"
+                        class="block w-full rounded-lg bg-light-primary dark:bg-dark-primary px-5 py-3 text-sm font-medium text-white">
+                    Valider
+                </button>
+            </div>
+            {{ form_end(resetForm) }}
+        </div>
+    </div>
 {% endblock %}

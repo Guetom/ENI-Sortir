@@ -28,44 +28,12 @@ class PlaceType extends AbstractType
                 'required' => true,
             ])
             ->add('name', TextType::class, [
-                'label' => 'Lieu :',
-                'label_attr' => [
-                    'class' => 'form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Lieu',
-                ],
             ])
             ->add('address', TextType::class, [
-                'label' => 'Adresse :',
-                'label_attr' => [
-                    'class' => 'form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Adresse',
-                ],
             ])
             ->add('latitude', TextType::class, [
-                'label' => 'Latitude :',
-                'label_attr' => [
-                    'class' => 'form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Latitude',
-                ],
             ])
             ->add('longitude', TextType::class, [
-                'label' => 'Longitude :',
-                'label_attr' => [
-                    'class' => 'form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Longitude',
-                ],
             ]);
     }
 

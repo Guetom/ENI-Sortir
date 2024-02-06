@@ -45,7 +45,7 @@ class Outing
     #[ORM\JoinColumn(nullable: false)]
     private ?Place $place = null;
 
-    #[ORM\OneToMany(mappedBy: 'outing', targetEntity: Registration::class)]
+    #[ORM\OneToMany(mappedBy: 'outing', targetEntity: Registration::class, cascade: ['remove'])]
     private Collection $registrations;
 
     #[ORM\Column]
