@@ -64,6 +64,7 @@ class CreateOutingType extends AbstractType
             ])
             ->add('poster', FileType::class, [
                 'required' => false,
+                'mapped' => false,
             ])
         ;
     }
