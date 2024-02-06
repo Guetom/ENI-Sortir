@@ -115,7 +115,7 @@ class OutingCrudController extends AbstractCrudController
                     return $entity->getStartDate()->format('d/m/Y H:i');
                 })
                 ->setColumns(2),
-            IntegerField::new('duration', 'Durée (en heure)')
+            IntegerField::new('duration', 'Durée (en minutes)')
                 ->setColumns(2),
             ImageField::new('poster', 'Image')
                 ->setSortable(false)
