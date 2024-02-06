@@ -60,7 +60,7 @@
                                class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
                                 S'inscrire
                             </a>
-                        {% else %}
+                        {% elseif outing.organizer != app.user %}
                             <button class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger/75 dark:bg-dark-danger/75 border-2 border-transparent rounded-lg text-md" disabled>
                                 Inscriptions fermées
                             </button>
