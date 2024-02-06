@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="relative z-20 flex items-center overflow-hidden">
@@ -18,11 +18,11 @@
                     Rejoignez des milliers de personnes pour sortir et faire de nouvelles rencontres
                 </p>
                 <div class="flex mt-8">
-                    <a href="#"
+                    <a href="{{ path('outing_index') }}"
                        class="px-4 py-2 mr-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary">
                         Trouver une sortie
                     </a>
-                    <a href="#"
+                    <a href="{{ path('outing_create') }}"
                        class="px-4 py-2 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary text-md">
                         Créer une sortie
                     </a>
