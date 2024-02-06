@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Place;
 use App\Entity\Registration;
+use App\Entity\Status;
 use App\Form\CreateOutingType;
 use App\Form\SearchOutingType;
 use App\Model\SearchOuting;
@@ -74,6 +75,16 @@ class OutingController extends AbstractController
             $place->setCity($placeData->getCity());
 
             $outing->setPlace($place);
+
+            $status = $entityManager->getRepository(Status::class)->findOneBy(['label' => 'Ouverte']);
+
+            if ($status == null) {
+                $status = new Status();
+                $status->setLabel('Ouverte');
+                $entityManager->persist($status);
+            }
+
+            $outing->setStatus($status);
 
             $entityManager->persist($place);
             $entityManager->persist($outing);
@@ -181,13 +192,17 @@ class OutingController extends AbstractController
 
         //Recupération de la météo du jour de la sortie (uniquement si la sortie n'est pas passée et si la date est dans les 10 prochains jours)
         if ($outing->getStartDate() > new \DateTime('now') && $outing->getStartDate() < new \DateTime('+10 days')) {
-            $url = $_ENV['METEO_CONCEPT_URL'] . 'location/cities?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&search=' . $outing->getPlace()->getCity()->getPostcode();
-            $inseeCode = json_decode(file_get_contents($url), true)['cities'][0]['insee'];
-            $url = $_ENV['METEO_CONCEPT_URL'] . 'forecast/daily?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&insee=' . $inseeCode;
-            $nbDaysAfterToday = $outing->getStartDate()->diff(new \DateTime('now'))->days;
-            if (json_decode(file_get_contents($url), true)['city']['insee'] == $inseeCode) {
-                $weather = json_decode(file_get_contents($url), true)['forecast'][$nbDaysAfterToday];
-            } else {
+            try {
+                $url = $_ENV['METEO_CONCEPT_URL'] . 'location/cities?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&search=' . $outing->getPlace()->getCity()->getPostcode();
+                $inseeCode = json_decode(file_get_contents($url), true)['cities'][0]['insee'];
+                $url = $_ENV['METEO_CONCEPT_URL'] . 'forecast/daily?token=' . $_ENV['METEO_CONCEPT_API_KEY'] . '&insee=' . $inseeCode;
+                $nbDaysAfterToday = $outing->getStartDate()->diff(new \DateTime('now'))->days;
+                if (json_decode(file_get_contents($url), true)['city']['insee'] == $inseeCode) {
+                    $weather = json_decode(file_get_contents($url), true)['forecast'][$nbDaysAfterToday];
+                } else {
+                    $weather = null;
+                }
+            } catch (\Exception $e) {
                 $weather = null;
             }
         } else {
