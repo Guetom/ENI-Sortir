@@ -14,8 +14,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/profile', name: 'user_')]
 class UserController extends AbstractController
 {
+
     #[Route('/', name: 'index')]
-    public function index(Request $request,UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function index(UserRepository $userRepository): Response
+    {
+        //Page accessible uniquement aux utilisateurs connectés
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        return $this->render('user/index.html.twig', [
+            'user' => $userRepository->find($this->getUser()),
+        ]);
+    }
+    #[Route('/edit', name: 'edit')]
+    public function edit(Request $request,UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         //Page accessible uniquement aux utilisateurs connectés
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -43,21 +54,13 @@ class UserController extends AbstractController
             }
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour avec succès');
+            return $this->redirectToRoute('user_index');
         }
 
-        return $this->render('user/index.html.twig', [
-            'form' => $form->createView(),
-            'user' => $userRepository->find($this->getUser()),
-        ]);
-    }
-
-    #[Route('/edit', name: 'edit')]
-    public function edit(UserRepository $userRepository): Response
-    {
-        //Page accessible uniquement aux utilisateurs connectés
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
         return $this->render('user/edit.html.twig', [
+            'form' => $form->createView(),
             'user' => $userRepository->find($this->getUser()),
         ]);
     }
@@ -71,7 +74,7 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('L\'utilisateur n\'existe pas');
         }
 
-        return $this->render('user/show.html.twig', [
+        return $this->render('user/index.html.twig', [
             'user' => $userFound,
         ]);
     }

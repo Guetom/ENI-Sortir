@@ -20,111 +20,25 @@ class ProfileUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pseudo', TextType::class, [
-                'label' => 'Pseudo',
-                'label_attr' => [
-                    'class' => 'col-sm-4 col-form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control-plaintext',
-                    'placeholder' => 'Pseudo',
-                    'readonly' => 'readonly',
-                ],
-                'required' => true,
-                'disabled' => true,
-            ])
-            ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
-                'label_attr' => [
-                    'class' => 'col-sm-4 col-form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Prénom',
-                ],
-                'required' => true,
-            ])
-            ->add('lastname', TextType::class, [
-                'label' => 'Nom',
-                'label_attr' => [
-                    'class' => 'col-sm-4 col-form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Nom',
-                ],
-                'required' => true,
-            ])
-            ->add('phone', TelType::class, [
-                'label' => 'Téléphone',
-                'label_attr' => [
-                    'class' => 'col-sm-4 col-form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Téléphone',
-                ],
-                'required' => true,
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'label_attr' => [
-                    'class' => 'col-sm-4 col-form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control-plaintext',
-                    'placeholder' => 'Email',
-                    'readonly' => 'readonly',
-                ],
-                'disabled' => true,
-            ])
-//            ->add('password', RepeatedType::class, [
-//                'type' => PasswordType::class,
-//                'invalid_message' => 'Les mots de passe doivent être identiques',
-//                'required' => false,
-//                'mapped' => true,
-//                'first_options' => [
-//                    'label' => 'Nouveau mot de passe',
-//                    'label_attr' => [
-//                        'class' => 'col-sm-4 col-form-label',
-//                    ],
-//                    'attr' => [
-//                        'class' => 'form-control',
-//                        'placeholder' => 'Mot de passe',
-//                    ],
-//                ],
-//                'second_options' => [
-//                    'label' => 'Confirmation du mot de passe',
-//                    'label_attr' => [
-//                        'class' => 'col-sm-4 col-form-label',
-//                    ],
-//                    'attr' => [
-//                        'class' => 'form-control',
-//                        'placeholder' => 'Confirmation du mot de passe',
-//                    ],
-//                ],
-//            ])
             ->add('site', EntityType::class, [
-                'label' => 'Site de rattachement',
-                'label_attr' => [
-                    'class' => 'col-sm-4 col-form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-select',
-                ],
                 'class' => Site::class,
                 'empty_data' => '',
                 'choice_label' => 'name',
-                'required' => false,
+                'required' => true,
+            ])
+            ->add('firstname', TextType::class, [
+                'required' => true,
+            ])
+            ->add('lastname', TextType::class, [
+                'required' => true,
+            ])
+            ->add('phone', TelType::class, [
+                'required' => true,
+            ])
+            ->add('email', EmailType::class, [
+                'required' => true,
             ])
             ->add('profilePicture', FileType::class, [
-                'label' => 'Ma photo de profil',
-                'label_attr' => [
-                    'class' => 'col-sm-4 col-form-label',
-                ],
-                'attr' => [
-                    'class' => 'form-control dynamic-picture-handler',
-                ],
                 'required' => false,
                 'mapped' => false,
             ])
