@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\ChangePasswordFormType;
+use App\Form\ChangePasswordUserType;
 use App\Form\ProfileUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,6 +64,39 @@ class UserController extends AbstractController
         return $this->render('user/edit.html.twig', [
             'form' => $form->createView(),
             'user' => $userRepository->find($this->getUser()),
+        ]);
+    }
+
+    #[Route('/change-password', name: 'change_password')]
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        //Page accessible uniquement aux utilisateurs connectés
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordUserType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $oldPassword = $form->get('oldPassword')->getData();
+            $newPassword = $form->get('newPassword')->getData();
+            if ($passwordHasher->isPasswordValid($user, $oldPassword)) {
+                $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+                $entityManager->persist($user);
+                $entityManager->flush();
+                $this->addFlash('success', 'Mot de passe modifié avec succès');
+                return $this->redirectToRoute('user_index');
+            } else {
+                $this->addFlash('danger', 'Ancien mot de passe incorrect');
+            }
+        }else{
+            foreach ($form->getErrors(true) as $error) {
+                $this->addFlash('danger', $error->getMessage());
+            }
+        }
+
+        return $this->render('user/reset_password.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
