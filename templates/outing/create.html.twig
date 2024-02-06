@@ -1,70 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{#    <h2 class="my-5 text-center align-items-center">#}
-{#        Créer une sortie#}
-{#    </h2>#}
-
-{#    {{ form_start(form) }}#}
-
-{#    <div class="container row mx-auto">#}
-{#        <div class="col-lg-6 col-12">#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.title) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.startDate) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.closingDate) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.registrationsMax) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.duration) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.description) }}#}
-{#            </div>#}
-
-{#        </div>#}
-
-{#        <div class="col-lg-6 col-12">#}
-
-{#            <div class="col-12 mb-3">#}
-{#                <label for="organizingCity" class="form-label">Ville organisatrice :</label>#}
-{#                <p>{{ app.user.site.name }}</p>#}
-{#            </div>#}
-
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.place.name) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.place.city) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.place.address) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.place.latitude) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.place.longitude) }}#}
-{#            </div>#}
-{#            <div class="col-12 mb-3">#}
-{#                {{ form_row(form.poster, {'label': 'Photo pour la sortie :', 'attr': {'class': 'form-control'}}) }}#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-{#    <div class="button-container d-flex justify-content-center">#}
-{#        <button type="submit" class="btn btn-lg btn-primary m-2">Enregistrer</button>#}
-{#        <a href="#" class="btn btn-lg btn-danger m-2">Annuler</a>#}
-{#    </div>#}
-
-{#    {{ form_end(form) }}#}
-
     <section class="p-5">
         <h1 class="font-semibold text-center text-3xl">Créer une sortie</h1>
         {{ form_start(form) }}
@@ -251,8 +187,12 @@
                             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Cliquez pour insérer</span> une image</p>
                             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG ou JPG</p>
                         </div>
-                        {{ form_widget(form.poster, {'attr': {'class': 'hidden'}}) }}
-                        <span id="file-name" class="flex items-center justify-center cursor-pointer text-gray-500 dark:text-gray-400 font-semibold"></span>
+                        {{ form_widget(form.poster, {'attr': {'class': 'hidden', 'enctype': 'multipart/form-data'}}) }}
+                        <span id="file-name" class="flex items-center justify-center cursor-pointer text-gray-500 dark:text-gray-400 font-semibold">
+                            {% if outing is defined and outing.poster is not null %}
+                                {{ outing.poster }}
+                            {% endif %}
+                        </span>
                     </label>
                 </div>
             </div>

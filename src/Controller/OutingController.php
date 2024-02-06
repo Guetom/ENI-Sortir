@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Outing;
 use App\Entity\Place;
 use App\Entity\Registration;
 use App\Entity\Status;
@@ -91,7 +92,7 @@ class OutingController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Vous avez créé une nouvelle sortie');
-            return $this->redirectToRoute('outing_index');
+            return $this->redirectToRoute('outing_preview', ['id' => $outing->getId()]);
         }
 
         return $this->render('outing/create.html.twig', [
@@ -212,6 +213,44 @@ class OutingController extends AbstractController
         return $this->render('outing/preview.html.twig', [
             'outing' => $outing,
             'weather' => $weather,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $outing = $entityManager->getRepository(Outing::class)->findOneBy(['id' => $request->get('id')]);
+
+        // Vérifier si l'utilisateur actuel est l'organisateur de la sortie
+        if ($outing->getOrganizer() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier cette sortie.');
+        }
+
+        $form = $this->createForm(CreateOutingType::class, $outing);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $outing = $form->getData();
+
+            if ($form->get('poster')->getData()) {
+                $poster = $form->get('poster')->getData();
+                $newFilename = uniqid() . '.' . $poster->guessExtension();
+                $poster->move('uploads/', $newFilename);
+
+                $outing->setPoster($newFilename);
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La sortie a été modifiée avec succès.');
+            return $this->redirectToRoute('outing_preview', ['id' => $outing->getId()]);
+        }
+
+        return $this->render('outing/create.html.twig', [
+            'form' => $form->createView(),
+            'outing' => $outing,
         ]);
     }
 }

@@ -40,10 +40,10 @@
                             <p class="font-semibold text-gray-600 text-xs">{{ outing.organizer.site.name }}</p>
                         </div>
                     </div>
-                    <div class="flex flex-col items-center justify-center mt-4 text-center">
+                    <div class="flex flex-col items-center justify-center text-center">
                         {% if outing.isUserRegistered(app.user) and outing.organizer != app.user %}
                             <a href="{{ path('outing_unregister', {'id':outing.id}) }}"
-                               class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
+                               class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger dark:bg-dark-danger border-2 border-transparent rounded-lg text-md hover:bg-light-danger/75 dark:hover:bg-dark-danger/75">
                                 Se désister
                             </a>
                         {% elseif outing.canUserRegister(app.user) %}
@@ -53,7 +53,7 @@
                             </a>
                         {% endif %}
                         {% if outing.organizer == app.user %}
-                            <a href="#"
+                            <a href="{{ path('outing_edit', {'id':outing.id}) }}"
                                class="px-4 py-2 m-2 w-full text-white dark:text-dark-primary uppercase bg-light-secondary dark:bg-dark-secondary hover:bg-light-secondary/75 dark:hover:bg-dark-secondary/75 rounded-lg text-md">
                                 Modifier
                             </a>
