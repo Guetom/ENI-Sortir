@@ -10,11 +10,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ChangePasswordFormType extends AbstractType
+class ChangePasswordUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('oldPassword', PasswordType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner votre mot de passe actuel',
+                    ]),
+                ],
+                'label' => 'Mot de passe actuel',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'options' => [
@@ -49,6 +57,8 @@ class ChangePasswordFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            // Configure your form options here
+        ]);
     }
 }
