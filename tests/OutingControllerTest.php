@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class OutingControllerTest extends WebTestCase
 {
-    /*
     //#region Methods
     public function loginAs(string $email): \Symfony\Bundle\FrameworkBundle\KernelBrowser
     {
@@ -58,5 +57,4 @@ class OutingControllerTest extends WebTestCase
         // Vérifie que la réponse est réussie (code 200)
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
-    */
 }
