@@ -14,11 +14,12 @@ use App\Repository\GroupRepository;
 use App\Repository\OutingRepository;
 use App\Repository\SiteRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -120,6 +121,19 @@ class DashboardController extends AbstractDashboardController
             ->setLocales(['fr'])
             ->setFaviconPath('/icon.svg')
             ->setTitle('ENI Sortir');
+    }
+
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return parent::configureUserMenu($user)
+            ->setName($user->getFullName())
+
+            ->setAvatarUrl('uploads/' . $user->getProfilePicture())
+
+            ->addMenuItems([
+                MenuItem::linkToRoute('Mon profil', 'fa fa-id-card', 'user_index'),
+                MenuItem::linkToRoute('Settings', 'fa fa-user-cog', 'user_edit'),
+            ]);
     }
 
     public function configureMenuItems(): iterable

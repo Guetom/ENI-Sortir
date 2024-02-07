@@ -4,8 +4,8 @@
 
 {% block body %}
 
-    <section class="flex flex-row justify-center flex-wrap mx-auto p-6 md:px-32">
-        <div class="m-2 w-full lg:w-5/6">
+    <section class="flex flex-row justify-center flex-wrap mx-auto p-6">
+        <div class="m-2 w-full lg:w-5/6 sm:w-full">
             {% include 'outing/search.html.twig' with {'formSearch':formSearch} only %}
         </div>
 
@@ -14,7 +14,7 @@
                 votre
                 recherche</h2>
         {% else %}
-            <section class="flex flex-row justify-center flex-wrap mx-auto p-6 md:px-32">
+            <section class="flex flex-row justify-center flex-wrap mx-auto p-6 lg:px-32">
                 {% for outing in outings %}
                     {% include 'outing/card.html.twig' with {'outing': outing} %}
                 {% endfor %}
