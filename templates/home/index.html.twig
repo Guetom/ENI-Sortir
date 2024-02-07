@@ -11,7 +11,7 @@
                 <h1 class="flex flex-col text-6xl font-black leading-none text-light-primary uppercase font-bebas-neue sm:text-8xl dark:text-dark-primary">
                     Envie
                     <span class="text-5xl sm:text-7xl">
-                    d'une sortie
+                    d'une sortie ?
                 </span>
                 </h1>
                 <p class="text-sm text-light-primary sm:text-base dark:text-white">
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="relative hidden sm:block sm:w-1/3 lg:w-3/5">
-                <img src="{{ asset('icon.svg') }}" class="max-w-xs m-auto md:max-w-sm" alt="logo"/>
+                {% include "base/icon-svg.html.twig" with {'classes': 'max-w-xs m-auto md:max-w-sm fill-light-primary dark:fill-dark-primary'} %}
             </div>
         </div>
     </div>
