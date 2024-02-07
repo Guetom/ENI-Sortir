@@ -20,17 +20,21 @@ class Outing
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Assert\GreaterThan(
+        'today',
+        message: "La date de début doit être postérieure à la date actuelle."
+    )]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $duration = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\Expression(
         "this.getClosingDate() < this.getStartDate()",
         message: "La date de clôture doit être antérieure à la date de début."
     )]
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $closingDate = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

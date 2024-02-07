@@ -51,7 +51,6 @@ class OutingController extends AbstractController
         $form = $this->createForm(CreateOutingType::class);
         $form->handleRequest($request);
 
-        dump($form->isSubmitted());
         if ($form->isSubmitted()) {
             $outing = $form->getData();
             $violations = $validator->validate($outing);
@@ -59,7 +58,7 @@ class OutingController extends AbstractController
 
             if (count($violations) > 0) {
                 foreach ($violations as $violation) {
-                    $this->addFlash('erreur', $violation->getMessage());
+                    $this->addFlash('error', $violation->getMessage());
                 }
             } elseif ($form->isValid()) {
                 $outing->setOrganizer($this->getUser());
@@ -228,7 +227,7 @@ class OutingController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit')]
-    public function edit(Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -242,21 +241,31 @@ class OutingController extends AbstractController
         $form = $this->createForm(CreateOutingType::class, $outing);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $outing = $form->getData();
+            $violations = $validator->validate($outing);
+            dump($violations);
 
-            if ($form->get('poster')->getData()) {
-                $poster = $form->get('poster')->getData();
-                $newFilename = uniqid() . '.' . $poster->guessExtension();
-                $poster->move('uploads/', $newFilename);
+            if (count($violations) > 0) {
+                foreach ($violations as $violation) {
+                    $this->addFlash('error', $violation->getMessage());
+                }
+            } elseif($form->isValid()){
+                if ($form->get('poster')->getData()) {
+                    $poster = $form->get('poster')->getData();
+                    $newFilename = uniqid() . '.' . $poster->guessExtension();
+                    $poster->move('uploads/', $newFilename);
 
-                $outing->setPoster($newFilename);
+                    $outing->setPoster($newFilename);
+                }
+
+                $entityManager->flush();
+
+                $this->addFlash('success', 'La sortie a été modifiée avec succès.');
+                return $this->redirectToRoute('outing_preview', ['id' => $outing->getId()]);
             }
 
-            $entityManager->flush();
 
-            $this->addFlash('success', 'La sortie a été modifiée avec succès.');
-            return $this->redirectToRoute('outing_preview', ['id' => $outing->getId()]);
         }
 
         return $this->render('outing/create.html.twig', [
