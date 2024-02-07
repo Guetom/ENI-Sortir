@@ -2,6 +2,8 @@
 
 {% set isModif = outing is defined and outing.id is not null %}
 
+{% block title %}{% if isModif %}Modifier la sortie "{{ outing.title }}"{% else %}Créer une sortie{% endif %} | {{ parent() }}{% endblock %}
+
 {% block body %}
     <section class="p-5">
         <h1 class="font-semibold text-center text-3xl">Créer une sortie</h1>
@@ -266,8 +268,4 @@
 
         {{ form_end(form) }}
     </section>
-{% endblock %}
-
-{% block title %}
-
 {% endblock %}
