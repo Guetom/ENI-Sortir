@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set isModif = outing is defined and outing.id is not null %}
+
 {% block body %}
     <section class="p-5">
         <h1 class="font-semibold text-center text-3xl">Créer une sortie</h1>
@@ -215,12 +217,15 @@
             <div class="flex w-full justify-center">
                 <button type="submit"
                         class="px-4 py-2 mx-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary">
-                    Publier
+                    {% if isModif %}
+                        Modifier
+                    {% else %}
+                        Publier
+                    {% endif %}
                 </button>
-                <button type="reset"
-                        class="px-4 py-2 mx-4 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary">
+                <a {% if isModif %}href="{{ path('outing_preview', {'id': outing.id}) }}"{% endif %} class="px-4 py-2 mx-4 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary cursor-pointer" {% if not isModif %}onclick="window.history.back()"{% endif %}>
                     Annuler
-                </button>
+                </a>
             </div>
         </div>
 
