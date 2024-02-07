@@ -23,46 +23,61 @@
 </head>
 <body class="bg-light-font dark:bg-dark-font">
 {% if app.flashes is defined %}
-    <div class="fixed bottom-16 right-8">
-        {% for type, message in app.flashes %}
-            <div id="alert-{{ loop.index }}" role="alert" class="max-w-md bg-light-font dark:bg-dark-font rounded-lg border-gray-400 border p-3 shadow-xl my-3 flash-message transition duration-300 ease-linear">
-                <div class="flex flex-row">
-                    <div class="px-2">
-                        {% if type == 'success' %}
-                            {% set typeMessage = 'Succès' %}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#44C997">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-                            </svg>
+    <div class="fixed bottom-16 right-8 z-50">
+        {% for type, flash in app.flashes %}
+            {% for message in flash %}
+                <div id="alert-{{ loop.index }}" role="alert"
+                     class="max-w-md bg-light-font dark:bg-dark-font rounded-lg border-gray-400 border p-3 shadow-xl my-3 flash-message transition duration-300 ease-linear">
+                    <div class="flex flex-row">
+                        <div class="px-2">
+                            {% if type == 'success' %}
+                                {% set typeMessage = 'Succès' %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24" stroke-width="2.5" stroke="#44C997">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+                                </svg>
 
-                        {% elseif type == 'danger' or type == 'erreur' %}
-                            {% set typeMessage = 'Erreur' %}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF0E0E">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-                            </svg>
-                        {% elseif type == 'warning' %}
-                            {% set typeMessage = 'Attention' %}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#FFCC00">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"></path>
-                            </svg>
-                        {% else %}
-                            {% set typeMessage = 'Information' %}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#076ECA">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"></path>
-                            </svg>
-                        {% endif %}
-                    </div>
-                    <div class="ml-2 mr-3 w-full">
-                        <div class="flex">
-                        <span class="grow font-semibold text-dark dark:text-white">{{ typeMessage }}</span>
-                        <button data-dismiss-target="#alert-{{ loop.index }}" aria-label="Close">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-
+                            {% elseif type == 'danger' or type == 'error' %}
+                                {% set typeMessage = 'Erreur' %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24" stroke-width="2.5" stroke="#FF0E0E">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+                                </svg>
+                            {% elseif type == 'warning' %}
+                                {% set typeMessage = 'Attention' %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24" stroke-width="2.5" stroke="#FFCC00">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"></path>
+                                </svg>
+                            {% else %}
+                                {% set typeMessage = 'Information' %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24" stroke-width="2.5" stroke="#076ECA">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"></path>
+                                </svg>
+                            {% endif %}
                         </div>
-                        <span class="block text-gray-600 dark:text-gray-400">{{ message|last }}</span>
+                        <div class="ml-2 mr-3 w-full">
+                            <div class="flex">
+                                <span class="grow font-semibold text-dark dark:text-white">{{ typeMessage }}</span>
+                                <button data-dismiss-target="#alert-{{ loop.index }}" aria-label="Close">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+
+                            </div>
+                            <span class="block text-gray-600 dark:text-gray-400">{{ message }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         {% endfor %}
     </div>
 {% endif %}
