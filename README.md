@@ -77,3 +77,30 @@ Pour importer des comptes utilisateurs, il faut créer un fichier CSV avec les c
 
 > [!IMPORTANT]
 > Tout ligne ne respectant pas le format ci-dessus sera ignorée
+
+
+## Installation de l'application
+
+### Installation avec Docker (recommandé) (en cours de développement)
+
+### Installation de la base de données
+
+Pour créer la base de données, il faut exécuter la commande suivante :
+````shell
+php bin/console doctrine:database:create
+````
+
+Pour créer le schéma de la base de données, il faut exécuter la commande suivante :
+````shell
+php bin/console doctrine:schema:update --force
+````
+
+Pour charger les status de sorties, il faut exécuter la commande suivante :
+````shell
+php bin/console console app:setup-status
+````
+
+Pour créer un utilisateur, il faut exécuter la commande suivante :
+````shell
+php bin/console console app:create-user
+````
