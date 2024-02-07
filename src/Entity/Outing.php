@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OutingRepository::class)]
 class Outing
@@ -25,6 +26,10 @@ class Outing
     #[ORM\Column(nullable: true)]
     private ?int $duration = null;
 
+    #[Assert\Expression(
+        "this.getClosingDate() < this.getStartDate()",
+        message: "La date de clôture doit être antérieure à la date de début."
+    )]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $closingDate = null;
 
