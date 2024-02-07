@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $disable = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Site $site = null;
 
     #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Outing::class, cascade: ['remove'])]

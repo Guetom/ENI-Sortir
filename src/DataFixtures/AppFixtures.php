@@ -153,29 +153,25 @@ class AppFixtures extends Fixture
         $manager->persist($place5);
 
         //Status
-        $status1 = new Status();
-        $status1
-            ->setLabel('Ouverte');
-        $manager->persist($status1);
-        $listStatus->add($status1);
-
-        $status2 = new Status();
-        $status2
-            ->setLabel('Bientôt ouverte');
-        $manager->persist($status2);
-        $listStatus->add($status2);
-
-        $status3 = new Status();
-        $status3
-            ->setLabel('Clôturée');
-        $manager->persist($status3);
-        $listStatus->add($status3);
-
-        $status4 = new Status();
-        $status4
-            ->setLabel('Activité en cours');
-        $manager->persist($status4);
-        $listStatus->add($status4);
+        $reqStatus = $manager->getRepository(Status::class)->findAll();
+        if (empty($reqStatus)) {
+            $status = [
+                'Créée',
+                'Ouverte',
+                'Clôturée',
+                'Activité en cours',
+                'Passée',
+                'Annulée'
+            ];
+            foreach ($status as $value) {
+                $status = new Status();
+                $status->setLabel($value);
+                $manager->persist($status);
+                $listStatus->add($status);
+            }
+        }else{
+            $listStatus = new ArrayCollection($reqStatus);
+        }
 
         //Création des sorties
         for ($i = 0; $i < 50; $i++) {
