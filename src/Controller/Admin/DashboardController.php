@@ -118,7 +118,7 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setLocales(['fr'])
-            ->setFaviconPath('/favicon.ico')
+            ->setFaviconPath('/icon.svg')
             ->setTitle('ENI Sortir');
     }
 

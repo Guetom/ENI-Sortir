@@ -1,19 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="text-center row">
-            <div class=" col-md-6">
-                <h1 class="display-1 fw-bold">404</h1>
-            </div>
-            <div class=" col-md-6 mt-5">
-                <p class="fs-3"> <span class="text-danger">Oups !</span> Tu sembles perdu 🥲</p>
-                <p class="lead">
+    <section class="flex items-center h-full p-16 dark:bg-gray-900 dark:text-gray-100">
+        <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
+            <div class="max-w-md text-center">
+                <h2 class="mb-8 font-extrabold text-9xl dark:text-gray-600">
+                    404
+                </h2>
+                <p class="text-2xl font-semibold md:text-3xl"><span class="font-bold">Oups !</span> Tu sembles perdu 🥲
+                </p>
+                <p class="mt-4 mb-8 dark:text-gray-400">
                     Cette page n'existe pas !
                 </p>
-                <a href="{{ path('home_index') }}" class="btn btn-primary">Retour à la page d'accueil</a>
+                <a rel="noopener noreferrer" href="{{ path('home_index') }}"
+                   class="px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Retour à la page
+                    d'accueil</a>
             </div>
-
         </div>
-    </div>
+    </section>
 {% endblock %}
