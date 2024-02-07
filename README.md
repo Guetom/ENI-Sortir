@@ -97,10 +97,10 @@ php bin/console doctrine:schema:update --force
 
 Pour charger les status de sorties, il faut exécuter la commande suivante :
 ````shell
-php bin/console console app:setup-status
+php bin/console app:setup-status
 ````
 
 Pour créer un utilisateur, il faut exécuter la commande suivante :
 ````shell
-php bin/console console app:create-user
+php bin/console app:create-user
 ````
