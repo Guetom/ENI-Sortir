@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-
-{% endblock %}
+{% block title %}{{ outing.title}} | {{ parent() }}{% endblock %}
 
 {% block body %}
     <main class="mt-10 px-8">
