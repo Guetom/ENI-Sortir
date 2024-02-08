@@ -6,21 +6,21 @@
 
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-lg">
-            <h1 class="text-center text-2xl font-bold text-light-primary dark:text-dark-primary sm:text-3xl">Tu as
+            <h1 class="text-center text-2xl font-bold text-light-primary dark:text-light-font sm:text-3xl">Tu as
                 oublié ton mot de passe 😓</h1>
 
-            <p class="mx-auto mt-4 max-w-md text-center dark:text-dark-primary">
+            <p class="mx-auto mt-4 max-w-md text-center dark:text-light-font">
                 Pas de problème, on s'occupe de tout 😉
             </p>
 
             {{ form_start(requestForm) }}
-            <div class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-                <p class="text-center text-lg font-medium text-light-primary dark:text-dark-primary">C'est quoi ton
+            <div class="mb-0 mt-6 space-y-4 rounded-lg p-4 dark:bg-dark-card bg-light-card shadow-lg sm:p-6 lg:p-8">
+                <p class="text-center text-lg font-medium text-light-primary dark:text-light-font">C'est quoi ton
                     email ?</p>
                 <div>
                     <label for="email" class="sr-only">Email</label>
                     <div class="relative">
-                        {{ form_widget(requestForm.email, { id:'email', attr: { class: 'w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary', placeholder: 'Entrer votre email' } } ) }}
+                        {{ form_widget(requestForm.email, { id:'email', attr: { class: 'w-full rounded-lg p-4 pe-12 text-sm shadow-sm border-gray-200 dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300', placeholder: 'Entrer votre email' } } ) }}
                         <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
@@ -31,10 +31,11 @@
                     </div>
                 </div>
                 <button type="submit"
-                        class="block w-full rounded-lg bg-light-primary dark:bg-dark-primary px-5 py-3 text-sm font-medium text-white">
-                    Valider
+                        class="block w-full rounded-lg bg-light-primary dark:bg-dark-primary hover:bg-light-secondary dark:hover:bg-dark-primary/75 transition duration-300 px-5 py-3 text-sm font-medium text-white">
+                    Se connecter
+
                 </button>
-                <p class="text-center text-sm text-light-primary dark:text-dark-primary">
+                <p class="text-center text-sm text-light-primary dark:text-light-font">
                     Tu as retrouvé ton mot de passe ?
                     <a class="underline" href="{{ path('app_login') }}">Se connecter</a>
                 </p>
