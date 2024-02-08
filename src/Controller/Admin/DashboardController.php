@@ -158,7 +158,7 @@ class DashboardController extends AbstractDashboardController
                 ]),
             MenuItem::subMenu('Campus', 'fas fa-university')
                 ->setSubItems([
-                    MenuItem::linkToCrud('Écoles', 'fas fa-map', Site::class)
+                    MenuItem::linkToCrud('Écoles', 'fas fa-school', Site::class)
                         ->setBadge($numberSites, 'primary'),
                 ]),
             MenuItem::subMenu('Sorties', 'fas fa-hiking')
