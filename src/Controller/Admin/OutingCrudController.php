@@ -140,9 +140,9 @@ class OutingCrudController extends AbstractCrudController
             TextareaField::new('description', 'Description')
                 ->hideOnIndex()
                 ->setColumns(12),
-            FormField::addPanel('Lieu de la sortie')
-                ->setIcon('fas fa-map-marker-alt'),
             AssociationField::new('place', 'Lieu')
+                ->renderAsEmbeddedForm(PlaceCrudController::class)
+                ->setLabel('')
                 ->setColumns(12),
             NumberField::new('latitude', 'Latitude')
                 ->onlyOnDetail()

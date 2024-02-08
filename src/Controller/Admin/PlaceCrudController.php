@@ -90,7 +90,7 @@ class PlaceCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            FormField::addPanel('Informations site')
+            FormField::addPanel('Informations adresse')
                 ->setIcon('fa-solid fa-map-location-dot'),
             TextField::new('name', 'Nom')
                 ->setColumns(4),

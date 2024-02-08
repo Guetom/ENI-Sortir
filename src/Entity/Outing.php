@@ -50,7 +50,7 @@ class Outing
     #[ORM\ManyToOne(inversedBy: 'outings')]
     private ?Status $status = null;
 
-    #[ORM\ManyToOne(inversedBy: 'outings')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'outings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Place $place = null;
 
