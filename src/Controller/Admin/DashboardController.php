@@ -165,8 +165,6 @@ class DashboardController extends AbstractDashboardController
                 ->setSubItems([
                     MenuItem::linkToCrud('Sorties', 'fas fa-hiking', Outing::class)
                         ->setBadge($numberOutings, 'primary'),
-                    MenuItem::linkToCrud('Sites', 'fas fa-map', Site::class)
-                        ->setBadge($numberSites, 'primary'),
                     MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
                         ->setBadge($numberCities, 'primary'),
                     MenuItem::linkToCrud('Adresse', 'fas fa-map-location-dot', Place::class),
