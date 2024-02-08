@@ -148,18 +148,29 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard'),
 
             MenuItem::section('Administration'),
-            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)
-                ->setBadge($numberUsers, 'primary'),
-            MenuItem::linkToCrud('Groupes', 'fas fa-users', Group::class)
-                ->setBadge($numberGroups, 'primary'),
-            MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
-            MenuItem::linkToCrud('Sorties', 'fa-solid fa-person-hiking', Outing::class)
-                ->setBadge($numberOutings, 'primary'),
-            MenuItem::linkToCrud('Sites', 'fas fa-map', Site::class)
-                ->setBadge($numberSites, 'primary'),
-            MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
-                ->setBadge($numberCities, 'primary'),
-            MenuItem::linkToCrud('Adresse', 'fas fa-map-location-dot', Place::class),
+            MenuItem::subMenu('Utilisateurs', 'fas fa-user')
+                ->setSubItems([
+                    MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)
+                        ->setBadge($numberUsers, 'primary'),
+                    MenuItem::linkToCrud('Groupes', 'fas fa-users', Group::class)
+                        ->setBadge($numberGroups, 'primary'),
+                    MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
+                ]),
+            MenuItem::subMenu('Campus', 'fas fa-university')
+                ->setSubItems([
+                    MenuItem::linkToCrud('Écoles', 'fas fa-map', Site::class)
+                        ->setBadge($numberSites, 'primary'),
+                ]),
+            MenuItem::subMenu('Sorties', 'fas fa-hiking')
+                ->setSubItems([
+                    MenuItem::linkToCrud('Sorties', 'fas fa-hiking', Outing::class)
+                        ->setBadge($numberOutings, 'primary'),
+                    MenuItem::linkToCrud('Sites', 'fas fa-map', Site::class)
+                        ->setBadge($numberSites, 'primary'),
+                    MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
+                        ->setBadge($numberCities, 'primary'),
+                    MenuItem::linkToCrud('Adresse', 'fas fa-map-location-dot', Place::class),
+                ]),
             MenuItem::section(''),
             MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'home_index'),
             MenuItem::section(''),
