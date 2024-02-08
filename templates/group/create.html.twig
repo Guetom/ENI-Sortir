@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau groupe | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="p-5">
+        <h1 class="font-semibold text-center text-3xl"></h1>
+        {{ form_start(form) }}
+        <div class="grid gap-6 mb-6 md:grid-cols-2 py-8">
+            <div class="relative">
+                {{ form_row(form.groupName, {
+                    'attr': {
+                        'class': 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
+                        'id': 'groupeName',
+                        'placeholder': ''
+                    }
+                }) }}
+                {{ form_label(form.groupName, 'Nom du groupe', {
+                    'label_attr': {
+                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                    }
+                }) }}
+            </div>
+            <div class="relative">
+                {{ form_widget(form.Guests, {
+                    'attr': {
+                        'class': 'block rousnded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
+                        'id': 'guests',
+                        'placeholder': ''
+                    }
+                }) }}
+                {{ form_label(form.Guests, 'Participants', {
+                    'label_attr': {
+                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                    }
+                }) }}
+            </div>
+        </div>
+
+            <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
+                <div class="flex w-full justify-center">
+                    <button type="submit"
+                            class="px-4 py-2 mx-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary">
+                        Valider
+                    </button>
+                    <button class="px-4 py-2 mx-4 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary cursor-pointer"
+                            onclick="window.history.back()">
+                        Retour
+                    </button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+
+    </section>
+{% endblock %}
