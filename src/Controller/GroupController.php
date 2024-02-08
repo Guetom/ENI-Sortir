@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\GroupType;
 use App\Repository\GroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,4 +20,16 @@ class GroupController extends AbstractController
             'groups' => $groupRepository->findMyGroup($this->getUser()),
         ]);
     }
+
+//    #[Route('/create', name: 'create')]
+//    public function create(): Response
+//    {
+//        $this->denyAccessUnlessGranted('ROLE_USER');
+//
+//        $form = $this->createForm(GroupType::class);
+//
+//        return $this->render('group/create.html.twig', [
+//            'form' => $form->createView(),
+//        ]);
+//    }
 }

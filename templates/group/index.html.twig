@@ -57,19 +57,19 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="flex justify-center mt-5">
-                <a href="#"
-                   class="bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-bold py-2 px-6 rounded-xl transition duration-200">Créer
-                    un groupe</a>
-            </div>
+{#            <div class="flex justify-center mt-5">#}
+{#                <a href="#"#}
+{#                   class="bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-bold py-2 px-6 rounded-xl transition duration-200">Créer#}
+{#                    un groupe</a>#}
+{#            </div>#}
         {% else %}
             <p class="text-center text-light-primary dark:text-dark-primary">Vous n'avez pas encore rejoint de
                 groupe</p>
-            {#            <a href="{{ path('group_create') }}" class="flex justify-center mt-5"> #}
-            {#                <button class="bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-bold py-2 px-6 rounded-xl transition duration-200"> #}
-            {#                    Créer un groupe #}
-            {#                </button> #}
-            {#            </a> #}
+{#            <a href="{{ path('group_create') }}" class="flex justify-center mt-5">#}
+{#                <button class="bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-bold py-2 px-6 rounded-xl transition duration-200">#}
+{#                    Créer un groupe#}
+{#                </button>#}
+{#            </a>#}
         {% endif %}
     </section>
 {% endblock %}
