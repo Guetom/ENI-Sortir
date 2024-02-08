@@ -128,7 +128,7 @@ class DashboardController extends AbstractDashboardController
         return parent::configureUserMenu($user)
             ->setName($user->getFullName())
 
-            ->setAvatarUrl('uploads/' . $user->getProfilePicture())
+            ->setAvatarUrl($user->getProfilePicture() ? 'uploads/' . $user->getProfilePicture() : 'profilDefault.png')
 
             ->addMenuItems([
                 MenuItem::linkToRoute('Mon profil', 'fa fa-id-card', 'user_index'),
