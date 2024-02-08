@@ -1,5 +1,5 @@
-<div class="transition-all duration-150 flex px-4 py-6 w-80">
-    <div class="flex flex-col items-stretch min-h-full min-w-full pb-4 mb-6 transition-all duration-150 bg-transparent rounded-lg shadow-xl hover:shadow-2xl overflow-hidden">
+<div class="transition-all duration-150 flex px-4 py-6 w-80 ">
+    <div class="flex flex-col items-stretch min-h-full min-w-full pb-4 mb-6 transition-all duration-150 bg-transparent rounded-lg shadow-xl hover:shadow-2xl overflow-hidden light:bg-light-card dark:bg-dark-card">
         <div class="md:flex-shrink-0">
             <img src="{{ outing.getPoster() ? asset('uploads/' ~ outing.getPoster()) | imagine_filter('outings') : asset('placeholder.png') | imagine_filter('outings') }}" alt="" class="object-cover w-full rounded-lg rounded-b-none md:h-56"/>
         </div>
@@ -36,7 +36,7 @@
                 {% endif %}
 
                 {% if outing.canRegister() %}
-                    <div class="flex flex-row items-center">
+                    <div class="flex flex-row items-center text-light-primary dark:text-dark-primary">
                         <span class="text-xs font-medium uppercase">
                             Inscription : {{ outing.registrations.count }}/{{ outing.registrationsMax }}
                         </span>
@@ -44,7 +44,7 @@
                 {% endif %}
             </div>
             <div class="flex items-center">
-                <span class="text-xs font-medium text-light-primary dark:text-dark-primary uppercase">
+                <span class="text-xs font-medium text-light-primary dark:text-light-font uppercase">
                     {{ outing.startDate|date("d/m/Y") }} à {{ outing.startDate|date("H:i") }}
                 </span>
             </div>
@@ -58,7 +58,7 @@
             </a>
         </div>
         <hr class="border-light-primary dark:border-dark-primary"/>
-        <p class="line-clamp-3 w-full px-4 my-2 overflow-hidden text-sm text-justify text-light-primary dark:text-dark-primary">
+        <p class="line-clamp-3 w-full px-4 my-2 overflow-hidden text-sm text-justify text-light-primary dark:text-light-font">
             {{ outing.description }}
         </p>
         <hr class="border-light-primary dark:border-dark-primary"/>
@@ -73,7 +73,7 @@
                         />
                     </a>
                     <div class="flex flex-col mx-2 overflow-hidden">
-                        <a href="{{ path('user_show', {'pseudo':outing.organizer.pseudo}) }}" class="font-semibold text-light-primary dark:text-dark-primary hover:underline truncate" title="{{ outing.organizer.pseudo }} ({{ outing.organizer.site.name }})">
+                        <a href="{{ path('user_show', {'pseudo':outing.organizer.pseudo}) }}" class="font-semibold text-light-primary dark:text-light-font hover:underline truncate" title="{{ outing.organizer.pseudo }} ({{ outing.organizer.site.name }})">
                             {{ outing.organizer.pseudo }}
                         </a>
                     </div>
