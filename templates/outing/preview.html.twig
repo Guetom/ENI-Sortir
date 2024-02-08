@@ -20,11 +20,15 @@
                     <img src="{{ asset('uploads/' ~ outing.poster) | imagine_filter('outings') }}"
                          class="h-auto max-w-full md:max-w-md lg:max-w-lg mx-auto rounded-lg shadow-xl my-3" alt="poster"/>
                 {% endif %}
-                <h2>{{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</h2>
-                {% if outing.closingDate > date('now') %}
-                    <h3>Clôture des inscriptions : <span class="text-dark-danger text-light-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span></h3>
+                {% if app.user %}
+                    <h2><span class="font-bold">Lieu</span>: {{ outing.place.name }}</h2>
+                    <h2><span class="font-bold">Adresse</span> : {{ outing.place.address }}, {{ outing.place.city.name }} ({{ outing.place.city.postcode }})</h2>
+                    <h2><span class="font-bold">Date</span> : {{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</h2>
+                    {% if outing.closingDate > date('now') %}
+                        <h3><span class="font-bold">Clôture des inscriptions</span> : <span class="text-dark-danger text-light-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span></h3>
+                    {% endif %}
                 {% endif %}
-                <h3>Nombre de participants inscrits :
+                <h3><span class="font-bold">Nombre de participants inscrits </span> :
                     <span class="font-bold {% if (outing.registrationsMax - outing.registrations|length) > outing.registrations|length / 2 %}text-dark-success text-light-success{% elseif (outing.registrationsMax - outing.registrations|length) > outing.registrations|length %}text-dark-warning text-light-warning{% else %}text-dark-danger text-light-danger{% endif %}">
                         {{ outing.registrations|length }} / {{ outing.registrationsMax }}
                     </span>
