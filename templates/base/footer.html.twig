@@ -2,9 +2,9 @@
     <hr class="border-t-2 border-light-secondary dark:border-dark-secondary-secondary">
     <div class="flex flex-col items-center mb-8 lg:mb-0 p-3">
         <a href="{{ path('home_index') }}" class="text-3xl font-bold leading-none">
-            <img src="{{ asset('banner.svg') }}" alt="Logo" class="h-12">
+            {% include "base/banner-svg.html.twig" with {'classes': 'h-12 fill-gray-700 dark:fill-light-font'} %}
         </a>
-        <p class="mt-2 text-sm text-center text-light-primary dark:text-dark-primary">
+        <p class="mt-2 text-sm text-center text-gray-700 dark:text-light-font">
             © {{ 'now'|date('Y') }} ENI Sortir. Tous droits réservés.
         </p>
     </div>

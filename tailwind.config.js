@@ -16,6 +16,7 @@ module.exports = {
           danger: '#A7001E',
           info: '#9AC8EB',
           font: '#eeebeb',
+          card: '#f5f5f5',
         },
         dark: {
           primary: '#656c8c',
@@ -25,6 +26,7 @@ module.exports = {
           danger: '#BD3100',
           info: '#137C8B',
           font: '#333533',
+          card: '#2b2b2b',
         },
       },
     },

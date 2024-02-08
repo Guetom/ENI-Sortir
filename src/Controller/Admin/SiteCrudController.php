@@ -41,7 +41,7 @@ class SiteCrudController extends AbstractCrudController
         return $actions
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action
-                    ->setIcon('fa-solid fa-map')
+                    ->setIcon('fa-solid fa-school')
                     ->addCssClass('btn')
                     ->setLabel('Créer un site');
             })
@@ -91,7 +91,7 @@ class SiteCrudController extends AbstractCrudController
     {
         return [
             FormField::addPanel('Informations site')
-                ->setIcon('fa-solid fa-map'),
+                ->setIcon('fa-solid fa-school'),
             TextField::new('name', 'Nom')
                 ->setColumns(12),
         ];

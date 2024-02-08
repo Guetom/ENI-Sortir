@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/output.css" rel="stylesheet">
+    <link rel="icon" href="./assets/icon.png"/>
+    <title>ENI Sortir</title>
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+<body class="bg-light-font dark:bg-dark-font">
+<nav class="relative px-4 py-4 flex justify-between items-center border-b-2 border-light-secondary dark:border-dark-secondary-secondary">
+    <a class="text-3xl font-bold leading-none" href="#">
+        <img src="./assets/banner.png" alt="Logo" class="h-12">
+    </a>
+    <div class="lg:hidden">
+        <button class="navbar-burger flex items-center text-light-primary dark:text-dark-primary p-3">
+            <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Mobile menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+            </svg>
+        </button>
+    </div>
+    <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+        <li><a class="text-sm text-light-primary dark:text-dark-primary font-bold" href="#">Accueil</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Sorties</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Nouvelle sortie</a></li>
+        <li class="text-light-primary dark:text-dark-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+            </svg>
+        </li>
+        <li><a class="text-sm text-gray-700 dark:text-light-font" href="#">Mes groupes</a></li>
+    </ul>
+    <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-sm text-light-primary dark:text-dark-primary font-bold rounded-xl transition duration-200"
+       href="#">Se connecter</a>
+    <button id="theme-toggle" type="button"
+            class="hidden lg:inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                  fill-rule="evenodd" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+</nav>
+<div class="navbar-menu relative z-50 hidden">
+    <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+    <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-light-font dark:bg-dark-font border-r overflow-y-auto">
+        <div class="flex items-center mb-8">
+            <a class="mr-auto text-3xl font-bold leading-none" href="#">
+                <img src="assets/banner.png" alt="logo" class="h-12">
+            </a>
+            <button class="navbar-close">
+                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div>
+            <ul>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Accueil</a>
+                </li>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Sorties</a>
+                </li>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Nouvelle sortie</a>
+                </li>
+                <li class="mb-1">
+                    <a class="block p-4 text-sm font-semibold text-gray-700 dark:text-light-font dark:hover:text-gray-700 hover:bg-light-secondary dark:hover:bg-dark-secondary rounded"
+                       href="#">Mes groupes</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-auto">
+            <div class="pt-6">
+                <a class="block px-4 py-3 mb-2 leading-loose text-sm text-center bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-semibold rounded-xl"
+                   href="#">Se connecter</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<section class="p-5">
+    <h1 class="text-3xl font-bold text-light-primary dark:text-dark-primary text-center p-3">Mes groupes</h1>
+    <div id="accordion-collapse" data-accordion="collapse">
+        <h2 id="accordion-collapse-heading-1">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+                <span>Sortie 1</span>
+                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+            </button>
+        </h2>
+        <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+            <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 bg-light-font dark:bg-dark-font">
+                <p class="font-semibold text-xl">Participants :</p>
+                <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <li class="py-2 sm:py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-shrink-0">
+                                <img class="w-8 h-8 rounded-full" src="./assets/profilDefault.png" alt="Photo de profil">
+                            </div>
+                            <div class="flex-1 grow">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                    Jean Dupont
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    Campus ENI Nantes
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="py-2 sm:py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-shrink-0">
+                                <img class="w-8 h-8 rounded-full" src="./assets/profilDefault.png" alt="Photo de profil">
+                            </div>
+                            <div class="flex-1 grow">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                    Jean Dupont
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    Campus ENI Nantes
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <h2 id="accordion-collapse-heading-2">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
+                <span>Is there a Figma file available?</span>
+                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+            </button>
+        </h2>
+        <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+            <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.</p>
+                <p class="text-gray-500 dark:text-gray-400">Check out the <a href="https://flowbite.com/figma/" class="text-blue-600 dark:text-blue-500 hover:underline">Figma design system</a> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
+            </div>
+        </div>
+        <h2 id="accordion-collapse-heading-3">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-3" aria-expanded="false" aria-controls="accordion-collapse-body-3">
+                <span>What are the differences between Flowbite and Tailwind UI?</span>
+                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+            </button>
+        </h2>
+        <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
+            <div class="p-5 border border-t-0 border-gray-200 dark:border-gray-700">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
+                <p class="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
+                <ul class="ps-5 text-gray-500 list-disc dark:text-gray-400">
+                    <li><a href="https://flowbite.com/pro/" class="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</a></li>
+                    <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-5">
+        <a href="#" class="bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-bold py-2 px-6 rounded-xl transition duration-200">Créer un groupe</a>
+    </div>
+
+</section>
+
+<footer class="p-2 px-6">
+    <hr class="border-t-2 border-light-secondary dark:border-dark-secondary-secondary">
+    <div class="flex flex-col items-center mb-8 lg:mb-0 p-3">
+        <a href="#" class="text-3xl font-bold leading-none">
+            <img src="./assets/banner.png" alt="Logo" class="h-12">
+        </a>
+        <p class="mt-2 text-sm text-center text-light-primary dark:text-dark-primary">
+            © 2024 ENI Sortir. Tous droits réservés.
+        </p>
+    </div>
+</footer>
+
+<script src="script.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+</html>

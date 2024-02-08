@@ -273,4 +273,22 @@ class OutingController extends AbstractController
             'outing' => $outing,
         ]);
     }
+
+    #[Route('/cancel/{id}', name: 'cancel')]
+    public function cancel(Request $request, EntityManagerInterface $entityManager, ?Outing $outing): Response
+    {
+        if($outing){
+            $cancelStatus = $entityManager->getRepository(Status::class)->findOneBy(['label' => 'Annulée']);
+
+            if($cancelStatus){
+                $outing->setStatus($cancelStatus);
+                $entityManager->persist($outing);
+                $entityManager->flush();
+                $this->addFlash('success', 'La sortie a été annulée.');
+            } else {
+                $this->addFlash('error', 'Impossible d\'annuler la sortie. Veuillez contacter un administrateur en lui indiquant que le statut "Annulé" n\'existe pas.');
+            }
+        }
+        return $this->redirectToRoute('outing_preview', ['id' => $outing->getId()]);
+    }
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Mon profil{% endblock %}
+{% block title %}{% if user == app.user %}Mon profil{% else %}Profil de {{ user.pseudo }}{% endif %} | {{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="max-w-xl mx-auto my-10 rounded-lg shadow-md p-5 text-light-primary dark:text-dark-primary">

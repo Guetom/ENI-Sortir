@@ -14,11 +14,12 @@ use App\Repository\GroupRepository;
 use App\Repository\OutingRepository;
 use App\Repository\SiteRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -122,6 +123,19 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('ENI Sortir');
     }
 
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return parent::configureUserMenu($user)
+            ->setName($user->getFullName())
+
+            ->setAvatarUrl($user->getProfilePicture() ? 'uploads/' . $user->getProfilePicture() : 'profilDefault.png')
+
+            ->addMenuItems([
+                MenuItem::linkToRoute('Mon profil', 'fa fa-id-card', 'user_index'),
+                MenuItem::linkToRoute('Settings', 'fa fa-user-cog', 'user_edit'),
+            ]);
+    }
+
     public function configureMenuItems(): iterable
     {
         $numberUsers = $this->userRepository->count([]);
@@ -134,18 +148,29 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard'),
 
             MenuItem::section('Administration'),
-            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)
-                ->setBadge($numberUsers, 'primary'),
-            MenuItem::linkToCrud('Groupes', 'fas fa-users', Group::class)
-                ->setBadge($numberGroups, 'primary'),
-            MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
-            MenuItem::linkToCrud('Sorties', 'fa-solid fa-person-hiking', Outing::class)
-                ->setBadge($numberOutings, 'primary'),
-            MenuItem::linkToCrud('Sites', 'fas fa-map', Site::class)
-                ->setBadge($numberSites, 'primary'),
-            MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
-                ->setBadge($numberCities, 'primary'),
-            MenuItem::linkToCrud('Adresse', 'fas fa-map-location-dot', Place::class),
+            MenuItem::subMenu('Utilisateurs', 'fas fa-user')
+                ->setSubItems([
+                    MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)
+                        ->setBadge($numberUsers, 'primary'),
+                    MenuItem::linkToCrud('Groupes', 'fas fa-users', Group::class)
+                        ->setBadge($numberGroups, 'primary'),
+                    MenuItem::linkToRoute('Import CSV', 'fas fa-file-import', 'admin-import-user'),
+                ]),
+            MenuItem::subMenu('Campus', 'fas fa-university')
+                ->setSubItems([
+                    MenuItem::linkToCrud('Écoles', 'fas fa-school', Site::class)
+                        ->setBadge($numberSites, 'primary'),
+                ]),
+            MenuItem::subMenu('Sorties', 'fas fa-hiking')
+                ->setSubItems([
+                    MenuItem::linkToCrud('Sorties', 'fas fa-hiking', Outing::class)
+                        ->setBadge($numberOutings, 'primary'),
+                    MenuItem::linkToCrud('Sites', 'fas fa-map', Site::class)
+                        ->setBadge($numberSites, 'primary'),
+                    MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
+                        ->setBadge($numberCities, 'primary'),
+                    MenuItem::linkToCrud('Adresse', 'fas fa-map-location-dot', Place::class),
+                ]),
             MenuItem::section(''),
             MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'home_index'),
             MenuItem::section(''),

@@ -11,7 +11,7 @@
                 <h1 class="flex flex-col text-6xl font-black leading-none text-light-primary uppercase font-bebas-neue sm:text-8xl dark:text-dark-primary">
                     Envie
                     <span class="text-5xl sm:text-7xl">
-                    d'une sortie
+                    d'une sortie ?
                 </span>
                 </h1>
                 <p class="text-sm text-light-primary sm:text-base dark:text-white">
@@ -19,17 +19,17 @@
                 </p>
                 <div class="flex mt-8">
                     <a href="{{ path('outing_index') }}"
-                       class="px-4 py-2 mr-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary">
+                       class="px-4 py-2 mr-4 text-white dark:text-light-font uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-primary/75 dark:hover:bg-dark-primary/75 transition duration-200">
                         Trouver une sortie
                     </a>
                     <a href="{{ path('outing_create') }}"
-                       class="px-4 py-2 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary text-md">
+                       class="px-4 py-2 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary text-md transition duration-200">
                         Créer une sortie
                     </a>
                 </div>
             </div>
             <div class="relative hidden sm:block sm:w-1/3 lg:w-3/5">
-                <img src="{{ asset('icon.svg') }}" class="max-w-xs m-auto md:max-w-sm" alt="logo"/>
+                {% include "base/icon-svg.html.twig" with {'classes': 'max-w-xs m-auto md:max-w-sm fill-light-primary dark:fill-dark-primary'} %}
             </div>
         </div>
     </div>

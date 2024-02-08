@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes groupes | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <section class="p-5">
+        <h1 class="text-3xl font-bold text-light-primary dark:text-dark-primary text-center p-3">Mes groupes</h1>
+        {% if groups %}
+            <div id="accordion-collapse" data-accordion="collapse">
+                {% for group in groups %}
+                    <h2 id="accordion-collapse-heading-{{ loop.index }}">
+                        <button type="button"
+                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                data-accordion-target="#accordion-collapse-body-{{ loop.index }}" aria-expanded="false"
+                                aria-controls="accordion-collapse-body-{{ loop.index }}">
+                            <span>{{ group.groupName }} ({{ group.guests|length }} membres)</span>
+                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5 5 1 1 5"></path>
+                            </svg>
+                        </button>
+                    </h2>
+                    <div id="accordion-collapse-body-{{ loop.index }}" class="hidden"
+                         aria-labelledby="accordion-collapse-heading-{{ loop.index }}">
+                        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 bg-light-font dark:bg-dark-font">
+                            <p class="font-semibold text-xl">Participants :</p>
+                            {% if group.guests %}
+                                <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    {% for guest in group.guests %}
+                                        <li class="py-2 sm:py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-shrink-0">
+                                                    <img class="w-8 h-8 rounded-full"
+                                                         src="{{ guest.getProfilePicture() ? asset('uploads/' ~ guest.getProfilePicture()) | imagine_filter('profile_navbar') : asset('profilDefault.png') | imagine_filter('profile_navbar') }}"
+                                                         alt="Photo de {{ guest.pseudo }}">
+                                                </div>
+                                                <div class="flex-1 grow">
+                                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                        @{{ guest.pseudo }}
+                                                    </p>
+                                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                        {{ guest.site.name }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p class="text-center text-light-primary dark:text-dark-primary">Aucun participant pour
+                                    le
+                                    moment</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+{#            <div class="flex justify-center mt-5">#}
+{#                <a href="#"#}
+{#                   class="bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-bold py-2 px-6 rounded-xl transition duration-200">Créer#}
+{#                    un groupe</a>#}
+{#            </div>#}
+        {% else %}
+            <p class="text-center text-light-primary dark:text-dark-primary">Vous n'avez pas encore rejoint de
+                groupe</p>
+{#            <a href="{{ path('group_create') }}" class="flex justify-center mt-5">#}
+{#                <button class="bg-light-secondary dark:bg-dark-secondary hover:bg-gray-200 text-light-primary dark:text-dark-primary font-bold py-2 px-6 rounded-xl transition duration-200">#}
+{#                    Créer un groupe#}
+{#                </button>#}
+{#            </a>#}
+        {% endif %}
+    </section>
+{% endblock %}

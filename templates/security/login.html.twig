@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Connexion{% endblock %}
+{% block title %}Connexion | {{ parent() }}{% endblock %}
 {% block body %}
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -8,19 +8,19 @@
 
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-lg">
-            <h1 class="text-center text-2xl font-bold text-light-primary dark:text-dark-primary sm:text-3xl">Salut à toi
+            <h1 class="text-center text-2xl font-bold text-light-primary dark:text-white sm:text-3xl">Salut à toi
                 👋</h1>
-            <p class="mx-auto mt-4 max-w-md text-center dark:text-dark-primary">
+            <p class="mx-auto mt-4 max-w-md text-center dark:text-white">
                 Connecte-toi pour accéder aux sorties et rencontrer de nouvelles personnes
             </p>
-            <form method="post" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-                <p class="text-center text-lg font-medium text-light-primary dark:text-dark-primary">Connexion à votre
+            <form method="post" class="mb-0 mt-6 space-y-4 rounded-lg p-4 dark:bg-dark-card bg-light-card shadow-lg sm:p-6 lg:p-8">
+                <p class="text-center text-lg font-medium text-light-primary dark:text-white">Connexion à votre
                     compte</p>
                 <div>
                     <label for="login" class="sr-only">Email ou Pseudo</label>
                     <div class="relative">
                         <input id="login" name="login" value="{{ last_username }}" type="text"
-                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary"
+                               class="w-full rounded-lg p-4 pe-12 text-sm shadow-sm border-gray-200 dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300"
                                placeholder="Entrer votre email ou pseudo"/>
                         <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24"
@@ -35,7 +35,7 @@
                     <label for="password" class="sr-only">Mot de passe</label>
                     <div class="relative">
                         <input id="password" name="password" type="password"
-                               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary"
+                               class="w-full rounded-lg p-4 pe-12 text-sm shadow-sm border-gray-200 dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300"
                                placeholder="Entrer votre mot de passe"/>
                         <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24"
@@ -51,16 +51,16 @@
                 <div>
                     <label for="rememberCheck" class="flex items-center">
                         <input id="rememberCheck" name="rememberCheck" type="checkbox"
-                               class="rounded border-gray-200 shadow-sm"/>
-                        <span class="ml-2 text-sm text-light-primary dark:text-dark-primary">Se souvenir de moi</span>
+                               class="rounded light:border-gray-200 dark:border-dark-primary dark:bg-dark-font shadow-sm"/>
+                        <span class="ml-2 text-sm text-light-primary dark:text-white">Se souvenir de moi</span>
                     </label>
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <button type="submit"
-                        class="block w-full rounded-lg bg-light-primary dark:bg-dark-primary px-5 py-3 text-sm font-medium text-white">
+                        class="block w-full rounded-lg bg-light-primary dark:bg-dark-primary hover:bg-light-primary/75 dark:hover:bg-dark-primary/75 px-5 py-3 text-sm font-medium text-white transition duration-200">
                     Se connecter
                 </button>
-                <p class="text-center text-sm text-light-primary dark:text-dark-primary">
+                <p class="text-center text-sm text-light-primary dark:text-white">
                     Tu as oublié ton mot de passe ?
                     <a class="underline" href="{{ path('app_forgot_password_request') }}">Réinitialise ton mot de
                         passe</a>
