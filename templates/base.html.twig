@@ -21,7 +21,7 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="bg-light-font dark:bg-dark-font">
+<body class="bg-light-font dark:bg-dark-font transition-all duration-300">
 {% if app.flashes is defined %}
     <div class="fixed bottom-16 right-8 z-50">
         {% for type, flash in app.flashes %}
