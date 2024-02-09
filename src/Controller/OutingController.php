@@ -220,6 +220,12 @@ class OutingController extends AbstractController
             $weather = null;
         }
 
+        //Export json pour $weather
+//        file_put_contents('weather.json', json_encode($weather));
+
+        //Récupération de la météo depuis le fichier json
+//        $weather = json_decode(file_get_contents('weather.json'), true);
+
         return $this->render('outing/preview.html.twig', [
             'outing' => $outing,
             'weather' => $weather,
