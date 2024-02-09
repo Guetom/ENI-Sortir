@@ -26,7 +26,7 @@ class GroupRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('g')
             ->join('g.Guests', 'u')
-            ->andWhere('u.id = :user')
+            ->Where('u.id = :user')
             ->orWhere('g.createdBy = :user')
             ->setParameter('user', $user->getId())
             ->orderBy('g.id', 'ASC')
