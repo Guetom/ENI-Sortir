@@ -27,7 +27,6 @@ class CreateOutingType extends AbstractType
             ->add('startDate', DateTimeType::class, [
                 'attr' => [
                     'min' => $minDate->format('Y-m-d\TH:i'),
-                    'value' => $minDate->format('Y-m-d\TH:i'),
                 ],
                 'required' => true,
                 'widget' => 'single_text',
@@ -35,7 +34,6 @@ class CreateOutingType extends AbstractType
             ->add('closingDate', DateType::class, [
                 'attr' => [
                     'min' => $minDate->format('Y-m-d'),
-                    'value' => $minDate->format('Y-m-d'),
                 ],
                 'required' => true,
                 'widget' => 'single_text',
