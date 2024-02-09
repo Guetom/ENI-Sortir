@@ -54,7 +54,6 @@ class OutingController extends AbstractController
         if ($form->isSubmitted()) {
             $outing = $form->getData();
             $violations = $validator->validate($outing);
-            dump($violations);
 
             if (count($violations) > 0) {
                 foreach ($violations as $violation) {
@@ -250,7 +249,6 @@ class OutingController extends AbstractController
         if ($form->isSubmitted()) {
             $outing = $form->getData();
             $violations = $validator->validate($outing);
-            dump($violations);
 
             if (count($violations) > 0) {
                 foreach ($violations as $violation) {
