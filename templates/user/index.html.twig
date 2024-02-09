@@ -3,15 +3,15 @@
 {% block title %}{% if user == app.user %}Mon profil{% else %}Profil de {{ user.pseudo }}{% endif %} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="max-w-xl mx-auto my-10 rounded-lg shadow-md p-5 text-light-primary dark:text-dark-primary">
+    <div class="max-w-xl mx-auto my-10 rounded-lg shadow-md p-5 text-light-primary dark:text-light-font bg-light-card dark:bg-dark-card">
         <img src="{{ asset((user.profilePicture) ? 'uploads/' ~ user.profilePicture : 'profilDefault.png') | imagine_filter('profile') }}"
-             class="w-56 h-56 rounded-full mx-auto"
+             class="w-56 h-56 rounded-full mx-auto dark:border-4 dark:border-dark-primary shadow-sm"
              alt="Photo de profil de {{ user.pseudo }}">
         <h2 class="text-center text-2xl font-semibold mt-3">{{ user.firstname|capitalize }} {{ user.lastname|upper }}</h2>
         <p class="text-center mt-1">@{{ user.pseudo }}</p>
         <div class="my-2">
             <label for="UserSchool"
-                   class="block overflow-hidden rounded-md border border-light-secondary/50 dark:border-dark-secondary px-3 py-2 shadow-sm focus-within:border-light-primary dark:focus-within:border-dark-primary focus-within:ring-1 focus-within:ring-light-primary dark:focus-within:ring-dark-primary">
+                   class="block overflow-hidden rounded-md border px-3 py-2 shadow-sm border-gray-200 dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300">
                 <span class="text-xs font-medium">Campus</span>
                 <input type="text" id="UserSchool" value="{{ user.site }}"
                        class="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -21,7 +21,7 @@
         {% if user == app.user %}
             <div class="my-2">
                 <label for="UserTel"
-                       class="block overflow-hidden rounded-md border border-light-secondary/50 dark:border-dark-secondary px-3 py-2 shadow-sm focus-within:border-light-primary dark:focus-within:border-dark-primary focus-within:ring-1 focus-within:ring-light-primary dark:focus-within:ring-dark-primary">
+                       class="block overflow-hidden rounded-md border px-3 py-2 shadow-sm border-gray-200 dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300">
                     <span class="text-xs font-medium">Téléphone</span>
                     <input type="tel" id="UserTel" value="{{ user.phone }}"
                            class="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -30,7 +30,7 @@
             </div>
             <div class="my-2">
                 <label for="UserEmail"
-                       class="block overflow-hidden rounded-md border border-light-secondary/50 dark:border-dark-secondary px-3 py-2 shadow-sm focus-within:border-light-primary dark:focus-within:border-dark-primary focus-within:ring-1 focus-within:ring-light-primary dark:focus-within:ring-dark-primary">
+                       class="block overflow-hidden rounded-md border px-3 py-2 shadow-sm border-gray-200 dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300">
                     <span class="text-xs font-medium">Email</span>
                     <input type="email" id="UserEmail" value="{{ user.email }}"
                            class="mt-1 w-full border-none p-0 bg-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"

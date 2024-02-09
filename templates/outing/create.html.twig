@@ -6,184 +6,186 @@
 
 {% block body %}
     <section class="p-5">
-        <h1 class="font-semibold text-center text-3xl">Créer une sortie</h1>
+        <h1 class="font-semibold text-3xl my-5 text-center align-items-center light:text-light-primary dark:text-light-font">Créer une sortie</h1>
         {{ form_start(form) }}
-        <div class="grid gap-6 mb-6 md:grid-cols-2 py-8">
-            <div class="relative">
+        <div class="py-8 p-5 dark:bg-dark-card bg-light-card rounded-lg lg:w-2/3 mx-auto shadow-md">
+            <div class="relative mb-5">
                 {{ form_widget(form.title, {
                     'attr': {
-                        'class': 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
+                        'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
                         'id': 'title',
                         'placeholder': ''
                     }
                 }) }}
                 {{ form_label(form.title, 'Nom de la sortie', {
                     'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
                     }
                 }) }}
             </div>
-            <div class="relative">
-                <input type="text" id="school"
-                       class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer"
-                       placeholder="" readonly value="{{ app.user.site.name }}"/>
-                <label for="school"
-                       class="absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Campus d'accueil</label>
-            </div>
-            <div class="relative">
-                {{ form_widget(form.startDate, {
-                    'attr': {
-                        'class': 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'startDate',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.startDate, 'Date et heure de la sortie', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-            </div>
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
 
-            <div class="relative">
-                {{ form_widget(form.closingDate, {
-                    'attr': {
-                        'class': 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'closingDate',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.closingDate, 'Date limite d\'inscription', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
+                <div class="relative">
+                    <input type="text" id="school"
+                           class="block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer"
+                           placeholder="" readonly value="{{ app.user.site.name }}"/>
+                    <label for="school"
+                           class="absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Campus d'accueil</label>
+                </div>
+                <div class="relative">
+                    {{ form_widget(form.startDate, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'startDate',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.startDate, 'Date et heure de la sortie', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.closingDate, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'closingDate',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.closingDate, 'Date limite d\'inscription', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.registrationsMax, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'registrationsMax',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.registrationsMax, 'Nombre de place', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.duration, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'duration',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.duration, 'Durée (en minutes)', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.place.city, {
+                        'attr': {
+                            'class': 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'city',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.place.city, 'Ville', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.place.name, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'placeName',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.place.name, 'Lieu', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.place.address, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'placeAddress',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.place.address, 'Adresse', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.place.latitude, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'placeLatitude',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.place.latitude, 'Latitude', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
+
+                <div class="relative">
+                    {{ form_widget(form.place.longitude, {
+                        'attr': {
+                            'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer',
+                            'id': 'placeLongitude',
+                            'placeholder': ''
+                        }
+                    }) }}
+                    {{ form_label(form.place.longitude, 'Longitude', {
+                        'label_attr': {
+                            'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        }
+                    }) }}
+                </div>
             </div>
-
-            <div class="relative">
-                {{ form_widget(form.registrationsMax, {
-                    'attr': {
-                        'class': 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'registrationsMax',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.registrationsMax, 'Nombre de place', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-            </div>
-
-            <div class="relative">
-                {{ form_widget(form.duration, {
-                    'attr': {
-                        'class': 'block rousnded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'duration',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.duration, 'Durée (en minutes)', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-            </div>
-
-            <div class="relative">
-                {{ form_widget(form.place.city, {
-                    'attr': {
-                        'class': 'block rousnded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'city',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.place.city, 'Ville', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-            </div>
-
-            <div class="relative">
-                {{ form_widget(form.place.name, {
-                    'attr': {
-                        'class': 'block rousnded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'placeName',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.place.name, 'Lieu', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-
-            </div>
-
-            <div class="relative">
-                {{ form_widget(form.place.address, {
-                    'attr': {
-                        'class': 'block rousnded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'placeAddress',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.place.address, 'Adresse', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-            </div>
-
-            <div class="relative">
-                {{ form_widget(form.place.latitude, {
-                    'attr': {
-                        'class': 'block rousnded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'placeLatitude',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.place.latitude, 'Latitude', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-            </div>
-
-            <div class="relative">
-                {{ form_widget(form.place.longitude, {
-                    'attr': {
-                        'class': 'block rousnded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
-                        'id': 'placeLongitude',
-                        'placeholder': ''
-                    }
-                }) }}
-                {{ form_label(form.place.longitude, 'Longitude', {
-                    'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
-                    }
-                }) }}
-            </div>
-
-            <div class="relative">
+            <div class="relative w-full pb-5">
                 {{ form_widget(form.description, {
                     'attr': {
-                        'class': 'block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-light-primary dark:text-dark-primary bg-light-secondary/50 dark:bg-dark-secondary border-0 border-b-2 border-light-primary/75 dark:border-dark-primary/75 appearance-none dark:border-dark-primary focus:outline-none focus:ring-0 focus:border-light-primary dark:focus:border-dark-primary peer',
+                        'class': 'block rounded-lg px-2.5 pb-2.5 pt-5 w-full text-sm dark:bg-dark-font dark:text-white dark:border-dark-primary focus:ring-light-primary dark:focus:ring-dark-primary focus:border-light-primary dark:focus:border-dark-primary dark:placeholder-gray-300 peer columns-2',
                         'id': 'description',
                         'placeholder': ''
                     }
                 }) }}
                 {{ form_label(form.description, 'Description', {
                     'label_attr': {
-                        'class': 'absolute text-sm text-light-primary dark:text-dark-primary duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
+                        'class': 'absolute text-sm text-light-primary dark:text-gray-300 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-light-primary dark:peer-focus:text-dark-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto'
                     },
                 }) }}
             </div>
 
             <div class="relative">
                 <div class="flex items-center justify-center w-full">
-                    <label for="create_outing_poster" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <label for="create_outing_poster" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-dark-font hover:bg-gray-100 dark:border-dark-primary dark:hover:border-dark-primary/75 dark:hover:bg-dark-font/75">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"></path>
@@ -218,7 +220,7 @@
         <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
             <div class="flex w-full justify-center">
                 <button type="submit"
-                        class="px-4 py-2 mx-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-secondary">
+                        class="px-4 py-2 mx-4 text-white dark:text-light-font uppercase bg-light-primary dark:bg-dark-primary border-2 border-transparent rounded-lg text-md hover:bg-light-secondary dark:hover:bg-dark-primary/75 transition duration-300">
                     {% if isModif %}
                         Modifier
                     {% else %}
@@ -228,11 +230,11 @@
 
                 {% if isModif %}
 
-                    <button data-modal-target="popup-cancel" data-modal-toggle="popup-cancel" class="px-4 py-2 mx-4 text-white dark:text-light-font dark:hover:text-dark-primary uppercase bg-light-danger dark:bg-dark-danger border-2 border-transparent rounded-lg text-md hover:bg-light-danger/75 dark:hover:bg-dark-danger/75" type="button">
+                    <button data-modal-target="popup-cancel" data-modal-toggle="popup-cancel" class="px-4 py-2 mx-4 text-white dark:text-light-font uppercase bg-light-danger dark:bg-dark-danger border-2 border-transparent rounded-lg text-md hover:bg-light-danger/75 dark:hover:bg-dark-danger/75 transition duration-300" type="button">
                         Annuler la sortie
                     </button>
                     
-                    <a href="{{ path('outing_preview', {'id': outing.id}) }}" class="px-4 py-2 mx-4 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary cursor-pointer">
+                    <a href="{{ path('outing_preview', {'id': outing.id}) }}" class="px-4 py-2 mx-4 text-light-primary dark:text-dark-primary dark:hover:text-dark-primary hover:text-light-font uppercase bg-transparent rounded-lg hover:bg-light-secondary dark:hover:bg-dark-secondary cursor-pointer transition duration-300">
                         Retour
                     </a>
 

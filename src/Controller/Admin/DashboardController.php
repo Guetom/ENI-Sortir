@@ -6,6 +6,7 @@ use App\Entity\City;
 use App\Entity\Group;
 use App\Entity\Outing;
 use App\Entity\Place;
+use App\Entity\Registration;
 use App\Entity\Site;
 use App\Entity\User;
 use App\Form\ImportUserType;
@@ -165,8 +166,7 @@ class DashboardController extends AbstractDashboardController
                 ->setSubItems([
                     MenuItem::linkToCrud('Sorties', 'fas fa-hiking', Outing::class)
                         ->setBadge($numberOutings, 'primary'),
-                    MenuItem::linkToCrud('Sites', 'fas fa-map', Site::class)
-                        ->setBadge($numberSites, 'primary'),
+                    MenuItem::linkToCrud('Inscriptions', 'fas fa-user-plus', Registration::class),
                     MenuItem::linkToCrud('Villes', 'fas fa-map-pin', City::class)
                         ->setBadge($numberCities, 'primary'),
                     MenuItem::linkToCrud('Adresse', 'fas fa-map-location-dot', Place::class),

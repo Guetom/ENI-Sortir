@@ -1,150 +1,168 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ outing.title}} | {{ parent() }}{% endblock %}
+{% block title %}{{ outing.title }} | {{ parent() }}{% endblock %}
 
 {% block body %}
     <main class="mt-10 px-8">
-        <div class="mb-4 md:mb-0 w-full mx-auto relative">
-            <div class="px-4 lg:px-0 my-3 text-center text-gray-600">
-                <h2 class="text-4xl font-semibold text-gray-800 leading-tight overflow-hidden truncate">
-                    {{ outing.title }}
-                </h2>
-                <div class="pt-2 flex-col items-center justify-center">
-                    {# On regarde le label du statut de l'outing, si c'est créée ou ouverte on met le texte en success, si c'est activité en cours on met text-warning, sinon on met text-danger #}
-                    {% set labelColor = outing.status.label == 'Créée' or outing.status.label == 'Ouverte' ? 'text-dark-success text-light-success' : outing.status.label == 'Activité en cours' ? 'text-dark-warning text-light-warning' : 'text-dark-danger text-light-danger' %}
-                    <h2 class="{{ labelColor }}">
-                        {{ outing.status.label }}
-                    </h2>
-                </div>
-                {% if outing.poster %}
-                    <img src="{{ asset('uploads/' ~ outing.poster) | imagine_filter('outings') }}"
-                         class="h-auto max-w-full md:max-w-md lg:max-w-lg mx-auto rounded-lg shadow-xl my-3" alt="poster"/>
-                {% endif %}
-                {% if app.user %}
-                    <h2><span class="font-bold">Lieu</span>: {{ outing.place.name }}</h2>
-                    <h2><span class="font-bold">Adresse</span> : {{ outing.place.address }}, {{ outing.place.city.name }} ({{ outing.place.city.postcode }})</h2>
-                    <h2><span class="font-bold">Date</span> : {{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</h2>
-                    {% if outing.closingDate > date('now') %}
-                        <h3><span class="font-bold">Clôture des inscriptions</span> : <span class="text-dark-danger text-light-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span></h3>
+        <div class="flex flex-col-reverse lg:flex-row">
+            <div class="flex flex-col lg:flex-row lg:space-x-12 lg:w-1/3">
+                <div class="w-full mx-3 m-auto">
+                    {% if weather is not null %}
+                        <div class="p-4 border-t border-b md:border rounded-2xl shadow-xl dark:border-dark-primary bg-light-card dark:bg-dark-card flex flex-col items-center m-auto mb-5">
+                            <div class="text-center">
+                                <h2 class="text-xl font-semibold p-2 text-gray-700 dark:text-light-card">{{ outing.place.city.name }}</h2>
+                            </div>
+                            {% if weather.weather == 0 %}
+                                <img src="{{ asset('weather/day.svg') }}" alt="Météo"
+                                     class="w-48 h-48 rounded-full">
+                            {% elseif weather.weather > 0 and weather.weather < 10 %}
+                                <img src="{{ asset('weather/cloudy-day-2.svg') }}" alt="Météo"
+                                     class="w-48 h-48 rounded-full">
+                            {% elseif weather.weather >= 10 and weather.weather < 60 %}
+                                <img src="{{ asset('weather/rainy-2.svg') }}" alt="Météo"
+                                     class="w-48 h-48 rounded-full">
+                            {% elseif weather.weather >= 60 and weather.weather < 79 %}
+                                <img src="{{ asset('weather/snowy-4.svg') }}" alt="Météo"
+                                     class="w-48 h-48 rounded-full">
+                            {% elseif weather.weather >= 78 and weather.weather < 138 %}
+                                <img src="{{ asset('weather/thunder.svg') }}" alt="Météo"
+                                     class="w-48 h-48 rounded-full">
+                            {% else %}
+                                <img src="{{ asset('weather/day.svg') }}" alt="Météo"
+                                     class="w-48 h-48 rounded-full">
+                            {% endif %}
+
+
+                            <div class="mb-2 text-3xl font-semibold p-2 text-gray-700 dark:text-light-card">{{ weather.tmin }}°C / {{ weather.tmax }}°C
+                            </div>
+                        </div>
                     {% endif %}
-                {% endif %}
-                <h3><span class="font-bold">Nombre de participants inscrits </span> :
-                    <span class="font-bold {% if (outing.registrationsMax - outing.registrations|length) > outing.registrations|length / 2 %}text-dark-success text-light-success{% elseif (outing.registrationsMax - outing.registrations|length) > outing.registrations|length %}text-dark-warning text-light-warning{% else %}text-dark-danger text-light-danger{% endif %}">
+                    <div class="p-4 border-t border-b md:border rounded-2xl shadow-xl dark:border-dark-primary bg-light-card dark:bg-dark-card">
+                        <p class="font-semibold text-gray-700 dark:text-light-card text-lg">Publié par :</p>
+                        <a href="{{ path('user_show', {'pseudo': outing.organizer.pseudo}) }}" class="flex py-2 w-fit">
+                            {% if outing.organizer.profilePicture %}
+                                <img src="{{ asset('uploads/' ~ outing.organizer.profilePicture) | imagine_filter('profile') }}"
+                                     class="h-10 w-10 rounded-full mr-2 object-cover"
+                                     alt="Photo de profil de {{ outing.organizer.pseudo }}"/>
+                            {% else %}
+                                <img src="{{ asset('profilDefault.png') }}"
+                                     class="h-10 w-10 rounded-full mr-2 object-cover"
+                                     alt="Photo de profil de {{ outing.organizer.pseudo }}"/>
+                            {% endif %}
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm dark:text-light-card">
+                                    {% if outing.organizer == app.user %}
+                                        Vous
+                                    {% else %}
+                                        {{ outing.organizer.firstname|capitalize }} {{ outing.organizer.lastname|upper }}
+                                    {% endif %}
+                                </p>
+                                <p class="font-semibold text-gray-400 text-xs">@{{ outing.organizer.pseudo }}</p>
+                                <p class="font-semibold text-gray-600 text-xs dark:text-dark-primary">{{ outing.organizer.site.name }}</p>
+                            </div>
+                        </a>
+                        <div class="flex flex-col items-center justify-center text-center">
+
+                            {% if outing.status.label == "Annulée" %}
+                                <button class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger/75 dark:bg-dark-danger/75 border-2 border-transparent rounded-lg text-md"
+                                        disabled>
+                                    Sortie annulée
+                                </button>
+                            {% else %}
+                                {% if outing.isUserRegistered(app.user) and outing.organizer != app.user %}
+                                    <a href="{{ path('outing_unregister', {'id':outing.id}) }}"
+                                       class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger dark:bg-dark-danger border-2 border-transparent rounded-lg text-md hover:bg-light-danger/75 dark:hover:bg-dark-danger/75">
+                                        Se désister
+                                    </a>
+                                {% elseif outing.canUserRegister(app.user) %}
+                                    <a href="{{ path('outing_register', {'id':outing.id}) }}"
+                                       class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
+                                        S'inscrire
+                                    </a>
+                                {% elseif outing.organizer != app.user %}
+                                    <button class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger/75 dark:bg-dark-danger/75 border-2 border-transparent rounded-lg text-md"
+                                            disabled>
+                                        Inscriptions fermées
+                                    </button>
+                                {% endif %}
+                                {% if outing.organizer == app.user %}
+                                    <a href="{{ path('outing_edit', {'id':outing.id}) }}"
+                                       class="px-4 py-2 m-2 w-full text-white dark:text-dark-primary uppercase bg-light-secondary dark:bg-dark-secondary hover:bg-light-secondary/75 dark:hover:bg-dark-secondary/75 rounded-lg text-md">
+                                        Modifier
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-4 md:mb-0 mx-3 w-full mx-auto relative">
+                <div class="px-4 lg:px-0 my-3 text-center text-gray-600">
+                    <h2 class="text-4xl font-semibold text-gray-800 dark:text-light-font leading-tight overflow-hidden truncate">
+                        {{ outing.title }}
+                    </h2>
+                    <div class="pt-2 flex-col items-center justify-center">
+                        {# On regarde le label du statut de l'outing, si c'est créée ou ouverte on met le texte en success, si c'est activité en cours on met text-warning, sinon on met text-danger #}
+                        {% set labelColor = outing.status.label == 'Créée' or outing.status.label == 'Ouverte' ? 'text-dark-success text-light-success' : outing.status.label == 'Activité en cours' ? 'text-dark-warning text-light-warning' : 'text-dark-danger text-light-danger' %}
+                        <h2 class="{{ labelColor }}">
+                            {{ outing.status.label }}
+                        </h2>
+                    </div>
+                    {% if outing.poster %}
+                        <img src="{{ asset('uploads/' ~ outing.poster) | imagine_filter('outings') }}"
+                             class="h-auto max-w-full md:max-w-md lg:max-w-lg mx-auto rounded-lg shadow-xl my-3"
+                             alt="poster"/>
+                    {% endif %}
+                    {% if app.user %}
+                        <h2 class="dark:text-light-font"><span
+                                    class="font-bold dark:text-dark-primary">Lieu</span> : {{ outing.place.name }}</h2>
+                        <h2 class="dark:text-light-font"><span class="font-bold dark:text-dark-primary">Adresse</span>
+                            : {{ outing.place.address }}, {{ outing.place.city.name }} ({{ outing.place.city.postcode }}
+                            )</h2>
+                        <h2 class="dark:text-light-font"><span class="font-bold dark:text-dark-primary">Date</span>
+                            : {{ outing.startDate|format_datetime('long', 'short', locale='fr') }}</h2>
+                        {% if outing.closingDate > date('now') %}
+                            <h3 class="dark:text-light-font"><span class="font-bold dark:text-dark-primary">Clôture des inscriptions</span>
+                                :
+                                <span class="text-dark-danger text-light-danger">{{ outing.closingDate|format_datetime('long', 'short', locale='fr') }}</span>
+                            </h3>
+                        {% endif %}
+                    {% endif %}
+                    <h3 class="dark:text-light-font"><span class="font-bold dark:text-dark-primary">Nombre de participants inscrits </span>
+                        :
+                        <span class="font-bold {% if (outing.registrationsMax - outing.registrations|length) > outing.registrations|length / 2 %}text-dark-success text-light-success{% elseif (outing.registrationsMax - outing.registrations|length) > outing.registrations|length %}text-dark-warning text-light-warning{% else %}text-dark-danger text-light-danger{% endif %}">
                         {{ outing.registrations|length }} / {{ outing.registrationsMax }}
                     </span>
 
-                </h3>
-            </div>
+                    </h3>
+                </div>
 
-        </div>
-        <div class="flex flex-col lg:flex-row lg:space-x-12">
-            <div class="w-full lg:w-1/4 m-auto mt-12 max-w-screen-sm">
-                <div class="p-4 border-t border-b md:border rounded-2xl shadow-xl">
-                    <p class="font-semibold text-gray-700 text-lg">Publié par :</p>
-                    <a href="{{ path('user_show', {'pseudo': outing.organizer.pseudo}) }}" class="flex py-2 w-fit">
-                        {% if outing.organizer.profilePicture %}
-                            <img src="{{ asset('uploads/' ~ outing.organizer.profilePicture) | imagine_filter('profile') }}"
-                                 class="h-10 w-10 rounded-full mr-2 object-cover"
-                                 alt="Photo de profil de {{ outing.organizer.pseudo }}"/>
-                        {% else %}
-                            <img src="{{ asset('profilDefault.png') }}" class="h-10 w-10 rounded-full mr-2 object-cover"
-                                 alt="Photo de profil de {{ outing.organizer.pseudo }}"/>
-                        {% endif %}
-                        <div>
-                            <p class="font-semibold text-gray-700 text-sm">
-                                {% if outing.organizer == app.user %}
-                                    Vous
-                                {% else %}
-                                    {{ outing.organizer.firstname|capitalize }} {{ outing.organizer.lastname|upper }}
-                                {% endif %}
-                            </p>
-                            <p class="font-semibold text-gray-400 text-xs">@{{ outing.organizer.pseudo }}</p>
-                            <p class="font-semibold text-gray-600 text-xs">{{ outing.organizer.site.name }}</p>
-                        </div>
-                    </a>
-                    <div class="flex flex-col items-center justify-center text-center">
-
-                        {% if outing.status.label == "Annulée" %}
-                            <button class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger/75 dark:bg-dark-danger/75 border-2 border-transparent rounded-lg text-md" disabled>
-                                Sortie annulée
-                            </button>
-                        {% else %}
-                            {% if outing.isUserRegistered(app.user) and outing.organizer != app.user %}
-                                <a href="{{ path('outing_unregister', {'id':outing.id}) }}"
-                                   class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger dark:bg-dark-danger border-2 border-transparent rounded-lg text-md hover:bg-light-danger/75 dark:hover:bg-dark-danger/75">
-                                    Se désister
-                                </a>
-                            {% elseif outing.canUserRegister(app.user) %}
-                                <a href="{{ path('outing_register', {'id':outing.id}) }}"
-                                   class="px-4 py-2 m-2 w-full text-white dark:text-light-font uppercase bg-light-success dark:bg-dark-success border-2 border-transparent rounded-lg text-md hover:bg-light-success/75 dark:hover:bg-dark-success/75">
-                                    S'inscrire
-                                </a>
-                            {% elseif outing.organizer != app.user %}
-                                <button class="px-4 py-2 m-2 mt-4 w-full text-white dark:text-light-font uppercase bg-light-danger/75 dark:bg-dark-danger/75 border-2 border-transparent rounded-lg text-md" disabled>
-                                    Inscriptions fermées
-                                </button>
-                            {% endif %}
-                            {% if outing.organizer == app.user %}
-                                <a href="{{ path('outing_edit', {'id':outing.id}) }}"
-                                   class="px-4 py-2 m-2 w-full text-white dark:text-dark-primary uppercase bg-light-secondary dark:bg-dark-secondary hover:bg-light-secondary/75 dark:hover:bg-dark-secondary/75 rounded-lg text-md">
-                                    Modifier
-                                </a>
-                            {% endif %}
-                        {% endif %}
-
-
-                    </div>
+                <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4 order-first lg:order-last">
+                    <p class="pb-6 dark:text-light-font">{{ outing.description }}</p>
                 </div>
             </div>
-            {% if weather is not null %}
-                <div class="flex flex-col items-center w-60 lg:w-1/4 m-auto mt-12 rounded-2xl shadow-xl">
-                    <div class="text-center">
-                        <h2 class="text-xl font-semibold p-2">{{ outing.place.city.name }}</h2>
-                    </div>
-                    {% if weather.weather == 0 %}
-                        <img src="{{ asset('weather/day.svg') }}" alt="Météo"
-                             class="w-48 h-48 rounded-full">
-                    {% elseif weather.weather > 0 and weather.weather < 10 %}
-                        <img src="{{ asset('weather/cloudy-day-2.svg') }}" alt="Météo"
-                             class="w-48 h-48 rounded-full">
-                    {% elseif weather.weather >= 10 and weather.weather < 60 %}
-                        <img src="{{ asset('weather/rainy-2.svg') }}" alt="Météo"
-                             class="w-48 h-48 rounded-full">
-                    {% elseif weather.weather >= 60 and weather.weather < 79 %}
-                        <img src="{{ asset('weather/snowy-4.svg') }}" alt="Météo"
-                             class="w-48 h-48 rounded-full">
-                    {% elseif weather.weather >= 78 and weather.weather < 138 %}
-                        <img src="{{ asset('weather/thunder.svg') }}" alt="Météo"
-                             class="w-48 h-48 rounded-full">
-                    {% else %}
-                        <img src="{{ asset('weather/day.svg') }}" alt="Météo"
-                             class="w-48 h-48 rounded-full">
-                    {% endif %}
 
-
-                    <div class="mb-2 text-3xl font-semibold p-2">{{ weather.tmin }}°C / {{ weather.tmax }}°C
-                    </div>
-                </div>
-            {% endif %}
-            <div class="px-4 lg:px-0 mt-12 text-gray-700 text-lg leading-relaxed w-full lg:w-3/4 order-first lg:order-last">
-                <p class="pb-6">{{ outing.description }}</p>
-            </div>
         </div>
 
         {% if outing.registrations|length > 0 %}
             <section class="mt-8 px-8">
-                <h2 class="text-2xl font-semibold text-center mb-4">Liste des participants</h2>
+                <h2 class="text-2xl font-semibold text-center mb-4 dark:text-light-font">Liste des participants</h2>
                 <div class="flex flex-wrap justify-center">
                     {% for registration in outing.registrations %}
                         <div class="max-w-xs mx-4 mb-8">
                             <a href="{{ path('user_show', {'pseudo': registration.participant.pseudo}) }}">
-                                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden cursor-pointer w-44">
+                                <div class="bg-light-card dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl transition overflow-hidden cursor-pointer w-44">
                                     <img src="{{ registration.participant.profilePicture ? asset('uploads/' ~ registration.participant.profilePicture) | imagine_filter('profile') : asset('profilDefault.png') }}"
                                          class="w-full h-40 object-cover"
                                          alt="Photo de profil de {{ registration.participant.pseudo }}">
                                     <div class="p-4 text-center">
-                                        <p class="text-lg font-semibold">@{{ registration.participant.pseudo }}</p>
-                                        <p class="text-gray-500 text-sm">{{ registration.participant.site.name }}</p>
+                                        <p class="text-lg font-semibold dark:text-light-font">
+                                            @{{ registration.participant.pseudo }}</p>
+                                        <p class="text-gray-500 text-sm dark:text-dark-primary">{{ registration.participant.site.name }}</p>
                                     </div>
                                 </div>
                             </a>
