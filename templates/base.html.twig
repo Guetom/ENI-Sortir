@@ -27,7 +27,7 @@
         {% for type, flash in app.flashes %}
             {% for message in flash %}
                 <div id="alert-{{ loop.index }}" role="alert"
-                     class="max-w-md bg-light-font dark:bg-dark-font rounded-lg border-gray-400 border p-3 shadow-xl my-3 flash-message transition duration-300 ease-linear">
+                     class="max-w-md bg-light-font dark:bg-dark-card rounded-lg border-gray-400 dark:border-dark-primary border p-3 shadow-xl my-3 flash-message transition duration-300 ease-linear">
                     <div class="flex flex-row">
                         <div class="px-2">
                             {% if type == 'success' %}
