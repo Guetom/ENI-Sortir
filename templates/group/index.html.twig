@@ -4,13 +4,13 @@
 
 {% block body %}
     <section class="p-5">
-        <h1 class="text-3xl font-bold text-light-primary dark:text-dark-primary text-center p-3">Mes groupes</h1>
+        <h1 class="text-3xl font-bold text-light-primary dark:text-light-font text-center p-3 mb-5">Mes groupes</h1>
         {% if groups %}
             <div id="accordion-collapse" data-accordion="collapse">
                 {% for group in groups %}
                     <h2 id="accordion-collapse-heading-{{ loop.index }}">
                         <button type="button"
-                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 bg-light-card dark:bg-dark-card gap-3"
                                 data-accordion-target="#accordion-collapse-body-{{ loop.index }}" aria-expanded="false"
                                 aria-controls="accordion-collapse-body-{{ loop.index }}">
                             <span>{{ group.groupName }} ({{ group.guests|length + 1 }} membres)</span>
@@ -24,8 +24,8 @@
                     </h2>
                     <div id="accordion-collapse-body-{{ loop.index }}" class="hidden"
                          aria-labelledby="accordion-collapse-heading-{{ loop.index }}">
-                        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 bg-light-font dark:bg-dark-font">
-                            <p class="font-semibold text-xl">Participants :</p>
+                        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 bg-light-card dark:bg-dark-card">
+                            <p class="font-semibold text-xl text-light-primary dark:text-light-font">Participants :</p>
                             {% if group.guests %}
                                 <ul class="divide-y divide-gray-200 dark:divide-gray-700">
                                     <li class="py-2 sm:py-4">
